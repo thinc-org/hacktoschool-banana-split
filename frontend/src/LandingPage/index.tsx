@@ -11,6 +11,7 @@ export default function LandingPage() {
           alignSelf: "stretch",
           flexDirection: "row",
           justifyContent: "center",
+          alignItems: "center",
           backgroundColor: "#F6F5F4",
         }}
       >
@@ -21,7 +22,9 @@ export default function LandingPage() {
             gap: "32px",
           }}
         >
-          <BodyText size="sm">E-COURSE PLATFORM</BodyText>
+          <BodyText size="sm" color="#2B788B">
+            E-COURSE PLATFORM
+          </BodyText>
 
           <Title order={1}>
             Learning and
@@ -31,7 +34,7 @@ export default function LandingPage() {
             made easy.
           </Title>
 
-          <BodyText size="sm">
+          <BodyText size="sm" color="#757575">
             Practice your english and learn new things
             <br /> with the platform.
           </BodyText>
@@ -53,12 +56,11 @@ export default function LandingPage() {
         </div>
 
         <Image
-          width={358.405}
-          height={436}
-          src="https://www.graphicpie.com/wp-content/uploads/2020/11/red-among-us-png.png"
+          width={"933px"}
+          height={"601px"}
+          src="/LandingPage/man-and-trees.png"
         ></Image>
       </div>
-      <div style={{ width: "100%", height: "100%" }}></div>
     </div>
   );
 }
