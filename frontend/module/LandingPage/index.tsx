@@ -1,4 +1,4 @@
-import { Image } from "@mantine/core";
+import { Image, Text, Button, Title } from "@mantine/core";
 export default function LandingPage() {
   return (
     <div style={{ flexDirection: "column" }}>
@@ -8,20 +8,30 @@ export default function LandingPage() {
           height: "100%",
           alignItems: "center",
           flexDirection: "row",
+          justifyContent: "center",
           backgroundColor: "#D6D6D6",
         }}
       >
-        <h6>E-COURSE PLATFORM</h6>
-        <h1>Learning and teaching online, made easy.</h1>
-        <p>Practice your english and learn new things with the platform.</p>
-        <button
+        <Text size={"xs"}>E-COURSE PLATFORM</Text>
+        <Title order={1}>Learning and teaching online, made easy.</Title>
+        <Text size={"xs"}>
+          Practice your english and learn new things with the platform.
+        </Text>
+        <Button
           style={{
-            backgroundColor: "#CCF6FF",
+            display: "flex",
+            flexDirection: "row",
+            width: "165",
+            height: "44",
+            background: "#C3DCE3",
+            borderRadius: "100px",
           }}
           type="button"
         >
-          About platform
-        </button>
+          <Text style={{ color: "#2B788B", fontWeight: "700" }}>
+            About platform
+          </Text>
+        </Button>
         <Image
           width={358.405}
           height={436}
