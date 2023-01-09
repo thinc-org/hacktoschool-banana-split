@@ -1,4 +1,5 @@
 import { Image, Text, Button, Title } from "@mantine/core";
+import BodyText from "common/components/BodyText";
 export default function LandingPage() {
   return (
     <div style={{ flexDirection: "column" }}>
@@ -17,10 +18,10 @@ export default function LandingPage() {
           style={{
             flexDirection: "column",
             alignItems: "flex-start",
-            gap: "30",
+            gap: "32px",
           }}
         >
-          <Text size={"xs"}>E-COURSE PLATFORM</Text>
+          <BodyText size="sm">E-COURSE PLATFORM</BodyText>
 
           <Title order={1}>
             Learning and
@@ -30,9 +31,10 @@ export default function LandingPage() {
             made easy.
           </Title>
 
-          <Text size={"xs"}>
-            Practice your english and learn new things with the platform.
-          </Text>
+          <BodyText size="sm">
+            Practice your english and learn new things
+            <br /> with the platform.
+          </BodyText>
 
           <Button
             style={{
@@ -44,11 +46,12 @@ export default function LandingPage() {
               borderRadius: "100px",
             }}
           >
-            <Text style={{ color: "#2B788B", fontWeight: "700" }}>
+            <Text size={"xs"} color="#2B788B" style={{ fontWeight: "700" }}>
               About platform
             </Text>
           </Button>
         </div>
+
         <Image
           width={358.405}
           height={436}
