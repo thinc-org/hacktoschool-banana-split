@@ -11,20 +11,38 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  
-  email String
+
+  email    String
   password String
+
   role Role @default(STUDENT)
 
   firstName String?
-  lastName String?
+  lastName  String?
+
+  CoursesOwned    Course[] @relation(name: "instructor")
+  CoursesEnrolled Course[] @relation(name: "enrolled")
 }
 
 enum Role {
   STUDENT
   TEACHER
   ADMIN
+}
+
+model Course {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  title       String
+  description String
+
+  instructor User @relation(name: "instructor", fields: [instructorId], references: [id])
+  instructorId Int
+
+  students User[] @relation(name: "enrolled")
 }
