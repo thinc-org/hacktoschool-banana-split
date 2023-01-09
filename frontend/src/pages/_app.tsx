@@ -8,6 +8,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       withGlobalStyles
       withNormalizeCSS
       theme={{
+        fontFamily: "Montserrat",
         headings: {
           fontWeight: "400",
           fontFamily: "Dela Gothic One",
@@ -29,6 +30,13 @@ function MyApp({ Component, pageProps }: AppProps) {
               lineHeight: "24px"
             }
           }
+        },
+        fontSizes: {
+          xs: 10,
+          sm: 12,
+          md: 14,
+          lg: 16,
+          xl: 18
         }
       }}
     >
