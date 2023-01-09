@@ -1,4 +1,4 @@
-import LandingPage from "../../module/LandingPage";
+import LandingPage from "../LandingPage";
 import { Text, Title } from "@mantine/core";
 import BodyText from "common/components/BodyText";
 
