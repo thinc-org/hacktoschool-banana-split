@@ -5,4 +5,8 @@ export const useStyles = createStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
   },
+  ContentContainer: {
+    display: "flex",
+    flexDirection: "column",
+  },
 }));
