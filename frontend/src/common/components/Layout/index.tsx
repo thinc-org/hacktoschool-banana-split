@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { PropsWithChildren } from "react";
+import NavBar from "./components/NavBar";
 import { useStyles } from "./styles";
 
 const Layout = ({ children }: PropsWithChildren<{}>) => {
@@ -12,7 +13,7 @@ const Layout = ({ children }: PropsWithChildren<{}>) => {
         </title>
       </Head>
       {/* <Background /> */}
-      {/* <Header /> */}
+      <NavBar />
       {children}
       {/* {!isHideFooter && <Footer />} */}
     </div>
