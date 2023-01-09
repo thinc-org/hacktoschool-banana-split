@@ -1,4 +1,5 @@
 import { MantineProvider } from "@mantine/core";
+import Layout from "common/components/Layout";
 import { AppProps } from "next/app";
 import "styles/globals.css";
 
@@ -40,7 +41,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         }
       }}
     >
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </MantineProvider>
   );
 }
