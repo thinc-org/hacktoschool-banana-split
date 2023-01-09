@@ -1,4 +1,5 @@
 import { MantineProvider } from "@mantine/core";
+import Layout from "common/components/Layout";
 import { AppProps } from "next/app";
 import "styles/globals.css";
 
@@ -8,6 +9,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       withGlobalStyles
       withNormalizeCSS
       theme={{
+        fontFamily: "Montserrat",
         headings: {
           fontWeight: "400",
           fontFamily: "Dela Gothic One",
@@ -29,10 +31,19 @@ function MyApp({ Component, pageProps }: AppProps) {
               lineHeight: "24px"
             }
           }
+        },
+        fontSizes: {
+          xs: 10,
+          sm: 12,
+          md: 14,
+          lg: 16,
+          xl: 18
         }
       }}
     >
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </MantineProvider>
   );
 }
