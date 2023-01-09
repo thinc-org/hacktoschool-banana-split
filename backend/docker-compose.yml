@@ -1,0 +1,14 @@
+version: '3.9'
+services:
+  banana-db:
+    image: postgres:latest
+    ports: 
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: banana
+      POSTGRES_DB: banana-db
+    networks:
+      - banana
+networks:
+  banana:
