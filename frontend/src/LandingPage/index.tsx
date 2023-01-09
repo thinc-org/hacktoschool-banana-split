@@ -56,12 +56,11 @@ export default function LandingPage() {
         </div>
 
         <Image
-          width={358.405}
-          height={436}
-          src="https://www.graphicpie.com/wp-content/uploads/2020/11/red-among-us-png.png"
+          width={"933px"}
+          height={"601px"}
+          src="/LandingPage/man-and-trees.png"
         ></Image>
       </div>
-      <div style={{ width: "100%", height: "100%" }}></div>
     </div>
   );
 }
