@@ -40,7 +40,10 @@ export class CourseService {
 
   async update(id: number, updateCourseDto: UpdateCourseDto) {
     return await prisma.course.update({
-      data: updateCourseDto,
+      data: {
+        ...updateCourseDto,
+        updatedAt: new Date(),
+      },
       where: {
         id: id,
       },
