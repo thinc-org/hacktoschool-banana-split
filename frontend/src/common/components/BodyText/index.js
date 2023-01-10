@@ -4,7 +4,7 @@ export default function BodyText({
   children,
   size = "md",
   weight = "600",
-  color = "black"
+  color = "black",
 }) {
   return (
     <Text size={size} weight={weight} color={color}>
