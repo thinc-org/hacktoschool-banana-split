@@ -54,11 +54,16 @@ export default function FirstParagraph() {
               <br /> with the platform.
             </BodyText>
           </div>
-          <Button className={classes.ButtonStyle}>
-            <Text size={"xs"} color="#2B788B" style={{ fontWeight: "700" }}>
-              About platform
-            </Text>
-          </Button>
+          <MediaQuery
+            smallerThan="xl"
+            styles={{ marginLeft: "auto", marginRight: "auto" }}
+          >
+            <Button className={classes.ButtonStyle}>
+              <Text size={"xs"} color="#2B788B" style={{ fontWeight: "700" }}>
+                About platform
+              </Text>
+            </Button>
+          </MediaQuery>
         </div>
         <div
           style={{
