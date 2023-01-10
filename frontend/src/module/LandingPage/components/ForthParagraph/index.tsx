@@ -2,7 +2,7 @@ import { Image, Text, Button, Title, MediaQuery } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import BodyText from "common/components/BodyText";
 import { useStyles } from "./styles";
-export default function ThirdParagraph() {
+export default function ForthParagraph() {
   const { classes } = useStyles();
   const smallScreen = useMediaQuery("(max-width:xl)");
   return (
@@ -17,28 +17,30 @@ export default function ThirdParagraph() {
       }}
     >
       <div className={classes.FirstContainer}>
+        <div style={{ maxWidth: "580px", maxHeight: "474px" }}>
+          <Image src="/LandingPage/together.png"></Image>
+        </div>
         <div style={{ textAlign: smallScreen ? "center" : "justify" }}>
           <div>
             <Title>
-              Increase
-              <br /> your vocabulary
+              Watch your
+              <br /> progress every
+              <br /> day
             </Title>
           </div>
           <div style={{ marginTop: "30px" }}>
             <BodyText size="sm" color="#757575">
-              Traditional and new effective approaches to word study
+              Save statistics on your achievements, words
+              <br /> learned, and mistakes
             </BodyText>
           </div>
           <MediaQuery smallerThan="xl" styles={{ marginLeft: "auto" }}>
             <Button className={classes.ButtonStyle}>
               <Text size={"xs"} color="#2B788B" style={{ fontWeight: "700" }}>
-                Textbook
+                Statistics
               </Text>
             </Button>
           </MediaQuery>
-        </div>
-        <div style={{ maxWidth: "580px", maxHeight: "474px" }}>
-          <Image src="/LandingPage/holding-books.png"></Image>
         </div>
       </div>
     </MediaQuery>

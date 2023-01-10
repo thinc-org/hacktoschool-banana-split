@@ -4,7 +4,7 @@ import BodyText from "common/components/BodyText";
 import { useStyles } from "./styles";
 export default function FirstParagraph() {
   const { classes } = useStyles();
-  const smallScreen = useMediaQuery("(max-width:1400px)");
+  const smallScreen = useMediaQuery("(max-width:xl)");
   return (
     <MediaQuery
       smallerThan="xl"
@@ -22,7 +22,6 @@ export default function FirstParagraph() {
             minWidth: "550px",
             textAlign: smallScreen ? "center" : "justify",
             justifyContent: smallScreen ? "center" : "justify",
-            //alignItems: smallScreen ? "center" : "justify",
           }}
         >
           <div>
