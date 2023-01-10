@@ -1,5 +1,6 @@
 import { io } from "socket.io-client";
 import { memo, useEffect, useRef, useState } from "react";
+import { baseURL } from "common/const";
 
 function addVideoStream(video: any, stream: any) {
   video.current.srcObject = stream;
@@ -23,6 +24,8 @@ function testConference() {
   const videosContainer = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (userId == "") {
+      const roomId = "c4f0ecbf-6ae5-4edd-b84d-d16f1d821496";
+      const socket = io(`http://${baseURL}:8000/`);
       import("peerjs").then(({ default: Peer }) => {
         const peer = new Peer();
         peer.on("open", (id) => {
@@ -30,8 +33,6 @@ function testConference() {
           setUserId(id);
         });
 
-        const roomId = "c4f0ecbf-6ae5-4edd-b84d-d16f1d821496";
-        const socket = io("http://localhost:8000/");
         navigator.mediaDevices
           .getUserMedia({ video: true, audio: false })
           .then((stream) => {
@@ -39,6 +40,7 @@ function testConference() {
               call.answer(stream);
             });
             socket.on("user-connected", (userId) => {
+              console.log(socket);
               console.log("new user connected: " + userId);
               connectToNewUser(userId, stream, peer, videos2);
             });

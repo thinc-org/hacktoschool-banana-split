@@ -1,9 +1,12 @@
 const express = require("express");
 var cors = require("cors");
 const app = express();
+const { v4: uuidV4 } = require("uuid");
+const baseURL = "localhost";
+
 app.use(
   cors({
-    origin: "http://localhost:3000"
+    origin: `http://${baseURL}:3000`
   })
 );
 
@@ -14,7 +17,6 @@ const io = require("socket.io")(server, {
     origin: "*"
   }
 });
-const { v4: uuidV4 } = require("uuid");
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
@@ -29,8 +31,9 @@ app.get("/:room", (req, res) => {
 });
 
 io.on("connection", (socket) => {
-  // console.log("try connect");
+  console.log("try connect");
   socket.on("join-room", (roomId, userId) => {
+    console.log(userId, " connect");
     socket.join(roomId);
     socket.to(roomId).emit("user-connected", userId);
 
