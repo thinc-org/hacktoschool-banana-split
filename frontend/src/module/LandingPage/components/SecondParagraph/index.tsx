@@ -1,9 +1,11 @@
 import { Image, Text, Button, Title, MediaQuery } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import BodyText from "common/components/BodyText";
 import { useStyles } from "./styles";
 
 export default function SecondParagraph() {
   const { classes } = useStyles();
+  const smallScreen = useMediaQuery("(max-width:1400px)");
   return (
     <MediaQuery
       smallerThan="xl"
@@ -20,7 +22,7 @@ export default function SecondParagraph() {
           <Image src="/LandingPage/teaching.png"></Image>
         </div>
 
-        <div>
+        <div style={{ textAlign: smallScreen ? "center" : "justify" }}>
           <div>
             <Title>
               Learn a language
