@@ -9,8 +9,7 @@ export const useStyles = createStyles((theme) => ({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#F6F5F4",
-    paddingLeft: "50px",
+    backgroundColor: "#FFFFFF",
   },
   ButtonStyle: {
     display: "flex",

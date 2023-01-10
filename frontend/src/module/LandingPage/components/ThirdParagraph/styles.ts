@@ -10,7 +10,6 @@ export const useStyles = createStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#F6F5F4",
-    paddingLeft: "50px",
   },
   ButtonStyle: {
     display: "flex",
