@@ -10,6 +10,13 @@ function MyApp({ Component, pageProps }: AppProps) {
       withNormalizeCSS
       theme={{
         fontFamily: "Montserrat",
+        breakpoints: {
+          xs: 576,
+          sm: 768,
+          md: 1020,
+          lg: 1200,
+          xl: 1400
+        },
         headings: {
           fontWeight: "400",
           fontFamily: "Dela Gothic One",
