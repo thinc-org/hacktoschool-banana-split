@@ -19,5 +19,7 @@ export const useStyles = createStyles((theme) => ({
     background: "#C3DCE3",
     borderRadius: "100px",
     marginTop: "32px",
+    marginLeft: "0px",
+    marginRight: "auto",
   },
 }));
