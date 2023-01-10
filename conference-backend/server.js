@@ -2,11 +2,10 @@ const express = require("express");
 var cors = require("cors");
 const app = express();
 const { v4: uuidV4 } = require("uuid");
-const baseURL = "localhost";
 
 app.use(
   cors({
-    origin: `http://${baseURL}:3000`
+    origin: "*"
   })
 );
 
@@ -39,6 +38,9 @@ io.on("connection", (socket) => {
 
     socket.on("disconnect", () => {
       socket.to(roomId).emit("user-disconnected", userId);
+    });
+    socket.on("userid-of-stream", (userId, streamId) => {
+      socket.to(roomId).emit("userid-of-stream", userId, streamId);
     });
   });
 });

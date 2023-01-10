@@ -1,5 +1,5 @@
-import { baseURL } from "common/const";
-import { createRef, useEffect, useRef, useState } from "react";
+import { socketURL } from "common/const";
+import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 
 function useSocket(url: string) {
@@ -18,41 +18,15 @@ function useSocket(url: string) {
 
   return socket;
 }
-interface videoProps {
-  id: any;
-  stream: any;
-}
 export default function Conference() {
-  const [videos, setVideos] = useState<videoProps[]>([]);
-
-  const setVideoToDiv = () => {
-    console.log("set");
-    if (videosWrapper.current) {
-      videosWrapper.current.innerHTML = "";
-      videos.forEach((video: any) => {
-        const videoElement = document.createElement("video");
-        videoElement.srcObject = video.stream;
-        videoElement.autoplay = true;
-        videoElement.muted = true;
-        videosWrapper.current?.appendChild(videoElement);
-      });
-    }
-  };
-
-  const addVideo = (id: any, stream: any) => {
-    setVideos((current: any) => [...current, { id: id, stream: stream }]);
-  };
-
-  useEffect(() => {
-    setVideoToDiv();
-  }, [videos]);
-
-  const socket = useSocket(`http://${baseURL}:8000/`);
+  const peers: any = {};
+  const streams: any = {};
+  const videos: any = {};
+  const socket = useSocket(socketURL);
 
   useEffect(() => {
     const roomId = "c4f0ecbf-6ae5-4edd-b84d-d16f1d821496";
 
-    const id = 20;
     if (socket) {
       import("peerjs").then(({ default: Peer }) => {
         const peer = new Peer();
@@ -69,32 +43,79 @@ export default function Conference() {
             peer.on("call", (call) => {
               call.answer(stream);
 
+              const videoElement = document.createElement("video");
               call.on("stream", (userVideoStream: any) => {
-                addVideo(userVideoStream.id, userVideoStream);
-                // if (video.current) {
-                //   console.log("video");
-                //   video.current.srcObject = userVideoStream;
-                // }
+                videoElement.srcObject = userVideoStream;
+                videoElement.autoplay = true;
+                // videoElement.muted = true;
+                videosWrapper.current?.appendChild(videoElement);
+                peers[userVideoStream.id] = call;
+                videos[userVideoStream.id] = videoElement;
+
+                console.log("peer: (stream)", userVideoStream.id);
               });
             });
 
             socket.on("user-connected", (userId: any) => {
-              console.log("videoa", videos);
+              socket.emit("userid-of-stream", peer.id, stream.id);
+
               console.log("new user connected: " + userId);
               const call = peer.call(userId, stream);
+
+              const videoElement = document.createElement("video");
               call.on("stream", (userVideoStream: any) => {
-                addVideo(userId, userVideoStream);
+                videoElement.srcObject = userVideoStream;
+                videoElement.autoplay = true;
+                // videoElement.muted = true;
               });
               call.on("close", () => {
-                // video.current?.remove();
+                console.log("close");
+                videoElement.remove();
               });
+              videosWrapper.current?.appendChild(videoElement);
+              peers[userId] = call;
+              videos[userId] = videoElement;
+              console.log("peer: (userId)", userId);
             });
 
             socket.on("user-disconnected", (userId: any) => {
               console.log("User disconnected: " + userId);
-              let newVideos = [...videos];
-              newVideos = newVideos.filter((video: any) => video.id !== userId);
-              setVideos(newVideos);
+              console.log("peer", peers);
+              console.log("streams", streams);
+              if (peers[userId]) peers[userId].close();
+              else {
+                let check = false;
+                for (let key in streams) {
+                  console.log(key, userId, key === userId);
+                  if (key === userId) {
+                    for (let callId in peers) {
+                      console.log(
+                        "inner ",
+                        streams[key],
+                        callId,
+                        streams[key] === callId
+                      );
+                      if (streams[key] == callId) {
+                        console.log("found");
+                        if (peers[callId]) {
+                          peers[callId].close();
+                          videos[callId].remove();
+                          delete peers[callId];
+                          delete videos[callId];
+                        }
+                        check = true;
+                        break;
+                      }
+                    }
+                    if (check) break;
+                  }
+                }
+              }
+            });
+
+            socket.on("userid-of-stream", (userId: any, streamId: any) => {
+              console.log("userid-of-stream: " + userId + " " + streamId);
+              streams[userId] = streamId;
             });
           });
       });
@@ -102,19 +123,11 @@ export default function Conference() {
   }, [socket]);
 
   const videosWrapper = useRef<HTMLDivElement>(null);
-  console.log(videos);
+  console.log(streams);
 
   return (
     <>
       <div ref={videosWrapper}></div>
-      <button
-        onClick={() => {
-          setVideoToDiv();
-          console.log(videos);
-        }}
-      >
-        show videos
-      </button>
     </>
   );
 }
