@@ -33,11 +33,13 @@ export default function NavBar() {
           position: "fixed",
           left: "0",
           top: "88px",
-          backgroundColor: "#F4F4F2",
+          backgroundColor: "rgba(244, 244, 242,0.85",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          gap: "20px"
+          gap: "20px",
+          backdropFilter: "blur(12px)",
+          WebkitBackdropFilter: "blur(12px)"
         }}
       >
         <Link
