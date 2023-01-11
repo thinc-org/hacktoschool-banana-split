@@ -1,6 +1,6 @@
 import useHideFooter from "common/contexts/LayoutContext/hooks/useHideFooter";
 import useHideNavbar from "common/contexts/LayoutContext/hooks/useHideNavbar";
-import { AuthPage } from "module/Login";
+import { AuthPage } from "module/Auth";
 
 export default function LoginPage() {
   useHideNavbar();

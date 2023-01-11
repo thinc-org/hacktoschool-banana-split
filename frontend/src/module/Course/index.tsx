@@ -1,6 +1,7 @@
 import { Title } from "@mantine/core";
 import { BsBook } from "react-icons/bs";
-export default function () {
+import CourseCard from "./components/CourseCard";
+export default function Course() {
   return (
     <>
       <div
@@ -20,7 +21,7 @@ export default function () {
           style={{
             display: "flex",
             height: "84px",
-            width: "70%",
+            width: "80%",
             background: "#FFFFFF",
             flexDirection: "row",
             alignItems: "center",
@@ -32,7 +33,21 @@ export default function () {
           <BsBook fontSize={40} />
           <Title order={4}>Course</Title>
         </div>
-        <div>test</div>
+        <div
+          style={{
+            width: "60%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            padding: "20px",
+            gap: "10px"
+          }}
+        >
+          <CourseCard />
+          <CourseCard />
+          <CourseCard />
+          <CourseCard />
+        </div>
       </div>
     </>
   );
