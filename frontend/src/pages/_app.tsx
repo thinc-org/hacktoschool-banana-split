@@ -8,14 +8,6 @@ import "styles/globals.css";
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <LayoutProvider>
-      <div
-        style={{
-          position: "fixed",
-          width: "100px",
-          height: "500px",
-          backgroundColor: "red"
-        }}
-      ></div>
       <MantineProvider
         withGlobalStyles
         withNormalizeCSS
