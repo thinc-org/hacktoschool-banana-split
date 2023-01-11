@@ -19,6 +19,10 @@ export const useStyles = createStyles((theme) => ({
     borderRadius: "100px",
     marginTop: "32px",
     marginLeft: "0px",
-    marginRight: "auto"
+    marginRight: "auto",
+
+    "&:hover": {
+      backgroundColor: "#8BC7D8"
+    }
   }
 }));
