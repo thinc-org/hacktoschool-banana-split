@@ -15,7 +15,8 @@ export default function NavBar() {
         // justifyContent: "center",
         paddingLeft: "200px",
         alignItems: "center",
-        gap: "30px"
+        gap: "30px",
+        boxShadow: "inset 0px -1px 0px #E0E0E0"
       }}
     >
       <Title order={3}>GlobalTalk</Title>
@@ -34,7 +35,7 @@ export default function NavBar() {
         <Link href="/conference/Lobby">Conference</Link>
       </Box>
       <Box sx={{ width: 90 }}>
-        <NavLink label="Statistics" style={{ textAlign: "center" }}></NavLink>
+        <Link href="/auth">Login</Link>
       </Box>
       <Box sx={{ width: 90 }}>
         <NavLink

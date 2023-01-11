@@ -89,7 +89,7 @@ export default function Conference(props: ConferenceProps) {
             socket.on("user-connected", (userId: any) => {
               socket.emit("userid-of-stream", peer.id, stream.id);
 
-              // console.log("new user connected: " + userId);
+              console.log("new user connected: " + userId);
               const call = peer.call(userId, stream);
 
               const videoElementWraper = document.createElement("div");
