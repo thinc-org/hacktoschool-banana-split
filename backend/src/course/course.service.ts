@@ -52,8 +52,26 @@ export class CourseService {
     });
   }
 
-  async findAll() {
-    return await prisma.course.findMany();
+  async findAll(id: number) {
+    if (id) {
+      const result = await prisma.course.findMany({
+        include: {
+          instructor: true,
+          students: true,
+        },
+      });
+      return result.map((course) => {
+        return {
+          ...course,
+          enrolled: course.students.find((st) => st.id == id) ? true : false,
+        };
+      });
+    }
+    return await prisma.course.findMany({
+      include: {
+        instructor: true,
+      },
+    });
   }
 
   async findOne(id: number) {
