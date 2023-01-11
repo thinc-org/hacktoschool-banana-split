@@ -19,7 +19,7 @@ export default function NavBar() {
           ? xsScreen
             ? "0px 10px"
             : "0px 50px"
-          : "0px 150px"
+          : "0px 150px",
       }}
     >
       <div
@@ -31,28 +31,38 @@ export default function NavBar() {
           left: "0",
           top: "88px",
           backgroundColor: "#F4F4F2",
+          flexDirection: "column",
           justifyContent: "center",
-          alignItems: "center"
+          alignItems: "center",
         }}
       >
-        <Box
-          sx={{
-            width: 90,
-            marginLeft: "20px"
-          }}
+        <Link
+          href={`/`}
+          onClick={() => setExpand(1)}
+          style={{ textDecoration: "none", color: "black" }}
         >
-          <NavLink
-            label="Home"
-            component="a"
-            href="/"
-            target="_self"
-            style={{
-              textAlign: "center"
-            }}
-          ></NavLink>
-          <NavLink label="Textbook" style={{ textAlign: "center" }}></NavLink>
-          <NavLink label="Statistics" style={{ textAlign: "center" }}></NavLink>
-        </Box>
+          <BodyText size="14px" color="#7B7B7B">
+            Home
+          </BodyText>
+        </Link>
+        <Link
+          href={`/course`}
+          onClick={() => setExpand(1)}
+          style={{ textDecoration: "none", color: "black" }}
+        >
+          <BodyText size="14px" color="#7B7B7B">
+            Course
+          </BodyText>
+        </Link>
+        <Link
+          href={`/conference/Lobby`}
+          onClick={() => setExpand(1)}
+          style={{ textDecoration: "none", color: "black" }}
+        >
+          <BodyText size="14px" color="#7B7B7B">
+            Conference
+          </BodyText>
+        </Link>
       </div>
       <ActionIcon
         style={{ display: smallScreen ? "flex" : "none", marginLeft: "10px" }}
@@ -80,7 +90,7 @@ export default function NavBar() {
           style={{
             position: "absolute",
             left: "52.5%",
-            transform: "translate(-50%,0%)"
+            transform: "translate(-50%,0%)",
           }}
         >
           <Title order={4}>GlobalTalk</Title>
@@ -90,7 +100,7 @@ export default function NavBar() {
         sx={{
           display: smallScreen ? "none" : "flex",
           width: 80,
-          marginLeft: "20px"
+          marginLeft: "20px",
         }}
       >
         <Link href={`/`} style={{ textDecoration: "none", color: "black" }}>
@@ -139,7 +149,7 @@ export default function NavBar() {
         sx={{
           display: "flex",
           width: 90,
-          marginLeft: "auto"
+          marginLeft: "auto",
         }}
       >
         <NavLink label="Sign Out" style={{ textAlign: "center" }}></NavLink>
