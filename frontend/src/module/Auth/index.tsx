@@ -14,15 +14,19 @@ import {
   Checkbox,
   Anchor,
   Stack,
-  Switch
+  Switch,
+  Title
 } from "@mantine/core";
 import { GiTeacher, GiWhiteBook } from "react-icons/gi";
 import axios from "axios";
 import { baseApiURL } from "common/const";
+import BodyText from "common/components/BodyText";
 
 export function AuthPage(props: PaperProps) {
   const [type, toggle] = useToggle(["login", "register"]);
   const [isTeacher, setIsTeacher] = useState(false);
+
+  const [error, setError] = useState("");
   const form = useForm({
     initialValues: {
       email: "",
@@ -48,21 +52,44 @@ export function AuthPage(props: PaperProps) {
     );
 
     console.log(`${baseApiURL}/auth/signin`);
-    // const res = await axios.post(`${baseApiURL}/auth/signin`, {
-    //   name: form.values.name,
-    //   email: form.values.email,
-    //   password: form.values.password
-    // });
-    // console.log(res);
+    try {
+      const res = await axios.post(`${baseApiURL}/auth/signup`, {
+        name: form.values.name,
+        email: form.values.email,
+        password: form.values.password,
+        role: isTeacher ? "TEACHER" : "STUDENT"
+      });
+      const token = res.data;
+      if (token) {
+        localStorage.setItem("token", token);
+        window.location.href = "/";
+      }
+    } catch (err: any) {
+      setError(err.response.data.message);
+      console.log(err.response.data.message);
+    }
   };
 
   const login = async () => {
-    console.log("Login", form.values.email, form.values.password);
-    await localStorage.setItem("token", form.values.email);
-    window.location.href = "/";
+    try {
+      const res = await axios.post(`${baseApiURL}/auth/signin`, {
+        email: form.values.email,
+        password: form.values.password
+      });
+      const token = res.data;
+      if (token) {
+        localStorage.setItem("token", token);
+        window.location.href = "/";
+      }
+    } catch (err: any) {
+      setError(err.response.data.message);
+      console.log(err.response.data.message);
+    }
   };
 
   const loginOrRegister = () => {
+    if (!form.values.terms)
+      return setError("Please agree to the terms and conditions");
     if (type == "login") {
       return login();
     } else return register();
@@ -97,16 +124,20 @@ export function AuthPage(props: PaperProps) {
                 label="Name"
                 placeholder="Your name"
                 value={form.values.name}
-                onChange={(event) =>
-                  form.setFieldValue("name", event.currentTarget.value)
-                }
+                onChange={(event) => {
+                  form.setFieldValue("name", event.currentTarget.value);
+                  setError("");
+                }}
               />
             )}
 
             {type === "register" && (
               <Switch
                 checked={isTeacher}
-                onChange={(event) => setIsTeacher(event.currentTarget.checked)}
+                onChange={(event) => {
+                  setIsTeacher(event.currentTarget.checked);
+                  setError("");
+                }}
                 labelPosition="left"
                 size="sm"
                 color="cyan"
@@ -121,9 +152,10 @@ export function AuthPage(props: PaperProps) {
               label="Email"
               placeholder="monkey@banana.split"
               value={form.values.email}
-              onChange={(event) =>
-                form.setFieldValue("email", event.currentTarget.value)
-              }
+              onChange={(event) => {
+                form.setFieldValue("email", event.currentTarget.value);
+                setError("");
+              }}
               error={form.errors.email && "Invalid email"}
             />
 
@@ -132,9 +164,10 @@ export function AuthPage(props: PaperProps) {
               label="Password"
               placeholder="Your password"
               value={form.values.password}
-              onChange={(event) =>
-                form.setFieldValue("password", event.currentTarget.value)
-              }
+              onChange={(event) => {
+                form.setFieldValue("password", event.currentTarget.value);
+                setError("");
+              }}
               error={
                 form.errors.password &&
                 "Password should include at least 6 characters"
@@ -146,12 +179,18 @@ export function AuthPage(props: PaperProps) {
                 label="I accept terms and conditions"
                 checked={form.values.terms}
                 color="cyan"
-                onChange={(event) =>
-                  form.setFieldValue("terms", event.currentTarget.checked)
-                }
+                onChange={(event) => {
+                  form.setFieldValue("terms", event.currentTarget.checked);
+                  setError("");
+                }}
               />
             )}
           </Stack>
+          <div style={{ marginBottom: "-20px", marginTop: "10px" }}>
+            <BodyText size="10px" color="red">
+              {error}
+            </BodyText>
+          </div>
 
           <Group position="apart" mt="xl">
             <Anchor
