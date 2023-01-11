@@ -11,6 +11,7 @@ export class CreateUserDto {
   @IsString()
   role: string;
 
+  @IsString()
   firstName: string;
   @IsString()
   lastName: string;
