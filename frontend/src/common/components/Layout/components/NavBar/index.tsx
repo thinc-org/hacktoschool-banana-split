@@ -1,16 +1,19 @@
-import { ActionIcon, Box, Image, NavLink, Title } from "@mantine/core";
+import { ActionIcon, Box, Image, Loader, NavLink, Title } from "@mantine/core";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { useMediaQuery } from "@mantine/hooks";
 import { useStyles } from "./styles";
 import { useState } from "react";
 import Link from "next/link";
 import BodyText from "common/components/BodyText";
+import { useAuth } from "common/contexts/AuthContext";
 
 export default function NavBar() {
   const [expand, setExpand] = useState(1);
   const { classes } = useStyles();
   const smallScreen = useMediaQuery("(max-width:1200px)");
   const xsScreen = useMediaQuery("(max-width:700px)");
+
+  const { user, isReady, isAuthenticated } = useAuth();
   return (
     <div
       className={classes.NavBarLayout}
@@ -19,7 +22,7 @@ export default function NavBar() {
           ? xsScreen
             ? "0px 10px"
             : "0px 50px"
-          : "0px 150px",
+          : "0px 150px"
       }}
     >
       <div
@@ -34,7 +37,7 @@ export default function NavBar() {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          gap: "20px",
+          gap: "20px"
         }}
       >
         <Link
@@ -91,7 +94,7 @@ export default function NavBar() {
           style={{
             position: "absolute",
             left: "52.5%",
-            transform: "translate(-50%,0%)",
+            transform: "translate(-50%,0%)"
           }}
         >
           <Title order={4}>GlobalTalk</Title>
@@ -101,7 +104,7 @@ export default function NavBar() {
         sx={{
           display: smallScreen ? "none" : "flex",
           width: 80,
-          marginLeft: "20px",
+          marginLeft: "20px"
         }}
       >
         <Link href={`/`} style={{ textDecoration: "none", color: "black" }}>
@@ -146,15 +149,46 @@ export default function NavBar() {
         </NavLink>
       </Box> */}
       <></>
-      <Box
-        sx={{
-          display: "flex",
-          width: 90,
-          marginLeft: "auto",
-        }}
-      >
-        <NavLink label="Sign Out" style={{ textAlign: "center" }}></NavLink>
-      </Box>
+      {!isReady && (
+        <Loader sx={{ marginLeft: "auto" }} color="cyan" size="sm" />
+      )}
+      {isAuthenticated && (
+        <>
+          {/* <Title order={6} sx={{ marginLeft: "auto" }}>{user.name}</Title> */}
+          <Title order={6} sx={{ marginLeft: "auto" }}>
+            {user.role}
+          </Title>
+          <Box
+            sx={{
+              display: "flex",
+              width: 90
+            }}
+          >
+            <NavLink
+              label="Sign Out"
+              style={{ textAlign: "center" }}
+              onClick={() => {
+                localStorage.removeItem("token");
+                location.href = "/";
+              }}
+            ></NavLink>
+          </Box>
+        </>
+      )}
+      {isReady && !isAuthenticated && (
+        <Link
+          href={`/auth`}
+          style={{
+            // textDecoration: "none",
+            color: "black",
+            marginLeft: "auto"
+          }}
+        >
+          <BodyText size="14px" color="#7B7B7B">
+            Login or Signup
+          </BodyText>
+        </Link>
+      )}
     </div>
   );
 }
