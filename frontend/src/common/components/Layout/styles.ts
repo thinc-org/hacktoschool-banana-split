@@ -8,6 +8,7 @@ export const useStyles = createStyles((theme) => ({
   ContentContainer: {
     display: "flex",
     flexDirection: "column",
-    minHeight: "100vh"
+    minHeight: "100vh",
+    overflowX: "hidden"
   }
 }));

@@ -1,5 +1,7 @@
-import { SimpleGrid } from "@mantine/core";
+import { Button, SimpleGrid } from "@mantine/core";
+import BodyText from "common/components/BodyText";
 import { socketURL } from "common/const";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 
@@ -159,32 +161,66 @@ export default function Conference(props: ConferenceProps) {
 
   return (
     <>
-      <SimpleGrid
-        cols={4}
-        spacing="lg"
-        breakpoints={[
-          { maxWidth: 1270, cols: 3, spacing: "xs" },
-          { maxWidth: 1000, cols: 2, spacing: "xs" },
-          { maxWidth: 700, cols: 1, spacing: "xs" }
-        ]}
-        ref={videosWrapper}
-        sx={{ alignItems: "center", padding: "50px" }}
-      ></SimpleGrid>
       <div
         style={{
-          width: "270px",
-          height: "180px",
-          display: "block",
-          overflow: "hidden",
-          objectFit: "cover",
-          position: "fixed",
-          bottom: "20px",
-          right: "20px",
-          borderRadius: "15px"
-          // border: "1px solid #000"
+          display: "flex",
+          alignItems: "flex-start",
+          width: "100vw",
+          height: "100%",
+          minHeight: "100vh",
+          flexDirection: "column",
+          backgroundColor: "white",
+          padding: "60px 100px",
+          gap: "10px"
         }}
       >
-        <video ref={video} style={{ width: "270px" }} autoPlay muted />
+        <Button
+          sx={{
+            width: "160px",
+            borderRadius: "4px",
+            border: "1px solid #639B6D",
+            backgroundColor: "rgba(0,0,0,0)",
+            "&:hover": {
+              backgroundColor: "rgba(0,0,0,0)",
+              border: "1px solid #58735D"
+            },
+            marginTop: "0px"
+          }}
+        >
+          <Link
+            href={`/course/${roomId}`}
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            <BodyText size="14px">&lt; &nbsp;Back to course</BodyText>
+          </Link>
+        </Button>
+        <SimpleGrid
+          cols={4}
+          spacing="lg"
+          breakpoints={[
+            { maxWidth: 1270, cols: 3, spacing: "xs" },
+            { maxWidth: 1000, cols: 2, spacing: "xs" },
+            { maxWidth: 700, cols: 1, spacing: "xs" }
+          ]}
+          ref={videosWrapper}
+          sx={{ alignItems: "center", padding: "50px" }}
+        ></SimpleGrid>
+        <div
+          style={{
+            width: "270px",
+            height: "180px",
+            display: "block",
+            overflow: "hidden",
+            objectFit: "cover",
+            position: "fixed",
+            bottom: "20px",
+            right: "20px",
+            borderRadius: "15px"
+            // border: "1px solid #000"
+          }}
+        >
+          <video ref={video} style={{ width: "270px" }} autoPlay muted />
+        </div>
       </div>
     </>
   );

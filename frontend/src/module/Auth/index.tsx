@@ -17,6 +17,8 @@ import {
   Switch
 } from "@mantine/core";
 import { GiTeacher, GiWhiteBook } from "react-icons/gi";
+import axios from "axios";
+import { baseApiURL } from "common/const";
 
 export function AuthPage(props: PaperProps) {
   const [type, toggle] = useToggle(["login", "register"]);
@@ -44,6 +46,14 @@ export function AuthPage(props: PaperProps) {
       form.values.password,
       isTeacher
     );
+
+    console.log(`${baseApiURL}/auth/signin`);
+    // const res = await axios.post(`${baseApiURL}/auth/signin`, {
+    //   name: form.values.name,
+    //   email: form.values.email,
+    //   password: form.values.password
+    // });
+    // console.log(res);
   };
 
   const login = async () => {
