@@ -87,6 +87,18 @@ export class CourseService {
   }
 
   async update(id: number, updateCourseDto: UpdateCourseDto) {
+    const conflictCount = await prisma.user.count({
+      where: {
+        CoursesEnrolled: {
+          some: {
+            id: id,
+          },
+        },
+        id: {
+          in: updateCourseDto.userIdsToAdd,
+        },
+      },
+    });
     try {
       return await prisma.course.update({
         data: {
@@ -95,6 +107,9 @@ export class CourseService {
             connect: updateCourseDto.userIdsToAdd
               ? updateCourseDto.userIdsToAdd.map((x) => ({ id: x }))
               : [],
+          },
+          studentsCount: {
+            increment: updateCourseDto.userIdsToAdd.length - conflictCount,
           },
         },
         where: {

@@ -44,4 +44,5 @@ model Course {
   instructorId Int
 
   students User[] @relation(name: "enrolled")
+  studentsCount Int @default(0)
 }
