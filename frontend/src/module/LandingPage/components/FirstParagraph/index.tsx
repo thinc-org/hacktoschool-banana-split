@@ -72,8 +72,6 @@ export default function FirstParagraph() {
           }}
         >
           <Image
-            // width={"933px"}
-            // height={"620px"}
             style={{ marginRight: "-150px" }}
             src="/LandingPage/man-and-trees.png"
           ></Image>
