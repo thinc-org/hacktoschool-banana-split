@@ -5,7 +5,7 @@ import { useStyles } from "./styles";
 
 export default function SecondParagraph() {
   const { classes } = useStyles();
-  const smallScreen = useMediaQuery("(max-width:xl)");
+  const smallScreen = useMediaQuery("(max-width:1400px)");
   return (
     <MediaQuery
       smallerThan="xl"

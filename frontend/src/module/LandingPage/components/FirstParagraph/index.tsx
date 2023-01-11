@@ -4,7 +4,7 @@ import BodyText from "common/components/BodyText";
 import { useStyles } from "./styles";
 export default function FirstParagraph() {
   const { classes } = useStyles();
-  const smallScreen = useMediaQuery("(max-width:xl)");
+  const smallScreen = useMediaQuery("(max-width:1400px)");
   return (
     <MediaQuery
       smallerThan="xl"
