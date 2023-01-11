@@ -1,3 +1,4 @@
+import { Role } from '@prisma/client';
 import { IsEmail, IsNotEmpty } from 'class-validator';
 
 export class AuthDto {
@@ -8,6 +9,6 @@ export class AuthDto {
   @IsNotEmpty()
   password: string;
 
-  firstname: string;
-  lastname: string;
+  name: string;
+  role: Role;
 }
