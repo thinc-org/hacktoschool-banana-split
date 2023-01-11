@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Role, User } from '@prisma/client';
 import {
   PrismaClientKnownRequestError,
   PrismaClientValidationError,
@@ -13,6 +13,28 @@ const prisma = new PrismaClient();
 export class CourseService {
   async create(createCourseDto: CreateCourseDto) {
     const now = new Date();
+    const instructor = await prisma.user.findUnique({
+      where: {
+        id: createCourseDto.instructorId,
+      },
+    });
+
+    if (!instructor) {
+      return {
+        statusCode: '400',
+        message: 'User with specified instructor id could not be found',
+        error: 'Bad Request',
+      };
+    }
+
+    if (instructor.role != Role.TEACHER)
+      return {
+        statusCode: '400',
+        message:
+          'User with specified instructor id does not have the instructor role',
+        error: 'Bad Request',
+      };
+
     return await prisma.course.create({
       data: {
         createdAt: now,
@@ -71,7 +93,7 @@ export class CourseService {
       else if (error instanceof PrismaClientKnownRequestError)
         return {
           statusCode: '400',
-          message: 'User with specified user id could not be found',
+          message: 'Some users with specified user ids could not be found',
           error: 'Bad Request',
         };
       else {
