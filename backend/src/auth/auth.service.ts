@@ -16,8 +16,7 @@ export class AuthService {
         data: {
           email: dto.email,
           password: hashpwd,
-          firstName: dto.firstname,
-          lastName: dto.lastname,
+          name: dto.name,
           role: dto.role,
         },
       });
@@ -37,23 +36,16 @@ export class AuthService {
       where: {
         email: dto.email,
       },
-    })
+    });
 
-    if(!user) {
-      throw new ForbiddenException(
-        'Credentials incorrect',
-      );
+    if (!user) {
+      throw new ForbiddenException('Credentials incorrect');
     }
 
-    const pwdMatch = await argon.verify(
-      user.password,
-      dto.password,
-    );
+    const pwdMatch = await argon.verify(user.password, dto.password);
 
-    if(!pwdMatch) {
-      throw new ForbiddenException(
-        'Credentials incorrect',
-      );
+    if (!pwdMatch) {
+      throw new ForbiddenException('Credentials incorrect');
     }
     return user;
   }

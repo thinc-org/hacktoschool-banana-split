@@ -20,13 +20,10 @@ model User {
 
   role Role @default(STUDENT)
 
-  firstName String?
-  lastName  String?
+  name String @default("")
 
   CoursesOwned    Course[] @relation(name: "instructor")
   CoursesEnrolled Course[] @relation(name: "enrolled")
-
-  @@map("users")
 }
 
 enum Role {

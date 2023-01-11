@@ -9,8 +9,6 @@ export class AuthDto {
   @IsNotEmpty()
   password: string;
 
-  firstname: string;
-  lastname: string;
-
+  name: string;
   role: Role;
 }
