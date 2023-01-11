@@ -12,7 +12,5 @@ export class CreateUserDto {
   role: string;
 
   @IsString()
-  firstName: string;
-  @IsString()
-  lastName: string;
+  name: string;
 }
