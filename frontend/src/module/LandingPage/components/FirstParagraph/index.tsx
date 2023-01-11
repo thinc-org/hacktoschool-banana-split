@@ -1,6 +1,7 @@
 import { Image, Text, Button, Title, MediaQuery } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import BodyText from "common/components/BodyText";
+import Link from "next/link";
 import { useStyles } from "./styles";
 export default function FirstParagraph() {
   const { classes } = useStyles();
@@ -59,9 +60,20 @@ export default function FirstParagraph() {
             styles={{ marginLeft: "auto", marginRight: "auto" }}
           >
             <Button className={classes.ButtonStyle}>
-              <Text size={"xs"} color="#2B788B" style={{ fontWeight: "700" }}>
-                About platform
-              </Text>
+              <Link
+                href={`/course`}
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                <Text
+                  size={"xs"}
+                  color="#2B788B"
+                  style={{
+                    fontWeight: "700"
+                  }}
+                >
+                  Explore course
+                </Text>
+              </Link>
             </Button>
           </MediaQuery>
         </div>

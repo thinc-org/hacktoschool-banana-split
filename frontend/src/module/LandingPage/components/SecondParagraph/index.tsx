@@ -1,6 +1,7 @@
-import { Image, Text, Button, Title, MediaQuery } from "@mantine/core";
+import { Image, Text, Button, Title, MediaQuery, NavLink } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import BodyText from "common/components/BodyText";
+import Link from "next/link";
 import { useStyles } from "./styles";
 
 export default function SecondParagraph() {
@@ -14,7 +15,7 @@ export default function SecondParagraph() {
         width: "100%",
         height: "1000px",
         gap: "30px",
-        alignContent: "center",
+        alignContent: "center"
       }}
     >
       <div className={classes.FirstContainer}>
@@ -25,7 +26,7 @@ export default function SecondParagraph() {
         <div style={{ textAlign: smallScreen ? "center" : "justify" }}>
           <div>
             <Title>
-              Learn a language
+              Learn with
               <br /> in a playful way
             </Title>
           </div>
@@ -34,6 +35,27 @@ export default function SecondParagraph() {
               Make learning words more fun with mini-games
             </BodyText>
           </div>
+          <MediaQuery
+            smallerThan="xl"
+            styles={{ marginLeft: "auto", marginRight: "auto" }}
+          >
+            <Button
+              className={classes.ButtonStyle}
+              onClick={() => {
+                location.href = "/conference/Lobby";
+              }}
+            >
+              <Text
+                size={"xs"}
+                color="#2B788B"
+                style={{
+                  fontWeight: "700"
+                }}
+              >
+                Conference now
+              </Text>
+            </Button>
+          </MediaQuery>
         </div>
       </div>
     </MediaQuery>
