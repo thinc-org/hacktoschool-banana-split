@@ -34,6 +34,7 @@ export default function NavBar() {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
+          gap: "20px",
         }}
       >
         <Link
