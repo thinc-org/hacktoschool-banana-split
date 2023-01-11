@@ -1,5 +1,6 @@
 import { MantineProvider } from "@mantine/core";
 import Layout from "common/components/Layout";
+import { AuthProvider } from "common/contexts/AuthContext";
 import { LayoutProvider } from "common/contexts/LayoutContext";
 import { AppProps } from "next/app";
 import "styles/globals.css";
@@ -50,9 +51,11 @@ function MyApp({ Component, pageProps }: AppProps) {
           }
         }}
       >
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <AuthProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </AuthProvider>
       </MantineProvider>
     </LayoutProvider>
   );

@@ -17,9 +17,12 @@ import {
   Switch
 } from "@mantine/core";
 import { GiTeacher, GiWhiteBook } from "react-icons/gi";
+import axios from "axios";
+import { baseApiURL } from "common/const";
 
 export function AuthPage(props: PaperProps) {
   const [type, toggle] = useToggle(["login", "register"]);
+  const [isTeacher, setIsTeacher] = useState(false);
   const form = useForm({
     initialValues: {
       email: "",
@@ -36,40 +39,33 @@ export function AuthPage(props: PaperProps) {
   });
 
   const register = async () => {
-    // try {
-    //   const user = await createUserWithEmailAndPassword(
-    //     auth,
-    //     form.values.email,
-    //     form.values.password
-    //   );
-    //   console.log("Create New User");
-    // } catch (err) {
-    //   console.log(err);
-    // }
+    console.log(
+      "register",
+      form.values.name,
+      form.values.email,
+      form.values.password,
+      isTeacher
+    );
+
+    console.log(`${baseApiURL}/auth/signin`);
+    // const res = await axios.post(`${baseApiURL}/auth/signin`, {
+    //   name: form.values.name,
+    //   email: form.values.email,
+    //   password: form.values.password
+    // });
+    // console.log(res);
   };
 
   const login = async () => {
-    // try {
-    //   const user = await signInWithEmailAndPassword(
-    //     auth,
-    //     form.values.email,
-    //     form.values.password
-    //   );
-    //   console.log("Login");
-    //   console.log(user);
-    // } catch (err) {
-    //   console.log(err);
-    // }
+    console.log("Login", form.values.email, form.values.password);
+    await localStorage.setItem("token", form.values.email);
+    window.location.href = "/";
   };
 
   const loginOrRegister = () => {
-    // if (type == "login") {
-    //   return login();
-    // } else return register();
-  };
-
-  const logout = async () => {
-    // await signOut(auth);
+    if (type == "login") {
+      return login();
+    } else return register();
   };
 
   return (
@@ -97,6 +93,7 @@ export function AuthPage(props: PaperProps) {
           <Stack>
             {type === "register" && (
               <TextInput
+                required
                 label="Name"
                 placeholder="Your name"
                 value={form.values.name}
@@ -108,9 +105,11 @@ export function AuthPage(props: PaperProps) {
 
             {type === "register" && (
               <Switch
+                checked={isTeacher}
+                onChange={(event) => setIsTeacher(event.currentTarget.checked)}
                 labelPosition="left"
                 size="sm"
-                color="#2B788B"
+                color="cyan"
                 onLabel={<GiTeacher size={14} />}
                 offLabel={<GiWhiteBook size={16} />}
                 label="Are you teacher?"
@@ -169,9 +168,9 @@ export function AuthPage(props: PaperProps) {
             <Button
               type="submit"
               sx={{
-                backgroundColor: "#2B788B",
+                backgroundColor: "#15aabf",
                 "&:hover": {
-                  backgroundColor: "#07688A"
+                  backgroundColor: "#60c7d5"
                 }
               }}
             >

@@ -9,5 +9,6 @@ export const useStyles = createStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     minHeight: "100vh",
+    overflowX: "hidden",
   },
 }));

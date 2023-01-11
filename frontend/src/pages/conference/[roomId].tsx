@@ -5,6 +5,6 @@ import { useRouter } from "next/router";
 export default function ConferenceRoom() {
   const router = useRouter();
   const { roomId } = router.query;
-  if (!roomId) return <Title order={1}>Loading</Title>;
+  if (!roomId) return <Title order={1}>Loading...</Title>;
   return <Conference roomId={String(roomId)} />;
 }
