@@ -15,21 +15,23 @@ export default function NavBar() {
         // justifyContent: "center",
         paddingLeft: "200px",
         alignItems: "center",
-        gap: "30px",
+        gap: "30px"
       }}
     >
       <Title order={3}>GlobalTalk</Title>
       <Box sx={{ width: 90, paddingLeft: "20px" }}>
-        <NavLink
+        {/* <NavLink
           label="Home"
           component="a"
-          href="/home"
-          target="_blank"
+          href="/conference/Lobby"
+          target="_self"
           style={{ textAlign: "center" }}
-        ></NavLink>
+        /> */}
+
+        <Link href="/">Home</Link>
       </Box>
       <Box sx={{ width: 90 }}>
-        <NavLink label="Textbook" style={{ textAlign: "center" }}></NavLink>
+        <Link href="/conference/Lobby">Conference</Link>
       </Box>
       <Box sx={{ width: 90 }}>
         <NavLink label="Statistics" style={{ textAlign: "center" }}></NavLink>
