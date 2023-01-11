@@ -2,6 +2,15 @@ import { Title } from "@mantine/core";
 import { BsBook } from "react-icons/bs";
 import CourseCard from "./components/CourseCard";
 export default function Course() {
+  const datas = [
+    {
+      title: "Math",
+      desc: "Math is a subject",
+      teacherName: "Mr. John",
+      courseId: "MatchDaiLif",
+      enrolled: false,
+    },
+  ];
   return (
     <>
       <div
@@ -14,7 +23,7 @@ export default function Course() {
           minHeight: "100vh",
           flexDirection: "column",
           backgroundColor: "#F6F5F4",
-          paddingTop: "40px"
+          paddingTop: "40px",
         }}
       >
         <div
@@ -27,7 +36,7 @@ export default function Course() {
             alignItems: "center",
             padding: "22px",
             gap: "12px",
-            borderRadius: "14px"
+            borderRadius: "14px",
           }}
         >
           <BsBook fontSize={40} />
@@ -40,13 +49,19 @@ export default function Course() {
             flexDirection: "column",
             alignItems: "center",
             padding: "20px",
-            gap: "10px"
+            gap: "10px",
           }}
         >
-          <CourseCard />
-          <CourseCard />
-          <CourseCard />
-          <CourseCard />
+          {datas.map((data) => {
+            return (
+              <CourseCard
+                title={data.title}
+                desc={data.desc}
+                teacherName={data.teacherName}
+                courseId={data.courseId}
+              ></CourseCard>
+            );
+          })}
         </div>
       </div>
     </>
