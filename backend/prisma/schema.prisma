@@ -15,7 +15,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  email    String
+  email    String @unique
   password String
 
   role Role @default(STUDENT)
@@ -25,6 +25,8 @@ model User {
 
   CoursesOwned    Course[] @relation(name: "instructor")
   CoursesEnrolled Course[] @relation(name: "enrolled")
+
+  @@map("users")
 }
 
 enum Role {
