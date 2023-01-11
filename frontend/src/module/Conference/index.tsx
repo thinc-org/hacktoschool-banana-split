@@ -64,7 +64,7 @@ export default function Conference(props: ConferenceProps) {
         navigator.mediaDevices
           .getUserMedia({
             video: true,
-            audio: false
+            audio: true
           })
           .then((stream) => {
             video.current.srcObject = stream;
@@ -184,7 +184,7 @@ export default function Conference(props: ConferenceProps) {
           // border: "1px solid #000"
         }}
       >
-        <video ref={video} style={{ width: "270px" }} autoPlay />
+        <video ref={video} style={{ width: "270px" }} autoPlay muted />
       </div>
     </>
   );

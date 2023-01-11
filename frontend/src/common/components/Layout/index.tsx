@@ -1,3 +1,4 @@
+import { useLayout } from "common/contexts/LayoutContext";
 import Head from "next/head";
 import { PropsWithChildren } from "react";
 import Footer from "./components/Footer";
@@ -6,6 +7,7 @@ import { useStyles } from "./styles";
 
 const Layout = ({ children }: PropsWithChildren<{}>) => {
   const { classes } = useStyles();
+  const { isHideFooter, isHideNavbar } = useLayout();
   return (
     <div className={classes.LayoutContainer}>
       <Head>
@@ -14,10 +16,12 @@ const Layout = ({ children }: PropsWithChildren<{}>) => {
         </title>
       </Head>
       {/* <Background /> */}
-      <NavBar />
+
+      {!isHideNavbar && <NavBar />}
+
       <div className={classes.ContentContainer}>{children}</div>
-      <Footer />
-      {/* {!isHideFooter && <Footer />} */}
+
+      {!isHideFooter && <Footer />}
     </div>
   );
 };
