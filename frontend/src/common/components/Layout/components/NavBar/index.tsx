@@ -93,7 +93,7 @@ export default function NavBar() {
         <div
           style={{
             position: "absolute",
-            left: "52.5%",
+            left: "50%",
             transform: "translate(-50%,0%)"
           }}
         >
