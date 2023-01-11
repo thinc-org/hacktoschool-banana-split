@@ -1,11 +1,10 @@
-import { Button, Loader, SimpleGrid, Title } from "@mantine/core";
+import { Button, Loader, SimpleGrid, Switch, Text, Title } from "@mantine/core";
 import BodyText from "common/components/BodyText";
 import { socketURL } from "common/const";
 import { useAuth } from "common/contexts/AuthContext";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { createElement, useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
-
 function useSocket(url: string) {
   const [socket, setSocket] = useState<any>(null);
 
@@ -28,8 +27,21 @@ function addVideo(
   userVideoStream: any,
   videoElementWraper: any
 ) {
+  console.log(userVideoStream);
+  const text = document.createElement("h3");
+  text.innerText = "Voice Only";
+  text.style.position = "absolute";
+  // text.style.left = "80%";
+  // text.style.top = "80%";
+  // text.style.transform = "translate(-50%, -50%)";
+  text.style.bottom = "0";
+  text.style.right = "25px";
+  text.style.opacity = "0.1";
+
   videoElement.style.width = "270px";
   videoElementWraper.style.width = "270px";
+  videoElementWraper.style.position = "relative";
+  videoElementWraper.style.border = "0.5px solid #ddd";
   videoElementWraper.style.borderRadius = "15px";
   videoElementWraper.style.height = "180px";
   videoElementWraper.style.display = "block";
@@ -39,11 +51,13 @@ function addVideo(
   videoElementWraper.style.marginRight = "auto";
   videoElement.srcObject = userVideoStream;
   videoElement.autoplay = true;
+  videoElementWraper.appendChild(text);
   videoElementWraper.appendChild(videoElement);
   videosWrapper.current?.appendChild(videoElementWraper);
 }
 interface ConferenceProps {
   roomId: string;
+  useVideo: boolean;
 }
 export default function Conference(props: ConferenceProps) {
   const { user, isReady, isAuthenticated } = useAuth();
@@ -59,8 +73,7 @@ export default function Conference(props: ConferenceProps) {
       </Title>
     );
 
-  const { roomId } = props;
-  console.log("id", roomId);
+  const { roomId, useVideo } = props;
   const peers: any = {};
   const streams: any = {};
   const videos: any = {};
@@ -73,13 +86,12 @@ export default function Conference(props: ConferenceProps) {
       import("peerjs").then(({ default: Peer }) => {
         const peer = new Peer();
         peer.on("open", (id) => {
-          console.log("join", roomId);
           socket.emit("join-room", roomId, id);
         });
 
         navigator.mediaDevices
           .getUserMedia({
-            video: true,
+            video: useVideo,
             audio: true
           })
           .then((stream) => {
@@ -221,6 +233,38 @@ export default function Conference(props: ConferenceProps) {
           ref={videosWrapper}
           sx={{ alignItems: "center", padding: "50px" }}
         ></SimpleGrid>
+        <div style={{ position: "fixed", bottom: "20px", left: "20px" }}>
+          <Button
+            sx={{
+              display: "flex",
+              width: "165",
+              height: "44",
+              background: "#C3DCE3",
+              borderRadius: "100px",
+              marginTop: "32px",
+              marginLeft: "0px",
+              marginRight: "auto",
+              "&:hover": {
+                backgroundColor: "#8BC7D8"
+              }
+            }}
+          >
+            <Link
+              href={`/conference/${!useVideo ? roomId : "voice/" + roomId}`}
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <Text
+                size={"xs"}
+                color="#2B788B"
+                style={{
+                  fontWeight: "700"
+                }}
+              >
+                {useVideo ? "Change to voice only" : "Turn on video"}
+              </Text>
+            </Link>
+          </Button>
+        </div>
         <div
           style={{
             width: "270px",
@@ -231,10 +275,21 @@ export default function Conference(props: ConferenceProps) {
             position: "fixed",
             bottom: "20px",
             right: "20px",
-            borderRadius: "15px"
-            // border: "1px solid #000"
+            borderRadius: "15px",
+            border: "0.5px solid #ddd"
           }}
         >
+          <h3
+            style={{
+              position: "absolute",
+              left: "50%",
+              top: "50%",
+              transform: "translate(-50%, -50%)",
+              zIndex: "-1"
+            }}
+          >
+            Voice only
+          </h3>
           <video ref={video} style={{ width: "270px" }} autoPlay muted />
         </div>
       </div>
