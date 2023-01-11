@@ -20,28 +20,31 @@ function useSocket(url: string) {
   return socket;
 }
 function addVideo(
-  videoElementWraper: any,
   videoElement: any,
   videosWrapper: any,
-  userVideoStream: any
+  userVideoStream: any,
+  videoElementWraper: any
 ) {
-  console.log("addVideo", userVideoStream.id);
+  videoElement.style.width = "270px";
   videoElementWraper.style.width = "270px";
+  videoElementWraper.style.borderRadius = "15px";
   videoElementWraper.style.height = "180px";
   videoElementWraper.style.display = "block";
   videoElementWraper.style.overflow = "hidden";
-  videoElementWraper.style.objectFit = "cover";
-  videoElementWraper.style.position = "fixed";
-  videoElementWraper.style.bottom = "20px";
-  videoElementWraper.style.right = "20px";
-  videoElementWraper.style.border = "1px solid #000";
+  // videoElementWraper.style.border = "1px solid #777";
+  videoElementWraper.style.marginLeft = "auto";
+  videoElementWraper.style.marginRight = "auto";
   videoElement.srcObject = userVideoStream;
   videoElement.autoplay = true;
-
   videoElementWraper.appendChild(videoElement);
-  videosWrapper.current.appendChild(videoElementWraper);
+  videosWrapper.current?.appendChild(videoElementWraper);
 }
-export default function Conference() {
+interface ConferenceProps {
+  roomId: string;
+}
+export default function Conference(props: ConferenceProps) {
+  const { roomId } = props;
+  console.log("id", roomId);
   const peers: any = {};
   const streams: any = {};
   const videos: any = {};
@@ -50,12 +53,11 @@ export default function Conference() {
   const socket = useSocket(socketURL);
 
   useEffect(() => {
-    const roomId = "c4f0ecbf-6ae5-4edd-b84d-d16f1d821496";
-
     if (socket) {
       import("peerjs").then(({ default: Peer }) => {
         const peer = new Peer();
         peer.on("open", (id) => {
+          console.log("join", roomId);
           socket.emit("join-room", roomId, id);
         });
 
@@ -68,18 +70,17 @@ export default function Conference() {
             video.current.srcObject = stream;
             peer.on("call", (call) => {
               call.answer(stream);
-
               const videoElementWraper = document.createElement("div");
               const videoElement = document.createElement("video");
               call.on("stream", (userVideoStream: any) => {
                 addVideo(
-                  videoElementWraper,
                   videoElement,
                   videosWrapper,
-                  userVideoStream
+                  userVideoStream,
+                  videoElementWraper
                 );
                 peers[userVideoStream.id] = call;
-                videos[userVideoStream.id] = videoElement;
+                videos[userVideoStream.id] = videoElementWraper;
 
                 // console.log("peer: (stream)", userVideoStream.id);
               });
@@ -88,26 +89,25 @@ export default function Conference() {
             socket.on("user-connected", (userId: any) => {
               socket.emit("userid-of-stream", peer.id, stream.id);
 
-              console.log("new user connected: " + userId);
+              // console.log("new user connected: " + userId);
               const call = peer.call(userId, stream);
 
               const videoElementWraper = document.createElement("div");
               const videoElement = document.createElement("video");
               call.on("stream", (userVideoStream: any) => {
                 addVideo(
-                  videoElementWraper,
                   videoElement,
                   videosWrapper,
-                  userVideoStream
+                  userVideoStream,
+                  videoElementWraper
                 );
               });
               call.on("close", () => {
                 // console.log("close");
-                videoElement.remove();
+                videoElementWraper.remove();
               });
-
               peers[userId] = call;
-              videos[userId] = videoElement;
+              videos[userId] = videoElementWraper;
               // console.log("peer: (userId)", userId);
             });
 
@@ -163,11 +163,12 @@ export default function Conference() {
         cols={4}
         spacing="lg"
         breakpoints={[
-          { maxWidth: 980, cols: 3, spacing: "md" },
-          { maxWidth: 755, cols: 2, spacing: "sm" },
-          { maxWidth: 600, cols: 1, spacing: "sm" }
+          { maxWidth: 1270, cols: 3, spacing: "xs" },
+          { maxWidth: 1000, cols: 2, spacing: "xs" },
+          { maxWidth: 700, cols: 1, spacing: "xs" }
         ]}
         ref={videosWrapper}
+        sx={{ alignItems: "center", padding: "50px" }}
       ></SimpleGrid>
       <div
         style={{
@@ -179,7 +180,8 @@ export default function Conference() {
           position: "fixed",
           bottom: "20px",
           right: "20px",
-          border: "1px solid #000"
+          borderRadius: "15px"
+          // border: "1px solid #000"
         }}
       >
         <video ref={video} style={{ width: "270px" }} autoPlay />
