@@ -9,8 +9,7 @@ export const useStyles = createStyles((theme) => ({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#F6F5F4",
-    paddingLeft: "50px",
+    backgroundColor: "#F6F5F4"
   },
   ButtonStyle: {
     display: "flex",
@@ -20,6 +19,6 @@ export const useStyles = createStyles((theme) => ({
     borderRadius: "100px",
     marginTop: "32px",
     marginLeft: "0px",
-    marginRight: "auto",
-  },
+    marginRight: "auto"
+  }
 }));

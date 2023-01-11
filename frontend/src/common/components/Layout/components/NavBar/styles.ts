@@ -8,8 +8,9 @@ export const useStyles = createStyles((theme) => ({
     position: "fixed",
     backgroundColor: "#F6F5F4",
     flexDirection: "row",
-    paddingLeft: "200px",
     alignItems: "center",
     gap: "30px",
-  },
+    zIndex: 5,
+    boxShadow: "inset 0px -1px 0px #E0E0E0"
+  }
 }));

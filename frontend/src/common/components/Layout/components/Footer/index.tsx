@@ -12,25 +12,15 @@ export default function Footer() {
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
-        gap: "50px",
+        gap: "50px"
       }}
     >
-      <Box sx={{ width: 90 }}>
-        <NavLink
-          label="Home"
-          component="a"
-          href="/"
-          style={{
-            textAlign: "center",
-          }}
-        ></NavLink>
-      </Box>
-      <Box sx={{ width: 90 }}>
+      {/* <Box sx={{ width: 90 }}>
         <NavLink label="Textbook" style={{ textAlign: "center" }}></NavLink>
       </Box>
       <Box sx={{ width: 90 }}>
         <NavLink label="Statistics" style={{ textAlign: "center" }}></NavLink>
-      </Box>
+      </Box> */}
 
       <div
         style={{
@@ -38,11 +28,22 @@ export default function Footer() {
           height: "30px",
           borderRadius: "50%",
           overflow: "hidden",
-          marginLeft: "20px",
+          marginLeft: "20px"
         }}
       >
         <Image src="/Layout/thinc-logo.png"></Image>
       </div>
+
+      <Box sx={{ width: smallScreen ? 90 : 190 }}>
+        <NavLink
+          label="Banana Split Team"
+          component="a"
+          href="/"
+          style={{
+            textAlign: "center"
+          }}
+        ></NavLink>
+      </Box>
       <div style={{ width: "30px", height: "30px", marginLeft: "20px" }}>
         <Image style={{}} src="/Layout/cleverse-logo.png"></Image>
       </div>

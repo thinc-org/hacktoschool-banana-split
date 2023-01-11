@@ -174,26 +174,28 @@ export default function Conference(props: ConferenceProps) {
           gap: "10px"
         }}
       >
-        <Button
-          sx={{
-            width: "160px",
-            borderRadius: "4px",
-            border: "1px solid #639B6D",
-            backgroundColor: "rgba(0,0,0,0)",
-            "&:hover": {
+        {roomId != "Lobby" && (
+          <Button
+            sx={{
+              width: "160px",
+              borderRadius: "4px",
+              border: "1px solid #639B6D",
               backgroundColor: "rgba(0,0,0,0)",
-              border: "1px solid #58735D"
-            },
-            marginTop: "0px"
-          }}
-        >
-          <Link
-            href={`/course/${roomId}`}
-            style={{ textDecoration: "none", color: "black" }}
+              "&:hover": {
+                backgroundColor: "rgba(0,0,0,0)",
+                border: "1px solid #58735D"
+              },
+              marginTop: "0px"
+            }}
           >
-            <BodyText size="14px">&lt; &nbsp;Back to course</BodyText>
-          </Link>
-        </Button>
+            <Link
+              href={`/course/${roomId}`}
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <BodyText size="14px">&lt; &nbsp;Back to course</BodyText>
+            </Link>
+          </Button>
+        )}
         <SimpleGrid
           cols={4}
           spacing="lg"

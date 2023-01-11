@@ -3,13 +3,25 @@ import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { useMediaQuery } from "@mantine/hooks";
 import { useStyles } from "./styles";
 import { useState } from "react";
+import Link from "next/link";
+import BodyText from "common/components/BodyText";
 
 export default function NavBar() {
   const [expand, setExpand] = useState(1);
   const { classes } = useStyles();
-  const smallScreen = useMediaQuery("(max-width:1400px)");
+  const smallScreen = useMediaQuery("(max-width:1200px)");
+  const xsScreen = useMediaQuery("(max-width:700px)");
   return (
-    <div className={classes.NavBarLayout}>
+    <div
+      className={classes.NavBarLayout}
+      style={{
+        padding: smallScreen
+          ? xsScreen
+            ? "0px 10px"
+            : "0px 50px"
+          : "0px 150px"
+      }}
+    >
       <div
         style={{
           display: expand ? "none" : "flex",
@@ -20,29 +32,31 @@ export default function NavBar() {
           top: "88px",
           backgroundColor: "#F4F4F2",
           justifyContent: "center",
-          alignItems: "center",
-          zIndex: "5",
+          alignItems: "center"
         }}
       >
         <Box
           sx={{
             width: 90,
-            marginLeft: "20px",
+            marginLeft: "20px"
           }}
         >
           <NavLink
             label="Home"
             component="a"
             href="/"
+            target="_self"
             style={{
-              textAlign: "center",
+              textAlign: "center"
             }}
           ></NavLink>
           <NavLink label="Textbook" style={{ textAlign: "center" }}></NavLink>
           <NavLink label="Statistics" style={{ textAlign: "center" }}></NavLink>
         </Box>
       </div>
-      <ActionIcon style={{ display: smallScreen ? "flex" : "none" }}>
+      <ActionIcon
+        style={{ display: smallScreen ? "flex" : "none", marginLeft: "10px" }}
+      >
         <AiOutlineMenu
           color="black"
           size={25}
@@ -56,31 +70,54 @@ export default function NavBar() {
           onClick={() => setExpand(1)}
         />
       </ActionIcon>
-      <div>
-        <Title order={3}>GlobalTalk</Title>
-      </div>
+      {!smallScreen && (
+        <div>
+          <Title order={3}>GlobalTalk</Title>
+        </div>
+      )}
+      {smallScreen && (
+        <div
+          style={{
+            position: "absolute",
+            left: "52.5%",
+            transform: "translate(-50%,0%)"
+          }}
+        >
+          <Title order={4}>GlobalTalk</Title>
+        </div>
+      )}
       <Box
         sx={{
           display: smallScreen ? "none" : "flex",
-          width: 90,
-          marginLeft: "20px",
+          width: 80,
+          marginLeft: "20px"
         }}
       >
-        <NavLink
-          label="Home"
-          component="a"
-          href="/"
-          target="_blank"
-          style={{
-            textAlign: "center",
-          }}
-        ></NavLink>
+        <Link href={`/`} style={{ textDecoration: "none", color: "black" }}>
+          <BodyText size="14px" color="#7B7B7B">
+            Home
+          </BodyText>
+        </Link>
       </Box>
-      <Box sx={{ display: smallScreen ? "none" : "flex", width: 90 }}>
-        <NavLink label="Textbook" style={{ textAlign: "center" }}></NavLink>
+      <Box sx={{ display: smallScreen ? "none" : "flex", width: 80 }}>
+        <Link
+          href={`/course`}
+          style={{ textDecoration: "none", color: "black" }}
+        >
+          <BodyText size="12px" color="#7B7B7B">
+            Course
+          </BodyText>
+        </Link>
       </Box>
-      <Box sx={{ display: smallScreen ? "none" : "flex", width: 90 }}>
-        <NavLink label="Statistics" style={{ textAlign: "center" }}></NavLink>
+      <Box sx={{ display: smallScreen ? "none" : "flex", width: 80 }}>
+        <Link
+          href={`/conference/Lobby`}
+          style={{ textDecoration: "none", color: "black" }}
+        >
+          <BodyText size="14px" color="#7B7B7B">
+            Conference
+          </BodyText>
+        </Link>
       </Box>
       {/* <Box
         sx={{
@@ -102,8 +139,7 @@ export default function NavBar() {
         sx={{
           display: "flex",
           width: 90,
-          marginLeft: "auto",
-          marginRight: "100px",
+          marginLeft: "auto"
         }}
       >
         <NavLink label="Sign Out" style={{ textAlign: "center" }}></NavLink>

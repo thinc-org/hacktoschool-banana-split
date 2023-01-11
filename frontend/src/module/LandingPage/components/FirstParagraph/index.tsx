@@ -13,7 +13,7 @@ export default function FirstParagraph() {
         alignItems: "center",
         width: "100%",
         height: "1000px",
-        gap: "30px",
+        gap: "30px"
       }}
     >
       <div className={classes.FirstContainer}>
@@ -22,6 +22,7 @@ export default function FirstParagraph() {
             minWidth: "550px",
             textAlign: smallScreen ? "center" : "justify",
             justifyContent: smallScreen ? "center" : "justify",
+            padding: "50px"
           }}
         >
           <div>
@@ -32,7 +33,7 @@ export default function FirstParagraph() {
 
           <div
             style={{
-              marginTop: "24px",
+              marginTop: "24px"
             }}
           >
             <Title order={1}>
@@ -45,7 +46,7 @@ export default function FirstParagraph() {
           </div>
           <div
             style={{
-              marginTop: "30px",
+              marginTop: "30px"
             }}
           >
             <BodyText size="sm" color="#757575">
@@ -68,7 +69,7 @@ export default function FirstParagraph() {
           style={{
             maxWidth: "822px",
             maxHeight: "620px",
-            padding: "20px",
+            padding: "20px"
           }}
         >
           <Image

@@ -19,9 +19,7 @@ const Layout = ({ children }: PropsWithChildren<{}>) => {
 
       {!isHideNavbar && <NavBar />}
 
-      <div className={classes.ContentContainer} style={{ zIndex: "-1" }}>
-        {children}
-      </div>
+      <div className={classes.ContentContainer}>{children}</div>
 
       {!isHideFooter && <Footer />}
     </div>
