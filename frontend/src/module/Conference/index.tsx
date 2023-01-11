@@ -1,6 +1,7 @@
-import { Button, SimpleGrid } from "@mantine/core";
+import { Button, Loader, SimpleGrid, Title } from "@mantine/core";
 import BodyText from "common/components/BodyText";
 import { socketURL } from "common/const";
+import { useAuth } from "common/contexts/AuthContext";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
@@ -45,6 +46,19 @@ interface ConferenceProps {
   roomId: string;
 }
 export default function Conference(props: ConferenceProps) {
+  const { user, isReady, isAuthenticated } = useAuth();
+
+  if (!isReady) return <Loader />;
+  if (isReady && !isAuthenticated)
+    return (
+      <Title
+        order={3}
+        sx={{ padding: "50px", marginLeft: "auto", marginRight: "auto" }}
+      >
+        Login or Signup to use conference feature.
+      </Title>
+    );
+
   const { roomId } = props;
   console.log("id", roomId);
   const peers: any = {};
