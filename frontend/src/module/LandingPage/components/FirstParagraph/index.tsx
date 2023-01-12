@@ -90,7 +90,8 @@ export default function FirstParagraph() {
           <Image
             style={{ marginRight: "-150px" }}
             src="/LandingPage/man-and-trees.png"
-          ></Image>
+            alt="man-and-trees"
+          />
         </div>
       </div>
     </MediaQuery>

@@ -48,7 +48,7 @@ export default function ThirdParagraph() {
           </MediaQuery>
         </div>
         <div style={{ maxWidth: "580px", maxHeight: "474px" }}>
-          <Image src="/LandingPage/holding-books.png"></Image>
+          <Image src="/LandingPage/holding-books.png" alt="holding-books" />
         </div>
       </div>
     </MediaQuery>

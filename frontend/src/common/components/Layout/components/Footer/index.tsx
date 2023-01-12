@@ -31,7 +31,7 @@ export default function Footer() {
           marginLeft: "20px"
         }}
       >
-        <Image src="/Layout/thinc-logo.png"></Image>
+        <Image src="/Layout/thinc-logo.png" alt="thinc-logo" />
       </div>
 
       <Box sx={{ width: smallScreen ? 90 : 190 }}>
@@ -45,7 +45,7 @@ export default function Footer() {
         ></NavLink>
       </Box>
       <div style={{ width: "30px", height: "30px", marginLeft: "20px" }}>
-        <Image style={{}} src="/Layout/cleverse-logo.png"></Image>
+        <Image src="/Layout/cleverse-logo.png" alt="cleverse-logo" />
       </div>
     </div>
   );

@@ -19,7 +19,7 @@ export default function ForthParagraph() {
     >
       <div className={classes.FirstContainer}>
         <div style={{ maxWidth: "580px", maxHeight: "474px" }}>
-          <Image src="/LandingPage/together.png"></Image>
+          <Image src="/LandingPage/together.png" alt="together" />
         </div>
         <div
           style={{

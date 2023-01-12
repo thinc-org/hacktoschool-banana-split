@@ -21,7 +21,7 @@ export default function SecondParagraph() {
     >
       <div className={classes.FirstContainer}>
         <div style={{ maxWidth: "580px", maxHeight: "445px" }}>
-          <Image src="/LandingPage/teaching.png"></Image>
+          <Image src="/LandingPage/teaching.png" alt="teaching" />
         </div>
 
         <div style={{ textAlign: smallScreen ? "center" : "justify" }}>
