@@ -20,21 +20,10 @@ export default function StudentDashboard() {
         backgroundColor: "white",
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          height: "84px",
-          width: "80%",
-          background: "#FFFFFF",
-          flexDirection: "row",
-          alignItems: "center",
-          padding: "22px",
-          gap: "12px",
-          borderRadius: "14px",
-        }}
-      >
-        <Title order={4}>Dashboard</Title>
-      </div>
+      <Title order={4} style={{ textAlign: "center" }}>
+        Dashboard
+      </Title>
+
       {datas.map((data) => {
         return (
           <CourseCard

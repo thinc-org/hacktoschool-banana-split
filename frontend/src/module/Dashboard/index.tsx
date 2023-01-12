@@ -9,7 +9,8 @@ export default function Dashboard() {
   // return <StudentDashboard></StudentDashboard>;
   return (
     <div>
-      <InstructorDashboard></InstructorDashboard>
+      {/*<InstructorDashboard></InstructorDashboard>*/}
+      <StudentDashboard></StudentDashboard>
     </div>
   );
 }
