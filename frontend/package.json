@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "docker-up": "docker build -t banana-frontend . && docker run -p 3000:3000 --name  banana-frontend   banana-frontend"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",

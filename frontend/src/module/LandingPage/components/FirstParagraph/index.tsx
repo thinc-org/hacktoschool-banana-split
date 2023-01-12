@@ -1,10 +1,12 @@
 import { Image, Text, Button, Title, MediaQuery } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import BodyText from "common/components/BodyText";
+import Link from "next/link";
 import { useStyles } from "./styles";
 export default function FirstParagraph() {
   const { classes } = useStyles();
   const smallScreen = useMediaQuery("(max-width:1400px)");
+  const xsScreen = useMediaQuery("(max-width:700px)");
   return (
     <MediaQuery
       smallerThan="xl"
@@ -13,7 +15,7 @@ export default function FirstParagraph() {
         alignItems: "center",
         width: "100%",
         height: "1000px",
-        gap: "30px",
+        gap: "30px"
       }}
     >
       <div className={classes.FirstContainer}>
@@ -22,6 +24,7 @@ export default function FirstParagraph() {
             minWidth: "550px",
             textAlign: smallScreen ? "center" : "justify",
             justifyContent: smallScreen ? "center" : "justify",
+            padding: "50px"
           }}
         >
           <div>
@@ -33,6 +36,7 @@ export default function FirstParagraph() {
           <div
             style={{
               marginTop: "24px",
+              padding: xsScreen ? "0px 30px" : "0px"
             }}
           >
             <Title order={1}>
@@ -46,6 +50,7 @@ export default function FirstParagraph() {
           <div
             style={{
               marginTop: "30px",
+              padding: xsScreen ? "0px 30px" : "0px"
             }}
           >
             <BodyText size="sm" color="#757575">
@@ -58,9 +63,20 @@ export default function FirstParagraph() {
             styles={{ marginLeft: "auto", marginRight: "auto" }}
           >
             <Button className={classes.ButtonStyle}>
-              <Text size={"xs"} color="#2B788B" style={{ fontWeight: "700" }}>
-                About platform
-              </Text>
+              <Link
+                href={`/course`}
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                <Text
+                  size={"xs"}
+                  color="#2B788B"
+                  style={{
+                    fontWeight: "700"
+                  }}
+                >
+                  Explore course
+                </Text>
+              </Link>
             </Button>
           </MediaQuery>
         </div>
@@ -68,15 +84,14 @@ export default function FirstParagraph() {
           style={{
             maxWidth: "822px",
             maxHeight: "620px",
-            padding: "20px",
+            padding: "20px"
           }}
         >
           <Image
-            // width={"933px"}
-            // height={"620px"}
             style={{ marginRight: "-150px" }}
             src="/LandingPage/man-and-trees.png"
-          ></Image>
+            alt="man-and-trees"
+          />
         </div>
       </div>
     </MediaQuery>

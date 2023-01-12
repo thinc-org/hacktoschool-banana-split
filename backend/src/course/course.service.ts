@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Role, User } from '@prisma/client';
 import {
   PrismaClientKnownRequestError,
   PrismaClientValidationError,
@@ -13,6 +13,28 @@ const prisma = new PrismaClient();
 export class CourseService {
   async create(createCourseDto: CreateCourseDto) {
     const now = new Date();
+    const instructor = await prisma.user.findUnique({
+      where: {
+        id: createCourseDto.instructorId,
+      },
+    });
+
+    if (!instructor) {
+      return {
+        statusCode: '400',
+        message: 'User with specified instructor id could not be found',
+        error: 'Bad Request',
+      };
+    }
+
+    if (instructor.role != Role.TEACHER)
+      return {
+        statusCode: '400',
+        message:
+          'User with specified instructor id does not have the instructor role',
+        error: 'Bad Request',
+      };
+
     return await prisma.course.create({
       data: {
         createdAt: now,
@@ -30,8 +52,26 @@ export class CourseService {
     });
   }
 
-  async findAll() {
-    return await prisma.course.findMany();
+  async findAll(id: number) {
+    if (id) {
+      const result = await prisma.course.findMany({
+        include: {
+          instructor: true,
+          students: true,
+        },
+      });
+      return result.map((course) => {
+        return {
+          ...course,
+          enrolled: course.students.find((st) => st.id == id) ? true : false,
+        };
+      });
+    }
+    return await prisma.course.findMany({
+      include: {
+        instructor: true,
+      },
+    });
   }
 
   async findOne(id: number) {
@@ -47,6 +87,18 @@ export class CourseService {
   }
 
   async update(id: number, updateCourseDto: UpdateCourseDto) {
+    const conflictCount = await prisma.user.count({
+      where: {
+        CoursesEnrolled: {
+          some: {
+            id: id,
+          },
+        },
+        id: {
+          in: updateCourseDto.userIdsToAdd,
+        },
+      },
+    });
     try {
       return await prisma.course.update({
         data: {
@@ -55,6 +107,9 @@ export class CourseService {
             connect: updateCourseDto.userIdsToAdd
               ? updateCourseDto.userIdsToAdd.map((x) => ({ id: x }))
               : [],
+          },
+          studentsCount: {
+            increment: updateCourseDto.userIdsToAdd.length - conflictCount,
           },
         },
         where: {
@@ -71,7 +126,7 @@ export class CourseService {
       else if (error instanceof PrismaClientKnownRequestError)
         return {
           statusCode: '400',
-          message: 'User with specified user id could not be found',
+          message: 'Some users with specified user ids could not be found',
           error: 'Bad Request',
         };
       else {

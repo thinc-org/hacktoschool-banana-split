@@ -1,4 +1,17 @@
+<<<<<<< HEAD
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request } from '@nestjs/common';
+=======
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
+>>>>>>> 8c1d1315bd7e8a014f3e719ded65f499388e7442
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -20,10 +33,19 @@ export class UserController {
     return this.userService.findAll();
   }
 
-
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.userService.findOne(+id);
+  }
+
+  @Get('student-courses/:id')
+  getStudentCourses(@Param('id') id: string) {
+    return this.userService.getStudentCourses(+id);
+  }
+
+  @Get('instructor-courses/:id')
+  getInstructorCourses(@Param('id') id: string) {
+    return this.userService.getInstructorCourses(+id);
   }
 
   @Patch(':id')
