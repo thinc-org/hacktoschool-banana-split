@@ -109,7 +109,9 @@ export class CourseService {
               : [],
           },
           studentsCount: {
-            increment: updateCourseDto.userIdsToAdd.length - conflictCount,
+            increment: updateCourseDto.userIdsToAdd
+              ? updateCourseDto.userIdsToAdd.length - conflictCount
+              : 0,
           },
         },
         where: {
