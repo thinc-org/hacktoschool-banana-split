@@ -22,7 +22,7 @@ export default function NavBar() {
           ? xsScreen
             ? "0px 10px"
             : "0px 50px"
-          : "0px 150px"
+          : "0px 150px",
       }}
     >
       <div
@@ -40,7 +40,7 @@ export default function NavBar() {
           gap: "20px",
           backdropFilter: "blur(12px)",
           WebkitBackdropFilter: "blur(12px)",
-          zIndex: 5
+          zIndex: 5,
         }}
       >
         <Link
@@ -70,6 +70,15 @@ export default function NavBar() {
             Conference
           </BodyText>
         </Link>
+        <Link
+          href={`/dashboard`}
+          onClick={() => setExpand(false)}
+          style={{ textDecoration: "none", color: "black" }}
+        >
+          <BodyText size="14px" color="#7B7B7B">
+            Dashboard
+          </BodyText>
+        </Link>
       </div>
       <ActionIcon
         style={{ display: smallScreen ? "flex" : "none", marginLeft: "10px" }}
@@ -97,7 +106,7 @@ export default function NavBar() {
           style={{
             position: "absolute",
             left: "50%",
-            transform: "translate(-50%,0%)"
+            transform: "translate(-50%,0%)",
           }}
         >
           <Title order={4}>GlobalTalk</Title>
@@ -107,7 +116,7 @@ export default function NavBar() {
         sx={{
           display: smallScreen ? "none" : "flex",
           width: 80,
-          marginLeft: "20px"
+          marginLeft: "20px",
         }}
       >
         <Link href={`/`} style={{ textDecoration: "none", color: "black" }}>
@@ -136,22 +145,23 @@ export default function NavBar() {
           </BodyText>
         </Link>
       </Box>
-      {/* <Box
+      <Box
         sx={{
           display: smallScreen ? "none" : "flex",
-          width: 120,
+          width: 80,
+          paddingLeft: "40px",
         }}
       >
-        <NavLink
-          label="Games"
-          childrenOffset={28}
-          style={{ textAlign: "center" }}
+        <Link
+          href={`/dashboard`}
+          onClick={() => setExpand(false)}
+          style={{ textDecoration: "none", color: "black" }}
         >
-          <NavLink label="test1" />
-          <NavLink label="test2" />
-        </NavLink>
-      </Box> */}
-      <></>
+          <BodyText size="14px" color="#7B7B7B">
+            Dashboard
+          </BodyText>
+        </Link>
+      </Box>
       {!isReady && (
         <Loader sx={{ marginLeft: "auto" }} color="cyan" size="sm" />
       )}
@@ -164,7 +174,7 @@ export default function NavBar() {
           <Box
             sx={{
               display: "flex",
-              width: 90
+              width: 90,
             }}
           >
             <NavLink
@@ -185,7 +195,7 @@ export default function NavBar() {
             // textDecoration: "none",
             color: "black",
             marginLeft: "auto",
-            marginRight: "10px"
+            marginRight: "10px",
           }}
         >
           <BodyText size="14px" color="#7B7B7B">
