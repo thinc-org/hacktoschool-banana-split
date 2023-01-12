@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request } from '@nestjs/common';
-=======
 import {
   Controller,
   Get,
@@ -10,8 +7,8 @@ import {
   Param,
   Delete,
   UseGuards,
+  Request,
 } from '@nestjs/common';
->>>>>>> 8c1d1315bd7e8a014f3e719ded65f499388e7442
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
