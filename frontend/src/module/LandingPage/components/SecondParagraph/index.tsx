@@ -7,6 +7,7 @@ import { useStyles } from "./styles";
 export default function SecondParagraph() {
   const { classes } = useStyles();
   const smallScreen = useMediaQuery("(max-width:1400px)");
+  const xsScreen = useMediaQuery("(max-width:700px)");
   return (
     <MediaQuery
       smallerThan="xl"
@@ -24,13 +25,22 @@ export default function SecondParagraph() {
         </div>
 
         <div style={{ textAlign: smallScreen ? "center" : "justify" }}>
-          <div>
+          <div
+            style={{
+              padding: xsScreen ? "0px 30px" : "0px"
+            }}
+          >
             <Title>
               Learn with
               <br /> in a playful way
             </Title>
           </div>
-          <div style={{ marginTop: "30px" }}>
+          <div
+            style={{
+              marginTop: "30px",
+              padding: xsScreen ? "0px 30px" : "0px"
+            }}
+          >
             <BodyText size="sm" color="#757575">
               Make learning words more fun with mini-games
             </BodyText>

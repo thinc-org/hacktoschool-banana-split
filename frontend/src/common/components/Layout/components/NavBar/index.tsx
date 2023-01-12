@@ -8,7 +8,7 @@ import BodyText from "common/components/BodyText";
 import { useAuth } from "common/contexts/AuthContext";
 
 export default function NavBar() {
-  const [expand, setExpand] = useState(1);
+  const [expand, setExpand] = useState(false);
   const { classes } = useStyles();
   const smallScreen = useMediaQuery("(max-width:1200px)");
   const xsScreen = useMediaQuery("(max-width:700px)");
@@ -27,24 +27,25 @@ export default function NavBar() {
     >
       <div
         style={{
-          display: expand ? "none" : "flex",
+          display: !expand ? "none" : "flex",
           width: "100vw",
           height: "100vh",
           position: "fixed",
           left: "0",
           top: "88px",
-          backgroundColor: "rgba(244, 244, 242,0.85",
+          backgroundColor: "rgba(244, 244, 242,0.85)",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
           gap: "20px",
           backdropFilter: "blur(12px)",
-          WebkitBackdropFilter: "blur(12px)"
+          WebkitBackdropFilter: "blur(12px)",
+          zIndex: 5
         }}
       >
         <Link
           href={`/`}
-          onClick={() => setExpand(1)}
+          onClick={() => setExpand(false)}
           style={{ textDecoration: "none", color: "black" }}
         >
           <BodyText size="14px" color="#7B7B7B">
@@ -53,7 +54,7 @@ export default function NavBar() {
         </Link>
         <Link
           href={`/course`}
-          onClick={() => setExpand(1)}
+          onClick={() => setExpand(false)}
           style={{ textDecoration: "none", color: "black" }}
         >
           <BodyText size="14px" color="#7B7B7B">
@@ -62,7 +63,7 @@ export default function NavBar() {
         </Link>
         <Link
           href={`/conference/Lobby`}
-          onClick={() => setExpand(1)}
+          onClick={() => setExpand(false)}
           style={{ textDecoration: "none", color: "black" }}
         >
           <BodyText size="14px" color="#7B7B7B">
@@ -76,14 +77,14 @@ export default function NavBar() {
         <AiOutlineMenu
           color="black"
           size={25}
-          style={{ display: expand ? "flex" : "none" }}
-          onClick={() => setExpand(expand ? 0 : 1)}
+          style={{ display: !expand ? "flex" : "none" }}
+          onClick={() => setExpand(!expand)}
         ></AiOutlineMenu>
         <AiOutlineClose
           color="black"
           size={25}
-          style={{ display: !expand ? "flex" : "none" }}
-          onClick={() => setExpand(1)}
+          style={{ display: expand ? "flex" : "none" }}
+          onClick={() => setExpand(!expand)}
         />
       </ActionIcon>
       {!smallScreen && (
@@ -183,11 +184,12 @@ export default function NavBar() {
           style={{
             // textDecoration: "none",
             color: "black",
-            marginLeft: "auto"
+            marginLeft: "auto",
+            marginRight: "10px"
           }}
         >
           <BodyText size="14px" color="#7B7B7B">
-            Login or Signup
+            {xsScreen ? "Login" : "Login or Signup"}
           </BodyText>
         </Link>
       )}

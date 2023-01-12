@@ -6,6 +6,7 @@ import { useStyles } from "./styles";
 export default function FirstParagraph() {
   const { classes } = useStyles();
   const smallScreen = useMediaQuery("(max-width:1400px)");
+  const xsScreen = useMediaQuery("(max-width:700px)");
   return (
     <MediaQuery
       smallerThan="xl"
@@ -34,7 +35,8 @@ export default function FirstParagraph() {
 
           <div
             style={{
-              marginTop: "24px"
+              marginTop: "24px",
+              padding: xsScreen ? "0px 30px" : "0px"
             }}
           >
             <Title order={1}>
@@ -47,7 +49,8 @@ export default function FirstParagraph() {
           </div>
           <div
             style={{
-              marginTop: "30px"
+              marginTop: "30px",
+              padding: xsScreen ? "0px 30px" : "0px"
             }}
           >
             <BodyText size="sm" color="#757575">
