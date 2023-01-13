@@ -8,7 +8,10 @@ import { motion } from "framer-motion";
 export default function LandingPage() {
   return (
     <div>
-      <motion.div>
+      <motion.div
+        initial={{ y: -300, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+      >
         <FirstParagraph />
       </motion.div>
       <SecondParagraph />
