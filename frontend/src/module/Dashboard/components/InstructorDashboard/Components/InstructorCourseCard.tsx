@@ -37,7 +37,12 @@ export default function InstructorCourseCard(props: InstructorCourseCardProps) {
           marginBottom: "10px"
         }}
       >
-        <Title order={5}>{title}</Title>
+        <Link
+          href={`/course/member/${courseID}`}
+          style={{ height: "100%", textDecoration: "none", color: "black" }}
+        >
+          <Title order={5}>{title}</Title>
+        </Link>
       </div>
 
       <div
