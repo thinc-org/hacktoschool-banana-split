@@ -1,8 +1,8 @@
 import { IsNumber, IsString } from 'class-validator';
 
 export class CreateMessageDto {
-  @IsNumber()
-  roomId: number;
+  @IsString()
+  roomId: string;
 
   @IsNumber()
   authorId: number;

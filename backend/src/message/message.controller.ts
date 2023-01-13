@@ -27,7 +27,7 @@ export class MessageController {
 
   @Get('room/:id')
   findAllInRoom(@Param('id') id: string) {
-    return this.messageService.findAllInRoom(+id);
+    return this.messageService.findAllInRoom(id);
   }
 
   @Get(':id')
