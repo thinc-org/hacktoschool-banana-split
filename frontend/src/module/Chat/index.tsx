@@ -8,6 +8,7 @@ import Message, { MessageProps } from "./components/Message";
 import { useAuth } from "common/contexts/AuthContext";
 import axios from "axios";
 import BodyText from "common/components/BodyText";
+import Loading from "module/Loading";
 
 function useSocket(url: string) {
   const [socket, setSocket] = useState<any>(null);
@@ -96,7 +97,7 @@ export default function Chat(props: ChatProps) {
     }
   };
 
-  if (!isReady) return <Title order={1}>Loading...</Title>;
+  if (!isReady) return <Loading />;
   if (!isAuthenticated) return <Title order={1}>Please login to chat</Title>;
   return (
     <div
