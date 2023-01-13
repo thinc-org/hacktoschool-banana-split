@@ -10,6 +10,7 @@ export default function DashboardPage() {
   if (!isReady) return <Title order={1}>Loading...</Title>;
   if (isReady && !isAuthenticated)
     return <Title order={1}>Please log in</Title>;
-  if (user.role == Role.instructor) return <InstructorDashboard />;
+  if (user.role == Role.instructor)
+    return <InstructorDashboard userId={user.userId} />;
   return <StudentDashboard />;
 }

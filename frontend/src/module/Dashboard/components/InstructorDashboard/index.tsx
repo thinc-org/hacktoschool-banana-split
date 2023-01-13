@@ -4,111 +4,55 @@ import {
   Button,
   SimpleGrid,
   TextInput,
-  Title,
+  Title
 } from "@mantine/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InstructorCourseCard from "./Components/InstructorCourseCard";
 import { useStyles } from "./styles";
 import { useMediaQuery } from "@mantine/hooks";
 import CourseBar from "./Components/CourseBar";
+import axios from "axios";
+import { baseApiURL } from "common/const";
 
-export default function InstructorDashboard() {
+interface InstructorDashboardProps {
+  userId: string;
+}
+
+export interface InstructorCourseProps {
+  courseId: string;
+  title: string;
+  desc: string;
+  students: string[];
+}
+
+export default function InstructorDashboard(props: InstructorDashboardProps) {
+  const { userId } = props;
+
   const { classes } = useStyles();
   const smallScreen = useMediaQuery("(max-width:850px)");
-  const [expand, setExpand] = useState(1);
-  const [newCourseName, setCourseName] = useState("");
-  const [newCoursDesc, setCourseDesc] = useState("");
-  const datas = [
-    {
-      courseID: "0",
-      title: "Math",
-      desc: "Math is a subject",
-      students: [
-        "John",
-        "Dai",
-        "Lif",
-        "John",
-        "Dai",
-        "Lif",
-        "John",
-        "Dai",
-        "Lif",
-        "John",
-        "Dai",
-        "Lif",
-      ],
-    },
-    {
-      courseID: "1",
-      title: "English",
-      desc: "English is a subject",
-      students: ["John", "Dai", "Lif", "John", "Dai", "Lif", "John", "Dai"],
-    },
-    {
-      courseID: "2",
-      title: "Math",
-      desc: "Math is a subject",
-      students: [
-        "John",
-        "Dai",
-        "Lif",
-        "John",
-        "Dai",
-        "Lif",
-        "John",
-        "Dai",
-        "Lif",
-      ],
-    },
-    {
-      courseID: "5",
-      title: "Math",
-      desc: "Math is a subject",
-      students: [
-        "John",
-        "Dai",
-        "Lif",
-        "John",
-        "Dai",
-        "Lif",
-        "John",
-        "Dai",
-        "Lif",
-      ],
-    },
-    {
-      courseID: "6",
-      title: "Math",
-      desc: "Math is a subject",
-      students: [
-        "John",
-        "Dai",
-        "Lif",
-        "John",
-        "Dai",
-        "Lif",
-        "John",
-        "Dai",
-        "Lif",
-      ],
-    },
-    {
-      courseID: "7",
-      title: "Math",
-      desc: "Math is a subject",
-      students: [
-        "John",
-        "Dai",
-        "Lif",
-        "John",
-        "Dai",
-        "Lif",
-        "John",
-        "Dai",
-        "Lif",
-      ],
-    },
-  ];
+
+  const [courses, setCourses] = useState<InstructorCourseProps[]>([]);
+
+  useEffect(() => {
+    async function fetchCourses() {
+      console.log(`${baseApiURL}/user/instructor-courses/${userId}`);
+      const res = await axios.get(
+        `${baseApiURL}/user/instructor-courses/${userId}`
+      );
+      const newCourse = res.data.map((course: any) => {
+        const { title, description, id } = course;
+        return {
+          title: title,
+          desc: description,
+          courseId: id,
+          students: []
+        };
+      });
+      setCourses(newCourse);
+    }
+    if (userId) fetchCourses();
+  }, [userId]);
+  console.log(courses);
   return (
     <div
       style={{
@@ -117,7 +61,7 @@ export default function InstructorDashboard() {
         minHeight: "100vh",
         backgroundColor: "#F6F5F4",
         justifyContent: "center",
-        alignItems: "center",
+        alignItems: "center"
       }}
     >
       <div
@@ -128,7 +72,7 @@ export default function InstructorDashboard() {
           alignItems: smallScreen ? "center" : "normal",
           flexDirection: smallScreen ? "column" : "row",
           paddingTop: "40px",
-          gap: "40px",
+          gap: "40px"
         }}
       >
         <SimpleGrid
@@ -137,23 +81,23 @@ export default function InstructorDashboard() {
             { maxWidth: 1200, cols: 4, spacing: "md" },
             { maxWidth: 980, cols: 3, spacing: "md" },
             { maxWidth: 755, cols: 2, spacing: "sm" },
-            { maxWidth: 600, cols: 1, spacing: "sm" },
+            { maxWidth: 600, cols: 1, spacing: "sm" }
           ]}
         >
-          {datas.map((data) => {
+          {courses.map((course) => {
             return (
               <InstructorCourseCard
-                key={data.courseID}
-                title={data.title}
-                desc={data.desc}
-                students={data.students}
-                courseID={data.courseID}
-              ></InstructorCourseCard>
+                key={course.courseId}
+                title={course.title}
+                desc={course.desc}
+                students={course.students}
+                courseID={course.courseId}
+              />
             );
           })}
         </SimpleGrid>
       </div>
-      <CourseBar></CourseBar>
+      <CourseBar userId={userId} setCourses={setCourses} />
     </div>
   );
 }
