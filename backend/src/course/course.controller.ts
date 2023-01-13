@@ -26,7 +26,7 @@ export class CourseController {
   create(@Request() req: any, @Body() createCourseDto: CreateCourseDto) {
     // admin
     const user = req.user;
-    if (user.role != Role.ADMIN) {
+    if (user.role == Role.STUDENT) {
       throw new UnauthorizedException();
     }
     return this.courseService.create(createCourseDto);
