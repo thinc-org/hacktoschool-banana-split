@@ -9,8 +9,9 @@ COPY ./.env ./.env
 COPY ./src/ ./src/
 COPY ./prisma/ ./prisma/
 
-ENV DATABASE_URL="postgresql://postgres:banana@host.docker.internal:5432/banana-db?schema=public"
-RUN npx prisma migrate dev
+ENV DATABASE_URL="postgresql://postgres:xrOsNEW8kLZjwGv9TpjZ@containers-us-west-193.railway.app:7651/railway"
+ENV JWT_SECRET='axzcbasfawerzxclvn'
+RUN npx prisma generate dev
 RUN npm run build
 
 EXPOSE 5000
