@@ -22,7 +22,9 @@ export default function LandingPage() {
       >
         <SecondParagraph />
       </motion.div>
-      <ThirdParagraph />
+      <div>
+        <ThirdParagraph />
+      </div>
       <ForthParagraph />
     </div>
   );
