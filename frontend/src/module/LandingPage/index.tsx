@@ -3,12 +3,14 @@ import ForthParagraph from "./components/ForthParagraph";
 import SecondParagraph from "./components/SecondParagraph";
 import ThirdParagraph from "./components/ThirdParagraph";
 
+import { motion } from "framer-motion";
+
 export default function LandingPage() {
   return (
     <div>
-      <div>
+      <motion.div>
         <FirstParagraph />
-      </div>
+      </motion.div>
       <SecondParagraph />
       <ThirdParagraph />
       <ForthParagraph />
