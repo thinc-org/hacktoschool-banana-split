@@ -7,6 +7,7 @@ export default class Document extends NextDocument {
       <Html lang="en">
         <Head>
           <meta charSet="utf-8" />
+          <link rel="shortcut icon" href="/logo.jpg" />
           <meta name="description" content="Banana Split Team" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />

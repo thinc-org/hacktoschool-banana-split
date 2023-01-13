@@ -1,4 +1,4 @@
-import { Title } from "@mantine/core";
+import { Switch, Title } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import axios from "axios";
 import { baseApiURL } from "common/const";
@@ -17,37 +17,47 @@ export default function Course(props: CourseProps) {
 
   const [search, setSearch] = useState("");
 
+  const [expertSearchEnable, setExpertSearchEnable] = useState(false);
+
+  async function fetchMessages() {
+    console.log(
+      expertSearchEnable,
+      `${baseApiURL}/course${expertSearchEnable ? "/expert" : ""}${
+        userId == "unauth"
+          ? "?msg=" + search
+          : "?id=" + userId + "&msg=" + search
+      }`
+    );
+    const res = await axios.get(
+      `${baseApiURL}/course${expertSearchEnable ? "/expert" : ""}${
+        userId == "unauth"
+          ? "?msg=" + search
+          : "?id=" + userId + "&msg=" + search
+      }`
+    );
+    const newCourse = res.data.map((course: any) => {
+      const { title, description, instructor, id, enrolled } = course;
+      return {
+        title: title,
+        desc: description,
+        teacherName: instructor.name,
+        courseId: id,
+        enrolled: enrolled
+      };
+    });
+    setCourses(newCourse);
+  }
   useEffect(() => {
-    async function fetchMessages() {
-      const res = await axios.get(
-        `${baseApiURL}/course${
-          userId == "unauth"
-            ? "?msg=" + search
-            : "?id=" + userId + "&msg=" + search
-        }`
-      );
-      const newCourse = res.data.map((course: any) => {
-        const { title, description, instructor, id, enrolled } = course;
-        return {
-          title: title,
-          desc: description,
-          teacherName: instructor.name,
-          courseId: id,
-          enrolled: enrolled
-        };
-      });
-      setCourses(newCourse);
-    }
-    fetchMessages();
-  }, [userId, search]);
-  console.log("course with enroll", courses);
+    if (userId) fetchMessages();
+  }, [userId, search, expertSearchEnable]);
+  // console.log("course with enroll", courses);
 
   const smallScreen = useMediaQuery("(max-width:1400px)");
   const xsScreen = useMediaQuery("(max-width:700px)");
 
   const handleSearch = (message: string) => {
     setSearch(message);
-    console.log(message);
+    // console.log(message);
   };
   return (
     <>
@@ -104,11 +114,21 @@ export default function Course(props: CourseProps) {
             }}
           >
             <Title order={5}>Search</Title>
+            {/* <Switch
+              color="black"
+              checked={expertSearchEnable}
+              onChange={(event) =>
+                setExpertSearchEnable(event.currentTarget.checked)
+              }
+              label="Expert Search"
+              sx={{ marginLeft: "auto" }}
+            /> */}
             <InputMessage
               show={true}
               sendMessage={handleSearch}
               roomId={""}
               authorId={""}
+              allowBlank={true}
             />
           </div>
           {courses.map((course) => {

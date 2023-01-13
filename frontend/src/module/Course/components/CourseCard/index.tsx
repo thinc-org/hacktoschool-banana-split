@@ -31,7 +31,7 @@ export default function CourseCard(props: CourseCardProps) {
     const res = await axios.patch(`${baseApiURL}/user/${userId}`, {
       courseIdsToEnroll: [courseId]
     });
-    console.log(res);
+    // console.log(res);
   };
   return (
     <div

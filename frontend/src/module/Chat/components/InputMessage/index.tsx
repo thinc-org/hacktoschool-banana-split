@@ -11,14 +11,22 @@ interface InputMessageProps {
   authorId: string;
   anonymous?: boolean;
   setAnonymous?: Function;
+  allowBlank?: boolean;
 }
 export default function InputMessage(props: InputMessageProps) {
-  const { show, sendMessage, roomId, authorId, setAnonymous, anonymous } =
-    props;
+  const {
+    show,
+    sendMessage,
+    roomId,
+    authorId,
+    setAnonymous,
+    anonymous,
+    allowBlank = false
+  } = props;
   const [message, setMessage] = useState("");
 
   async function handleNewStatus() {
-    if (message == "") return;
+    if (!allowBlank && message == "") return;
     await sendMessage(message);
     setMessage("");
     if (roomId == "" || authorId == "") return;
@@ -28,7 +36,7 @@ export default function InputMessage(props: InputMessageProps) {
         authorId: anonymous ? 666 : Number(authorId),
         content: message
       });
-      console.log(res);
+      // console.log(res);
     } catch (err) {
       console.log(err);
     }

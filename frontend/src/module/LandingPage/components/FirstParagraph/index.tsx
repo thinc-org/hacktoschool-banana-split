@@ -15,7 +15,7 @@ export default function FirstParagraph() {
     async function fetchCount() {
       try {
         const res = await axios.get(`${baseApiURL}/user/count`);
-        console.log(res.data);
+        // console.log(res.data);
         setCount(res.data);
       } catch (e) {
         console.log(e);

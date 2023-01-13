@@ -64,7 +64,7 @@ export default function CourseMember(props: CourseMemberProps) {
       const res = await axios.get(
         `${baseApiURL}/youtube-link/course/${courseId}`
       );
-      console.log(res.data);
+      // console.log(res.data);
       const newYoutubeCard = res.data.map((youtubeCard: any) => {
         const { youtubeId, clipTitle } = youtubeCard;
         return {
@@ -90,7 +90,7 @@ export default function CourseMember(props: CourseMemberProps) {
     }
     if (userId && courseId) fetchCourse();
   }, [userId, courseId]);
-  console.log(youtubeCards);
+  // console.log(youtubeCards);
 
   return (
     <div

@@ -8,6 +8,8 @@ import Message, { MessageProps } from "./components/Message";
 import { useAuth } from "common/contexts/AuthContext";
 import axios from "axios";
 import BodyText from "common/components/BodyText";
+import Loading from "module/Loading";
+import PlsLogin from "module/PlsLogin.tsx";
 
 function useSocket(url: string) {
   const [socket, setSocket] = useState<any>(null);
@@ -31,7 +33,7 @@ interface ChatProps {
 }
 export default function Chat(props: ChatProps) {
   const { roomId } = props;
-  console.log(roomId);
+  // console.log(roomId);
   const socket = useSocket(`${chatSocketURL}`);
 
   const smallScreen = useMediaQuery("(max-width:1400px)");
@@ -60,7 +62,7 @@ export default function Chat(props: ChatProps) {
     fetchMessages();
   }, []);
 
-  console.log("user", user);
+  // console.log("user", user);
 
   const addMessage = (username: string, message: string) => {
     setMessages((prev) => {
@@ -96,8 +98,8 @@ export default function Chat(props: ChatProps) {
     }
   };
 
-  if (!isReady) return <Title order={1}>Loading...</Title>;
-  if (!isAuthenticated) return <Title order={1}>Please login to chat</Title>;
+  if (!isReady) return <Loading />;
+  if (!isAuthenticated) return <PlsLogin />;
   return (
     <div
       style={{

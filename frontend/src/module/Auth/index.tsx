@@ -46,15 +46,15 @@ export function AuthPage(props: PaperProps) {
   });
 
   const register = async () => {
-    console.log(
-      "register",
-      form.values.name,
-      form.values.email,
-      form.values.password,
-      isTeacher
-    );
+    // console.log(
+    //   "register",
+    //   form.values.name,
+    //   form.values.email,
+    //   form.values.password,
+    //   isTeacher
+    // );
 
-    console.log(`${baseApiURL}/auth/signin`);
+    // console.log(`${baseApiURL}/auth/signin`);
     try {
       const res = await axios.post(`${baseApiURL}/auth/signup`, {
         name: form.values.name,

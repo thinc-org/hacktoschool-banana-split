@@ -7,6 +7,7 @@ import { createElement, useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 
 import { motion } from "framer-motion";
+import PlsLogin from "module/PlsLogin.tsx";
 
 function useSocket(url: string) {
   const [socket, setSocket] = useState<any>(null);
@@ -30,7 +31,7 @@ function addVideo(
   userVideoStream: any,
   videoElementWraper: any
 ) {
-  console.log(userVideoStream);
+  // console.log(userVideoStream);
   const text = document.createElement("h3");
   text.innerText = "Voice Only";
   text.style.position = "absolute";
@@ -66,15 +67,7 @@ export default function Conference(props: ConferenceProps) {
   const { user, isReady, isAuthenticated } = useAuth();
 
   if (!isReady) return <Loader />;
-  if (isReady && !isAuthenticated)
-    return (
-      <Title
-        order={3}
-        sx={{ padding: "50px", marginLeft: "auto", marginRight: "auto" }}
-      >
-        Login or Signup to use conference feature.
-      </Title>
-    );
+  if (isReady && !isAuthenticated) return <PlsLogin />;
 
   const { roomId, useVideo } = props;
   const peers: any = {};
@@ -150,17 +143,17 @@ export default function Conference(props: ConferenceProps) {
               else {
                 let check = false;
                 for (let key in streams) {
-                  console.log(key, userId, key === userId);
+                  // console.log(key, userId, key === userId);
                   if (key === userId) {
                     for (let callId in peers) {
-                      console.log(
-                        "inner ",
-                        streams[key],
-                        callId,
-                        streams[key] === callId
-                      );
+                      // console.log(
+                      //   "inner ",
+                      //   streams[key],
+                      //   callId,
+                      //   streams[key] === callId
+                      // );
                       if (streams[key] == callId) {
-                        console.log("found");
+                        // console.log("found");
                         if (peers[callId]) {
                           peers[callId].close();
                           videos[callId].remove();

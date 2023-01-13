@@ -2,6 +2,8 @@ import { Title } from "@mantine/core";
 import BodyText from "common/components/BodyText";
 import { memo } from "react";
 
+import { motion } from "framer-motion";
+
 export interface MessageProps {
   username: string;
   message: string;
@@ -9,7 +11,7 @@ export interface MessageProps {
 function Message(props: MessageProps) {
   const { username, message } = props;
   return (
-    <div
+    <motion.div
       style={{
         display: "flex",
         flexDirection: "column",
@@ -19,12 +21,14 @@ function Message(props: MessageProps) {
         padding: "20px",
         gap: "10px"
       }}
+      initial={{ y: 300, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
     >
       <Title order={4}>{username}</Title>
       <div style={{ paddingLeft: "20px" }}>
         <BodyText>{message}</BodyText>
       </div>
-    </div>
+    </motion.div>
   );
 }
 export default memo(Message);

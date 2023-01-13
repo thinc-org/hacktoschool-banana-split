@@ -1,9 +1,10 @@
 import { useAuth } from "common/contexts/AuthContext";
+import Loading from "module/Loading";
 
 export default function TestAuth() {
   const { user, isReady, isAuthenticated } = useAuth();
-  if (!isReady) return <div>Loading...</div>;
-  console.log(user, isReady, isAuthenticated);
+  if (!isReady) return <Loading />;
+  // console.log(user, isReady, isAuthenticated);
 
   return (
     <div>

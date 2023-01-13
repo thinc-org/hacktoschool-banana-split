@@ -7,7 +7,9 @@ import { motion } from "framer-motion";
 
 export default function LandingPage() {
   return (
-    <div>
+    <div
+      style={{ display: "flex", flexDirection: "column", overflow: "hidden" }}
+    >
       <motion.div
         initial={{ y: -300, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
@@ -22,10 +24,19 @@ export default function LandingPage() {
       >
         <SecondParagraph />
       </motion.div>
-      <div>
+      <motion.div
+        initial={{ x: 300, opacity: 0 }}
+        whileInView={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.4 }}
+      >
         <ThirdParagraph />
-      </div>
-      <ForthParagraph />
+      </motion.div>
+      <motion.div
+        initial={{ y: 300, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+      >
+        <ForthParagraph />
+      </motion.div>
     </div>
   );
 }
