@@ -1,21 +1,41 @@
 import { Image, Text, Button, Title, MediaQuery } from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
+import { useCounter, useMediaQuery } from "@mantine/hooks";
+import { BsLightningFill } from "react-icons/bs";
 import BodyText from "common/components/BodyText";
 import Link from "next/link";
 import { useStyles } from "./styles";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { baseApiURL } from "common/const";
 export default function FirstParagraph() {
   const { classes } = useStyles();
+  const [count, setCount] = useState("");
+
+  useEffect(() => {
+    async function fetchCount() {
+      try {
+        const res = await axios.get(`${baseApiURL}/user/count`);
+        console.log(res.data);
+        setCount(res.data);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    if (count == "") fetchCount();
+  }, []);
+
   const smallScreen = useMediaQuery("(max-width:1400px)");
   const xsScreen = useMediaQuery("(max-width:700px)");
   return (
-    <MediaQuery
-      smallerThan="xl"
-      styles={{
-        flexDirection: "column",
-        alignItems: "center",
+    <div
+      style={{
+        display: "flex",
         width: "100%",
-        height: "1000px",
-        gap: "30px"
+        height: smallScreen ? "1200px" : "740px",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#F6F5F4",
+        flexDirection: smallScreen ? "column" : "row"
       }}
     >
       <div className={classes.FirstContainer}>
@@ -74,26 +94,52 @@ export default function FirstParagraph() {
                     fontWeight: "700"
                   }}
                 >
-                  Explore course
+                  Explore course &gt;
                 </Text>
               </Link>
             </Button>
           </MediaQuery>
-        </div>
-        <div
-          style={{
-            maxWidth: "822px",
-            maxHeight: "620px",
-            padding: "20px"
-          }}
-        >
-          <Image
-            style={{ marginRight: "-150px" }}
-            src="/LandingPage/man-and-trees.png"
-            alt="man-and-trees"
-          />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: smallScreen ? "center" : "normal",
+              paddingTop: "56px"
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row"
+              }}
+            >
+              <BsLightningFill
+                size={35}
+                color="#2B788B"
+                style={{ marginTop: "10px" }}
+              ></BsLightningFill>
+              <Title order={2}>{count}</Title>
+            </div>
+            <BodyText size="sm" color="#585858">
+              User Online
+            </BodyText>
+          </div>
         </div>
       </div>
-    </MediaQuery>
+      <div
+        style={{
+          maxWidth: "822px",
+          maxHeight: "620px",
+          padding: "20px"
+        }}
+      >
+        <Image
+          style={{}}
+          src="/LandingPage/man-and-trees.png"
+          alt="man-and-trees"
+        />
+      </div>
+    </div>
   );
 }

@@ -44,20 +44,21 @@ export default function InstructorDashboard(props: InstructorDashboardProps) {
           }
         }
       );
+      console.log("data", res.data);
       const newCourse = res.data.map((course: any) => {
-        const { title, description, id } = course;
+        const { title, description, id, students } = course;
         return {
           title: title,
           desc: description,
           courseId: id,
-          students: []
+          students: students.map((student: any) => student.name)
         };
       });
       setCourses(newCourse);
     }
     if (userId) fetchCourses();
   }, [userId]);
-  console.log(courses);
+  // console.log(courses);
   return (
     <div
       style={{

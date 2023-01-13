@@ -9,6 +9,6 @@ export default function CourseDetailPage() {
   const { courseId } = router.query;
   if (!courseId || !isReady) return <Title order={1}>Loading...</Title>;
   if (!isAuthenticated)
-    return <Title order={1}>You need to login to access this page</Title>;
+    return <CourseDetail userId={"unauth"} courseId={String(courseId)} />;
   return <CourseDetail userId={user.userId} courseId={String(courseId)} />;
 }

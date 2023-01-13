@@ -9,43 +9,48 @@ export default function Footer() {
         height: "88px",
         width: "100%",
         backgroundColor: "#F6F5F4",
-        flexDirection: "row",
-        justifyContent: "center",
         alignItems: "center",
-        gap: "50px"
+        gap: "50px",
       }}
     >
-      {/* <Box sx={{ width: 90 }}>
-        <NavLink label="Textbook" style={{ textAlign: "center" }}></NavLink>
-      </Box>
-      <Box sx={{ width: 90 }}>
-        <NavLink label="Statistics" style={{ textAlign: "center" }}></NavLink>
-      </Box> */}
-
       <div
         style={{
-          width: "30px",
-          height: "30px",
-          borderRadius: "50%",
-          overflow: "hidden",
-          marginLeft: "20px"
+          display: "flex",
+          height: "88px",
+          width: "100%",
+          backgroundColor: "#F6F5F4",
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "50px",
         }}
       >
-        <Image src="/Layout/thinc-logo.png" alt="thinc-logo" />
-      </div>
-
-      <Box sx={{ width: smallScreen ? 90 : 190 }}>
-        <NavLink
-          label="Banana Split Team"
-          component="a"
-          href="/"
+        <div
           style={{
-            textAlign: "center"
+            width: "30px",
+            height: "30px",
+            borderRadius: "50%",
+            overflow: "hidden",
+            marginLeft: "20px",
           }}
-        ></NavLink>
-      </Box>
-      <div style={{ width: "30px", height: "30px", marginLeft: "20px" }}>
-        <Image src="/Layout/cleverse-logo.png" alt="cleverse-logo" />
+        >
+          <Image src="/Layout/thinc-logo.png" alt="thinc-logo" />
+        </div>
+
+        <Box sx={{ width: smallScreen ? 90 : 190 }}>
+          <NavLink
+            label="Banana Split Team"
+            component="a"
+            href="/"
+            color="#585858"
+            style={{
+              textAlign: "center",
+            }}
+          ></NavLink>
+        </Box>
+        <div style={{ width: "30px", height: "30px" }}>
+          <Image src="/Layout/cleverse-logo.png" alt="cleverse-logo" />
+        </div>
       </div>
     </div>
   );

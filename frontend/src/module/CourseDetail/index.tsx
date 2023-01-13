@@ -2,6 +2,7 @@ import { Button, Title } from "@mantine/core";
 import axios from "axios";
 import BodyText from "common/components/BodyText";
 import { baseApiURL } from "common/const";
+import { useAuth } from "common/contexts/AuthContext";
 import { CourseCardProps } from "module/Course/components/CourseCard";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -14,6 +15,8 @@ interface CourseDetailProps {
 export default function CourseDetail(props: CourseDetailProps) {
   const { courseId, userId } = props;
 
+  const { isAuthenticated } = useAuth();
+
   const [course, setCourse] = useState<CourseCardProps>();
 
   const teacherName = course?.teacherName;
@@ -23,11 +26,17 @@ export default function CourseDetail(props: CourseDetailProps) {
   const [isEnroll, setIsEnroll] = useState(enrolled);
 
   useEffect(() => {
+    setIsEnroll(enrolled);
+  }, [enrolled]);
+
+  useEffect(() => {
     const handleEnroll = async () => {};
     async function fetchCourse() {
       try {
         const res = await axios.get(
-          `${baseApiURL}/course/${courseId}/${userId}`
+          `${baseApiURL}/course/${courseId}${
+            userId != "unauth" ? "/" + userId : ""
+          }`
         );
         const newCourse = {
           title: res.data.title,
@@ -98,7 +107,7 @@ export default function CourseDetail(props: CourseDetailProps) {
       </div>
       <BodyText size="16px">Teacher: &nbsp;{teacherName}</BodyText>
       <BodyText size="16px">description: &nbsp;{desc}</BodyText>
-      {!isEnroll && (
+      {!isEnroll && isAuthenticated && (
         <Button
           sx={{
             width: "100px",

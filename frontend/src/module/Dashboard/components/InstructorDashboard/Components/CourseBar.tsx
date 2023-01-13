@@ -20,10 +20,13 @@ export default function CourseBar(props: CourseBarProps) {
   const [newCoursDesc, setCourseDesc] = useState("");
   const smallScreen = useMediaQuery("(max-width:1400px)");
 
-  let id = -1;
+  const [id, setId] = useState(-1);
 
   const createNewCourse = async () => {
     if (!newCourseName || !newCoursDesc) return;
+    setCourseName("");
+    setCourseDesc("");
+    setExpand(1);
     setCourses((prev: any) => [
       ...prev,
       {
@@ -33,7 +36,7 @@ export default function CourseBar(props: CourseBarProps) {
         courseId: String(id)
       }
     ]);
-    id--;
+    setId(id - 1);
     const token = localStorage.getItem("token");
     const res = await axios.post(
       `${baseApiURL}/course`,
@@ -48,9 +51,6 @@ export default function CourseBar(props: CourseBarProps) {
         }
       }
     );
-    setCourseName("");
-    setCourseDesc("");
-    setExpand(1);
   };
   return (
     <div
