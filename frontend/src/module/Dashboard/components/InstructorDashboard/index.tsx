@@ -4,7 +4,7 @@ import {
   Button,
   SimpleGrid,
   TextInput,
-  Title
+  Title,
 } from "@mantine/core";
 import { useEffect, useState } from "react";
 import InstructorCourseCard from "./Components/InstructorCourseCard";
@@ -40,8 +40,8 @@ export default function InstructorDashboard(props: InstructorDashboardProps) {
         `${baseApiURL}/user/instructor-courses/${userId}`,
         {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       console.log("data", res.data);
@@ -51,7 +51,7 @@ export default function InstructorDashboard(props: InstructorDashboardProps) {
           title: title,
           desc: description,
           courseId: id,
-          students: students.map((student: any) => student.name)
+          students: students.map((student: any) => student.name),
         };
       });
       setCourses(newCourse);
@@ -67,7 +67,7 @@ export default function InstructorDashboard(props: InstructorDashboardProps) {
         minHeight: "100vh",
         backgroundColor: "#F6F5F4",
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
       }}
     >
       <div
@@ -78,7 +78,7 @@ export default function InstructorDashboard(props: InstructorDashboardProps) {
           alignItems: smallScreen ? "center" : "normal",
           flexDirection: smallScreen ? "column" : "row",
           paddingTop: "40px",
-          gap: "40px"
+          gap: "40px",
         }}
       >
         <SimpleGrid
@@ -87,7 +87,7 @@ export default function InstructorDashboard(props: InstructorDashboardProps) {
             { maxWidth: 1200, cols: 4, spacing: "md" },
             { maxWidth: 980, cols: 3, spacing: "md" },
             { maxWidth: 755, cols: 2, spacing: "sm" },
-            { maxWidth: 600, cols: 1, spacing: "sm" }
+            { maxWidth: 600, cols: 1, spacing: "sm" },
           ]}
         >
           {courses.map((course) => {

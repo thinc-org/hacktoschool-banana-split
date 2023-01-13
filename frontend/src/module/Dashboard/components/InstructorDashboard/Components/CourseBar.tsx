@@ -15,7 +15,7 @@ export default function CourseBar(props: CourseBarProps) {
   const { userId, setCourses } = props;
 
   const { classes } = useStyles();
-  const [expand, setExpand] = useState(1);
+  const [expand, setExpand] = useState(true);
   const [newCourseName, setCourseName] = useState("");
   const [newCoursDesc, setCourseDesc] = useState("");
   const smallScreen = useMediaQuery("(max-width:1400px)");
@@ -26,15 +26,15 @@ export default function CourseBar(props: CourseBarProps) {
     if (!newCourseName || !newCoursDesc) return;
     setCourseName("");
     setCourseDesc("");
-    setExpand(1);
+    setExpand(true);
     setCourses((prev: any) => [
       ...prev,
       {
         title: newCourseName,
         desc: newCoursDesc,
         students: [],
-        courseId: String(id)
-      }
+        courseId: String(id),
+      },
     ]);
     setId(id - 1);
     const token = localStorage.getItem("token");
@@ -43,12 +43,12 @@ export default function CourseBar(props: CourseBarProps) {
       {
         title: newCourseName,
         description: newCoursDesc,
-        instructorId: Number(userId)
+        instructorId: Number(userId),
       },
       {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       }
     );
   };
@@ -59,27 +59,27 @@ export default function CourseBar(props: CourseBarProps) {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        paddingTop: "50px"
+        paddingTop: "50px",
       }}
     >
       <ActionIcon
         style={{
           marginLeft: "auto",
           marginRight: "auto",
-          paddingBottom: "50px"
+          paddingBottom: "50px",
         }}
       >
         <AiFillPlusCircle
           color="black"
           size={25}
           style={{ display: expand ? "flex" : "none" }}
-          onClick={() => setExpand(expand ? 0 : 1)}
+          onClick={() => setExpand(expand ? false : true)}
         ></AiFillPlusCircle>
         <AiFillCloseCircle
           color="black"
           size={25}
           style={{ display: !expand ? "flex" : "none" }}
-          onClick={() => setExpand(1)}
+          onClick={() => setExpand(true)}
         />
       </ActionIcon>
       <div
@@ -95,7 +95,7 @@ export default function CourseBar(props: CourseBarProps) {
           flexDirection: smallScreen ? "column" : "row",
           justifyContent: "center",
           alignItems: "center",
-          gap: "10px"
+          gap: "10px",
         }}
       >
         <div style={{ textAlign: "center", marginLeft: "10px" }}>
@@ -123,7 +123,6 @@ export default function CourseBar(props: CourseBarProps) {
           className={classes.ButtonStyle}
           onClick={() => createNewCourse()}
         >
-          {/* ส่งnewCourseName,newCoursDesc คืนให้backend */}
           Create
         </Button>
       </div>
