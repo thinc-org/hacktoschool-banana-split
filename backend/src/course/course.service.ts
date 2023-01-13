@@ -52,9 +52,21 @@ export class CourseService {
     });
   }
 
-  async findAll(id: number) {
+  async findAll(
+    id: number,
+    name: string,
+    teacher: string,
+    description: string,
+  ) {
     if (id) {
       const result = await prisma.course.findMany({
+        where: {
+          title: { contains: name },
+          instructor: {
+            name: { contains: teacher },
+          },
+          description: { contains: description },
+        },
         include: {
           instructor: true,
           students: true,
@@ -68,6 +80,13 @@ export class CourseService {
       });
     }
     return await prisma.course.findMany({
+      where: {
+        title: { contains: name },
+        instructor: {
+          name: { contains: teacher },
+        },
+        description: { contains: description },
+      },
       include: {
         instructor: true,
       },

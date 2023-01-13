@@ -1,8 +1,11 @@
 import { Button, MediaQuery, Title } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
+import axios from "axios";
 import BodyText from "common/components/BodyText";
+import { baseApiURL } from "common/const";
+import { useAuth } from "common/contexts/AuthContext";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ImCheckmark2 } from "react-icons/im";
 
 export interface CourseCardProps {
@@ -16,9 +19,20 @@ export interface CourseCardProps {
 export default function CourseCard(props: CourseCardProps) {
   const { title, desc, teacherName, courseId, enrolled = false } = props;
   const [isEnroll, setIsEnroll] = useState(enrolled);
-  const smallScreen = useMediaQuery("(max-width:850px)");
 
-  const onEnroll = () => {};
+  useEffect(() => {
+    setIsEnroll(enrolled);
+  }, [enrolled]);
+
+  const smallScreen = useMediaQuery("(max-width:850px)");
+  const { user, isReady, isAuthenticated } = useAuth();
+  const userId = user.userId;
+  const onEnroll = async () => {
+    const res = await axios.patch(`${baseApiURL}/user/${userId}`, {
+      courseIdsToEnroll: [courseId]
+    });
+    console.log(res);
+  };
   return (
     <div
       style={{
@@ -75,7 +89,7 @@ export default function CourseCard(props: CourseCardProps) {
           <Title order={5}>{title}</Title>
         </Link>
         <BodyText size="14px">{desc}</BodyText>
-        {!isEnroll && (
+        {!isEnroll && isAuthenticated && (
           <Button
             sx={{
               width: "100px",
