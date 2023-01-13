@@ -43,6 +43,7 @@ export default function InstructorCourseCard(props: InstructorCourseCardProps) {
         >
           <Title order={5}>{title}</Title>
         </Link>
+        <BodyText>Users count: {students.length}</BodyText>
       </div>
 
       <div
