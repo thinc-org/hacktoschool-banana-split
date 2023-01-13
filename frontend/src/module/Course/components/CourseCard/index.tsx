@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { ImCheckmark2 } from "react-icons/im";
 
-interface CourseCardProps {
+export interface CourseCardProps {
   title: string;
   desc: string;
   teacherName: string;
@@ -15,14 +15,10 @@ interface CourseCardProps {
 
 export default function CourseCard(props: CourseCardProps) {
   const { title, desc, teacherName, courseId, enrolled = false } = props;
-  // const teacherName = "Teacher Name";
-  // const title = "Math for daily life";
-  // const desc =
-  //   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-  // const courseId = "MatchDaiLif";
-  // const enrolled = false;
   const [isEnroll, setIsEnroll] = useState(enrolled);
   const smallScreen = useMediaQuery("(max-width:850px)");
+
+  const onEnroll = () => {};
   return (
     <div
       style={{
@@ -35,7 +31,7 @@ export default function CourseCard(props: CourseCardProps) {
         padding: "30px 30px",
         paddingBottom: "20px",
         position: "relative",
-        flexDirection: smallScreen ? "column" : "row",
+        flexDirection: smallScreen ? "column" : "row"
       }}
     >
       {isEnroll && (
@@ -44,7 +40,7 @@ export default function CourseCard(props: CourseCardProps) {
             position: "absolute",
             bottom: "20px",
             right: "20px",
-            color: "#639B6D",
+            color: "#639B6D"
           }}
           fontSize="20px"
         />
@@ -57,7 +53,7 @@ export default function CourseCard(props: CourseCardProps) {
           marginBottom: smallScreen ? "10px" : "0px",
           height: "100%",
           wordBreak: "break-all",
-          marginRight: "20px",
+          marginRight: "20px"
         }}
       >
         <BodyText>{teacherName}</BodyText>
@@ -69,7 +65,7 @@ export default function CourseCard(props: CourseCardProps) {
           width: "100%",
           height: "100%",
           alignSelf: "flex-start",
-          flexDirection: "column",
+          flexDirection: "column"
         }}
       >
         <Link
@@ -86,12 +82,13 @@ export default function CourseCard(props: CourseCardProps) {
               borderRadius: "20px",
               backgroundColor: "#639B6D",
               "&:hover": {
-                backgroundColor: "#58735D",
+                backgroundColor: "#58735D"
               },
-              marginTop: "10px",
+              marginTop: "10px"
             }}
             onClick={() => {
               setIsEnroll(!isEnroll);
+              onEnroll();
             }}
           >
             Enroll

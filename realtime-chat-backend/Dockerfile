@@ -5,5 +5,5 @@ RUN npm install
 
 COPY ./server.js ./server.js
 
-EXPOSE 8000
+EXPOSE 9000
 CMD ["npm", "run", "start"]

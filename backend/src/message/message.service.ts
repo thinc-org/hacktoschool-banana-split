@@ -50,7 +50,7 @@ export class MessageService {
     });
   }
 
-  async findAllInRoom(roomId: number) {
+  async findAllInRoom(roomId: string) {
     return await prisma.message.findMany({
       where: {
         roomId: roomId,

@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+import { baseApiURL } from "common/const";
 import { IUser, Role } from "./types";
 
 interface getUserProfileProp {
@@ -8,14 +9,24 @@ export const getUserProfile = async (
   props: getUserProfileProp
 ): Promise<IUser | null> => {
   const { token } = props;
-  return {
-    name: token,
-    userId: "1",
-    role: Role.student
-  };
+  // console.log(`${baseApiURL}/auth/me`);
+  // axios
+  // .get(`${baseApiURL}/auth/me`, {
+  //   headers: {
+  //     Authorization: `Bearer ${username}`
+  //   }
+  // })
+  //   .then((res) => {
+  //     console.log(res);
+  //   });student
+  // };
   let res: AxiosResponse;
   try {
-    res = await axios.get("/auth/me");
+    res = await axios.get(`${baseApiURL}/auth/me`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
     // apiClient.get<UserDTO>("/auth/me");
   } catch (err) {
     return null;
@@ -28,7 +39,7 @@ function transformUserDTOtoIUser(user: UserDTO) {
   return {
     name: user.name,
     userId: String(user.id),
-    role: user.role == DTORole.STUDENT ? Role.student : Role.instructor
+    role: String(user.role) == "STUDENT" ? Role.student : Role.instructor
   };
 }
 export interface UserDTO {

@@ -1,19 +1,42 @@
 import { Title } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
+import axios from "axios";
+import { baseApiURL } from "common/const";
+import { useEffect, useState } from "react";
 import { BsBook } from "react-icons/bs";
-import CourseCard from "./components/CourseCard";
-export default function Course() {
+import CourseCard, { CourseCardProps } from "./components/CourseCard";
+
+interface CourseProps {
+  userId: string;
+}
+
+export default function Course(props: CourseProps) {
+  const { userId } = props;
+  const [courses, setCourses] = useState<CourseCardProps[]>([]);
+
+  useEffect(() => {
+    async function fetchMessages() {
+      const res = await axios.get(
+        `${baseApiURL}/course${userId == "unauth" ? "" : "?id=" + userId}`
+      );
+      const newCourse = res.data.map((course: any) => {
+        const { title, description, instructor, id } = course;
+        return {
+          title: title,
+          desc: description,
+          teacherName: instructor.name,
+          courseId: id,
+          enrolled: false
+        };
+      });
+      setCourses(newCourse);
+    }
+    fetchMessages();
+  }, [userId]);
+
   const smallScreen = useMediaQuery("(max-width:1400px)");
   const xsScreen = useMediaQuery("(max-width:700px)");
-  const datas = [
-    {
-      title: "Math",
-      desc: "Math is a subject",
-      teacherName: "Mr. John",
-      courseId: "MatchDaiLif",
-      enrolled: false
-    }
-  ];
+
   return (
     <>
       <div
@@ -55,15 +78,16 @@ export default function Course() {
             gap: "10px"
           }}
         >
-          {datas.map((data) => {
+          {courses.map((course) => {
             return (
               <CourseCard
-                title={data.title}
-                desc={data.desc}
-                teacherName={data.teacherName}
-                courseId={data.courseId}
-                key={data.courseId}
-              ></CourseCard>
+                title={course.title}
+                desc={course.desc}
+                teacherName={course.teacherName}
+                courseId={course.courseId}
+                key={course.courseId}
+                enrolled={course.enrolled}
+              />
             );
           })}
         </div>

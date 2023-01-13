@@ -6,6 +6,7 @@ import { useState } from "react";
 import Link from "next/link";
 import BodyText from "common/components/BodyText";
 import { useAuth } from "common/contexts/AuthContext";
+import { Role } from "common/contexts/AuthContext/types";
 
 export default function NavBar() {
   const [expand, setExpand] = useState(false);
@@ -14,6 +15,7 @@ export default function NavBar() {
   const xsScreen = useMediaQuery("(max-width:700px)");
 
   const { user, isReady, isAuthenticated } = useAuth();
+  console.log("user", user);
   return (
     <div
       className={classes.NavBarLayout}
@@ -22,7 +24,7 @@ export default function NavBar() {
           ? xsScreen
             ? "0px 10px"
             : "0px 50px"
-          : "0px 150px",
+          : "0px 150px"
       }}
     >
       <div
@@ -40,7 +42,7 @@ export default function NavBar() {
           gap: "20px",
           backdropFilter: "blur(12px)",
           WebkitBackdropFilter: "blur(12px)",
-          zIndex: 5,
+          zIndex: 5
         }}
       >
         <Link
@@ -106,7 +108,7 @@ export default function NavBar() {
           style={{
             position: "absolute",
             left: "50%",
-            transform: "translate(-50%,0%)",
+            transform: "translate(-50%,0%)"
           }}
         >
           <Title order={4}>GlobalTalk</Title>
@@ -116,7 +118,7 @@ export default function NavBar() {
         sx={{
           display: smallScreen ? "none" : "flex",
           width: 80,
-          marginLeft: "20px",
+          marginLeft: "20px"
         }}
       >
         <Link href={`/`} style={{ textDecoration: "none", color: "black" }}>
@@ -149,7 +151,7 @@ export default function NavBar() {
         sx={{
           display: smallScreen ? "none" : "flex",
           width: 80,
-          paddingLeft: "40px",
+          paddingLeft: "40px"
         }}
       >
         <Link
@@ -169,12 +171,15 @@ export default function NavBar() {
         <>
           {/* <Title order={6} sx={{ marginLeft: "auto" }}>{user.name}</Title> */}
           <Title order={6} sx={{ marginLeft: "auto" }}>
-            {user.role}
+            {user.name}
           </Title>
+          <BodyText>
+            {user.role == Role.student ? " (student)" : " (teacher)"}
+          </BodyText>
           <Box
             sx={{
               display: "flex",
-              width: 90,
+              width: 90
             }}
           >
             <NavLink
@@ -195,7 +200,7 @@ export default function NavBar() {
             // textDecoration: "none",
             color: "black",
             marginLeft: "auto",
-            marginRight: "10px",
+            marginRight: "10px"
           }}
         >
           <BodyText size="14px" color="#7B7B7B">
