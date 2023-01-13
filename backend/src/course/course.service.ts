@@ -86,6 +86,17 @@ export class CourseService {
     });
   }
 
+  async findOneForStudent(id: number) {
+    return await prisma.course.findUnique({
+      where: {
+        id: id,
+      },
+      include: {
+        instructor: true,
+      },
+    });
+  }
+
   async update(id: number, updateCourseDto: UpdateCourseDto) {
     const conflictCount = await prisma.user.count({
       where: {
