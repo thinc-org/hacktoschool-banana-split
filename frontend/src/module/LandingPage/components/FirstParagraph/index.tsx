@@ -4,9 +4,26 @@ import { BsLightningFill } from "react-icons/bs";
 import BodyText from "common/components/BodyText";
 import Link from "next/link";
 import { useStyles } from "./styles";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { baseApiURL } from "common/const";
 export default function FirstParagraph() {
   const { classes } = useStyles();
-  const [count, handlers] = useCounter(0, { min: 0, max: 1000 });
+  const [count, setCount] = useState("");
+
+  useEffect(() => {
+    async function fetchCount() {
+      try {
+        const res = await axios.get(`${baseApiURL}/user/count`);
+        console.log(res.data);
+        setCount(res.data);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    if (count == "") fetchCount();
+  }, []);
+
   const smallScreen = useMediaQuery("(max-width:1400px)");
   const xsScreen = useMediaQuery("(max-width:700px)");
   return (
@@ -18,7 +35,7 @@ export default function FirstParagraph() {
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "#F6F5F4",
-        flexDirection: smallScreen ? "column" : "row",
+        flexDirection: smallScreen ? "column" : "row"
       }}
     >
       <div className={classes.FirstContainer}>
@@ -27,7 +44,7 @@ export default function FirstParagraph() {
             minWidth: "550px",
             textAlign: smallScreen ? "center" : "justify",
             justifyContent: smallScreen ? "center" : "justify",
-            padding: "50px",
+            padding: "50px"
           }}
         >
           <div>
@@ -39,7 +56,7 @@ export default function FirstParagraph() {
           <div
             style={{
               marginTop: "24px",
-              padding: xsScreen ? "0px 30px" : "0px",
+              padding: xsScreen ? "0px 30px" : "0px"
             }}
           >
             <Title order={1}>
@@ -53,7 +70,7 @@ export default function FirstParagraph() {
           <div
             style={{
               marginTop: "30px",
-              padding: xsScreen ? "0px 30px" : "0px",
+              padding: xsScreen ? "0px 30px" : "0px"
             }}
           >
             <BodyText size="sm" color="#757575">
@@ -74,7 +91,7 @@ export default function FirstParagraph() {
                   size={"xs"}
                   color="#2B788B"
                   style={{
-                    fontWeight: "700",
+                    fontWeight: "700"
                   }}
                 >
                   Explore course &gt;
@@ -88,13 +105,13 @@ export default function FirstParagraph() {
               flexDirection: "column",
               justifyContent: "center",
               alignItems: smallScreen ? "center" : "normal",
-              paddingTop: "56px",
+              paddingTop: "56px"
             }}
           >
             <div
               style={{
                 display: "flex",
-                flexDirection: "row",
+                flexDirection: "row"
               }}
             >
               <BsLightningFill
@@ -114,7 +131,7 @@ export default function FirstParagraph() {
         style={{
           maxWidth: "822px",
           maxHeight: "620px",
-          padding: "20px",
+          padding: "20px"
         }}
       >
         <Image
