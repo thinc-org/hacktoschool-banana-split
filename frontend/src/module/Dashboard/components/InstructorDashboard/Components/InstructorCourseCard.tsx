@@ -6,13 +6,14 @@ import Link from "next/link";
 import { ImCheckmark2 } from "react-icons/im";
 
 interface InstructorCourseCardProps {
+  courseID?: String;
   title: String;
   desc: String;
   students: string[];
 }
 
 export default function InstructorCourseCard(props: InstructorCourseCardProps) {
-  const { title, desc, students } = props;
+  const { title, desc, students, courseID } = props;
   const smallScreen = useMediaQuery("(max-width:850px)");
   return (
     <div
@@ -34,7 +35,6 @@ export default function InstructorCourseCard(props: InstructorCourseCardProps) {
           display: "block",
           textAlign: smallScreen ? "center" : "left",
           marginBottom: "10px",
-          height: "100%",
         }}
       >
         <Title order={5}>{title}</Title>
@@ -54,7 +54,7 @@ export default function InstructorCourseCard(props: InstructorCourseCardProps) {
       >
         <Link
           href={`/course/`}
-          style={{ textDecoration: "none", color: "black" }}
+          style={{ height: "100%", textDecoration: "none", color: "black" }}
         >
           {students.map((student) => {
             return <BodyText>{student}</BodyText>;

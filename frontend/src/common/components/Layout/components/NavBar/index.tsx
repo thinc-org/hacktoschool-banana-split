@@ -7,12 +7,14 @@ import Link from "next/link";
 import BodyText from "common/components/BodyText";
 import { useAuth } from "common/contexts/AuthContext";
 import { Role } from "common/contexts/AuthContext/types";
+import { GrUserAdmin } from "react-icons/gr";
+import { HiAcademicCap } from "react-icons/hi";
 
 export default function NavBar() {
   const [expand, setExpand] = useState(false);
   const { classes } = useStyles();
   const smallScreen = useMediaQuery("(max-width:1200px)");
-  const xsScreen = useMediaQuery("(max-width:700px)");
+  const xsScreen = useMediaQuery("(max-width:755px)");
 
   const { user, isReady, isAuthenticated } = useAuth();
   console.log("user", user);
@@ -24,7 +26,7 @@ export default function NavBar() {
           ? xsScreen
             ? "0px 10px"
             : "0px 50px"
-          : "0px 150px"
+          : "0px 150px",
       }}
     >
       <div
@@ -42,7 +44,7 @@ export default function NavBar() {
           gap: "20px",
           backdropFilter: "blur(12px)",
           WebkitBackdropFilter: "blur(12px)",
-          zIndex: 5
+          zIndex: 5,
         }}
       >
         <Link
@@ -103,14 +105,19 @@ export default function NavBar() {
           <Title order={3}>GlobalTalk</Title>
         </div>
       )}
-      {smallScreen && (
+      {smallScreen && !xsScreen && (
         <div
           style={{
             position: "absolute",
             left: "50%",
-            transform: "translate(-50%,0%)"
+            transform: "translate(-50%,0%)",
           }}
         >
+          <Title order={4}>GlobalTalk</Title>
+        </div>
+      )}
+      {xsScreen && (
+        <div style={{ padding: "20px" }}>
           <Title order={4}>GlobalTalk</Title>
         </div>
       )}
@@ -118,7 +125,7 @@ export default function NavBar() {
         sx={{
           display: smallScreen ? "none" : "flex",
           width: 80,
-          marginLeft: "20px"
+          marginLeft: "20px",
         }}
       >
         <Link href={`/`} style={{ textDecoration: "none", color: "black" }}>
@@ -132,7 +139,7 @@ export default function NavBar() {
           href={`/course`}
           style={{ textDecoration: "none", color: "black" }}
         >
-          <BodyText size="12px" color="#7B7B7B">
+          <BodyText size="14px" color="#7B7B7B">
             Course
           </BodyText>
         </Link>
@@ -151,7 +158,7 @@ export default function NavBar() {
         sx={{
           display: smallScreen ? "none" : "flex",
           width: 80,
-          paddingLeft: "40px"
+          marginLeft: "10px",
         }}
       >
         <Link
@@ -169,17 +176,25 @@ export default function NavBar() {
       )}
       {isAuthenticated && (
         <>
-          {/* <Title order={6} sx={{ marginLeft: "auto" }}>{user.name}</Title> */}
-          <Title order={6} sx={{ marginLeft: "auto" }}>
-            {user.name}
-          </Title>
-          <BodyText>
-            {user.role == Role.student ? " (student)" : " (teacher)"}
-          </BodyText>
+          <HiAcademicCap
+            size={20}
+            style={{
+              display: user.role == Role.student ? "flex" : "none",
+              marginLeft: "auto",
+            }}
+          ></HiAcademicCap>
+          <GrUserAdmin
+            size={xsScreen ? 20 : 25}
+            style={{
+              display: user.role == Role.instructor ? "flex" : "none",
+              marginLeft: "auto",
+            }}
+          ></GrUserAdmin>
+          <Title order={6}>{user.name}</Title>
           <Box
             sx={{
               display: "flex",
-              width: 90
+              width: 90,
             }}
           >
             <NavLink
@@ -200,7 +215,7 @@ export default function NavBar() {
             // textDecoration: "none",
             color: "black",
             marginLeft: "auto",
-            marginRight: "10px"
+            marginRight: "10px",
           }}
         >
           <BodyText size="14px" color="#7B7B7B">
