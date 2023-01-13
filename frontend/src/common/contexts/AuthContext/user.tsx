@@ -39,7 +39,7 @@ function transformUserDTOtoIUser(user: UserDTO) {
   return {
     name: user.name,
     userId: String(user.id),
-    role: user.role == DTORole.STUDENT ? Role.student : Role.instructor
+    role: String(user.role) == "STUDENT" ? Role.student : Role.instructor
   };
 }
 export interface UserDTO {

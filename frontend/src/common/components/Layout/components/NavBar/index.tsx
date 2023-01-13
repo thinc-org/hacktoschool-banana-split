@@ -15,6 +15,7 @@ export default function NavBar() {
   const xsScreen = useMediaQuery("(max-width:700px)");
 
   const { user, isReady, isAuthenticated } = useAuth();
+  console.log("user", user);
   return (
     <div
       className={classes.NavBarLayout}
