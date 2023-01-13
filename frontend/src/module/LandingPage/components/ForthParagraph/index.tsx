@@ -45,9 +45,14 @@ export default function ForthParagraph() {
             </BodyText>
           </div>
           <MediaQuery smallerThan="xl" styles={{ marginLeft: "auto" }}>
-            <Button className={classes.ButtonStyle}>
+            <Button
+              className={classes.ButtonStyle}
+              onClick={() => {
+                location.href = "/chat";
+              }}
+            >
               <Text size={"xs"} color="#2B788B" style={{ fontWeight: "700" }}>
-                Statistics
+                Chat
               </Text>
             </Button>
           </MediaQuery>
