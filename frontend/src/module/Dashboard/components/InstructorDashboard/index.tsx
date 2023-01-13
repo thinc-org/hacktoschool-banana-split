@@ -35,9 +35,14 @@ export default function InstructorDashboard(props: InstructorDashboardProps) {
 
   useEffect(() => {
     async function fetchCourses() {
-      console.log(`${baseApiURL}/user/instructor-courses/${userId}`);
+      const token = localStorage.getItem("token");
       const res = await axios.get(
-        `${baseApiURL}/user/instructor-courses/${userId}`
+        `${baseApiURL}/user/instructor-courses/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       );
       const newCourse = res.data.map((course: any) => {
         const { title, description, id } = course;
