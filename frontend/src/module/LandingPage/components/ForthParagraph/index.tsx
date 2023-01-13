@@ -31,7 +31,7 @@ export default function ForthParagraph() {
             <Title>
               Great site
               <br /> for live
-              <br /> chat support.
+              <br /> chat feature.
             </Title>
           </div>
           <div
