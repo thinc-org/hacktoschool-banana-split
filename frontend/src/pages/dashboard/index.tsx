@@ -12,5 +12,5 @@ export default function DashboardPage() {
     return <Title order={1}>Please log in</Title>;
   if (user.role == Role.instructor)
     return <InstructorDashboard userId={user.userId} />;
-  return <StudentDashboard />;
+  return <StudentDashboard userId={user.userId} />;
 }
