@@ -60,6 +60,13 @@ export class CourseService {
   ) {
     if (id) {
       const result = await prisma.course.findMany({
+        where: {
+          title: { contains: name },
+          instructor: {
+            name: { contains: teacher },
+          },
+          description: { contains: description },
+        },
         include: {
           instructor: true,
           students: true,
@@ -92,8 +99,22 @@ export class CourseService {
         id: id,
       },
       include: {
-        instructor: true,
-        students: true,
+        instructor: {
+          select: {
+            email: true,
+            id: true,
+            createdAt: true,
+            name: true,
+          },
+        },
+        students: {
+          select: {
+            email: true,
+            id: true,
+            createdAt: true,
+            name: true,
+          },
+        },
       },
     });
   }
@@ -104,7 +125,14 @@ export class CourseService {
         id: id,
       },
       include: {
-        instructor: true,
+        instructor: {
+          select: {
+            email: true,
+            id: true,
+            createdAt: true,
+            name: true,
+          },
+        },
       },
     });
   }
@@ -115,7 +143,14 @@ export class CourseService {
         id: courseId,
       },
       include: {
-        instructor: true,
+        instructor: {
+          select: {
+            email: true,
+            id: true,
+            createdAt: true,
+            name: true,
+          },
+        },
         students: {
           where: {
             id: userId,
