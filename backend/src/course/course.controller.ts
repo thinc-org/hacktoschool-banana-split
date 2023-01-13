@@ -37,13 +37,12 @@ export class CourseController {
     return this.courseService.findAll(+id);
   }
 
-  @UseGuards(AuthGuard('jwt'))
   @Get(':id')
   findOne(@Request() req: any, @Param('id') id: string) {
     // teacher, admin: every information
     // student: hide other student info
     const user = req.user;
-    if (user.role == Role.STUDENT) {
+    if (user.role == null || user.role == Role.STUDENT) {
       return this.courseService.findOneForStudent(+id);
     }
 
