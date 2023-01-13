@@ -21,6 +21,8 @@ function Message(props: MessageProps) {
         padding: "20px",
         gap: "10px"
       }}
+      initial={{ y: 300, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
     >
       <Title order={4}>{username}</Title>
       <div style={{ paddingLeft: "20px" }}>
