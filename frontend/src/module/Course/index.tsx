@@ -40,14 +40,14 @@ export default function Course(props: CourseProps) {
     }
     fetchMessages();
   }, [userId, search]);
-  console.log("course with enroll", courses);
+  // console.log("course with enroll", courses);
 
   const smallScreen = useMediaQuery("(max-width:1400px)");
   const xsScreen = useMediaQuery("(max-width:700px)");
 
   const handleSearch = (message: string) => {
     setSearch(message);
-    console.log(message);
+    // console.log(message);
   };
   return (
     <>

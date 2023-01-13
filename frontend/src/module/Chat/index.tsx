@@ -33,7 +33,7 @@ interface ChatProps {
 }
 export default function Chat(props: ChatProps) {
   const { roomId } = props;
-  console.log(roomId);
+  // console.log(roomId);
   const socket = useSocket(`${chatSocketURL}`);
 
   const smallScreen = useMediaQuery("(max-width:1400px)");
@@ -62,7 +62,7 @@ export default function Chat(props: ChatProps) {
     fetchMessages();
   }, []);
 
-  console.log("user", user);
+  // console.log("user", user);
 
   const addMessage = (username: string, message: string) => {
     setMessages((prev) => {

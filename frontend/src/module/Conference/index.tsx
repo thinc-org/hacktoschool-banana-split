@@ -31,7 +31,7 @@ function addVideo(
   userVideoStream: any,
   videoElementWraper: any
 ) {
-  console.log(userVideoStream);
+  // console.log(userVideoStream);
   const text = document.createElement("h3");
   text.innerText = "Voice Only";
   text.style.position = "absolute";
@@ -143,17 +143,17 @@ export default function Conference(props: ConferenceProps) {
               else {
                 let check = false;
                 for (let key in streams) {
-                  console.log(key, userId, key === userId);
+                  // console.log(key, userId, key === userId);
                   if (key === userId) {
                     for (let callId in peers) {
-                      console.log(
-                        "inner ",
-                        streams[key],
-                        callId,
-                        streams[key] === callId
-                      );
+                      // console.log(
+                      //   "inner ",
+                      //   streams[key],
+                      //   callId,
+                      //   streams[key] === callId
+                      // );
                       if (streams[key] == callId) {
-                        console.log("found");
+                        // console.log("found");
                         if (peers[callId]) {
                           peers[callId].close();
                           videos[callId].remove();

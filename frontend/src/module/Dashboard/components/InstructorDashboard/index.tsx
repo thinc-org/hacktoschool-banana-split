@@ -44,7 +44,7 @@ export default function InstructorDashboard(props: InstructorDashboardProps) {
           },
         }
       );
-      console.log("data", res.data);
+      // console.log("data", res.data);
       const newCourse = res.data.map((course: any) => {
         const { title, description, id, students } = course;
         return {

@@ -30,7 +30,7 @@ export default function StudentDashboard(props: StudentDashboardProps) {
           }
         }
       );
-      console.log(res);
+      // console.log(res);
       const newCourse = res.data.map((course: any) => {
         const { title, description, instructor, id } = course;
         return {
@@ -45,7 +45,7 @@ export default function StudentDashboard(props: StudentDashboardProps) {
     if (token) fetchMessages();
   }, [userId, token]);
 
-  console.log(courses);
+  // console.log(courses);
   return (
     <div
       style={{

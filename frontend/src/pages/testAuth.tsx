@@ -4,7 +4,7 @@ import Loading from "module/Loading";
 export default function TestAuth() {
   const { user, isReady, isAuthenticated } = useAuth();
   if (!isReady) return <Loading />;
-  console.log(user, isReady, isAuthenticated);
+  // console.log(user, isReady, isAuthenticated);
 
   return (
     <div>

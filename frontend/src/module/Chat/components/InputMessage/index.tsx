@@ -28,7 +28,7 @@ export default function InputMessage(props: InputMessageProps) {
         authorId: anonymous ? 666 : Number(authorId),
         content: message
       });
-      console.log(res);
+      // console.log(res);
     } catch (err) {
       console.log(err);
     }
