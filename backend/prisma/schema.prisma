@@ -47,16 +47,30 @@ model Course {
 
   students User[] @relation(name: "enrolled")
   studentsCount Int @default(0)
+
+  materials CourseMaterial[]
 }
 
 model Message{
   id Int @id @default(autoincrement())
   createdAt DateTime @default(now())
 
-  roomId Int
+  roomId String
 
   author User @relation(fields: [authorId], references: [id])
   authorId Int
 
   content String
+}
+
+model CourseMaterial{
+  id Int @id @default(autoincrement())
+  uploadedAt DateTime @default(now())
+
+  course Course @relation(fields: [courseId], references: [id])
+  courseId Int
+
+  fileName String
+
+  downloadLink String
 }
