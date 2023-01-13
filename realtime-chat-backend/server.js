@@ -39,8 +39,9 @@ io.on("connection", (socket) => {
     socket.on("disconnect", () => {
       socket.to(roomId).emit("user-disconnected", username);
     });
-    socket.on("send-message", (username, message) => {
-      socket.to(roomId).emit("send-message", username, message);
+    socket.on("send-chat-message", (username, message) => {
+      console.log("send-chat-message", username, message);
+      socket.to(roomId).emit("send-chat-message", username, message);
     });
   });
 });
