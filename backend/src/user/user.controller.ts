@@ -75,7 +75,7 @@ export class UserController {
   ) {
     // admin
     const user = req.user;
-    if (user.role != Role.ADMIN) {
+    if (user.id != id) {
       throw new UnauthorizedException();
     }
     return this.userService.update(+id, updateUserDto);

@@ -24,7 +24,7 @@ export class CourseController {
   @UseGuards(AuthGuard('jwt'))
   @Post()
   create(@Request() req: any, @Body() createCourseDto: CreateCourseDto) {
-    // admin
+    // admin & teacher
     const user = req.user;
     if (user.role == Role.STUDENT) {
       throw new UnauthorizedException();
@@ -37,13 +37,12 @@ export class CourseController {
     return this.courseService.findAll(+id);
   }
 
-  @UseGuards(AuthGuard('jwt'))
   @Get(':id')
   findOne(@Request() req: any, @Param('id') id: string) {
     // teacher, admin: every information
     // student: hide other student info
     const user = req.user;
-    if (user.role == Role.STUDENT) {
+    if (user.role == null || user.role == Role.STUDENT) {
       return this.courseService.findOneForStudent(+id);
     }
 
@@ -57,9 +56,9 @@ export class CourseController {
     @Param('id') id: string,
     @Body() updateCourseDto: UpdateCourseDto,
   ) {
-    // admin only
+    // admin & teacher
     const user = req.user;
-    if (user.role != Role.ADMIN) {
+    if (user.role == Role.STUDENT) {
       throw new UnauthorizedException();
     }
 
@@ -69,9 +68,9 @@ export class CourseController {
   @UseGuards(AuthGuard('jwt'))
   @Delete(':id')
   remove(@Request() req: any, @Param('id') id: string) {
-    // admin only
+    // admin & teacher
     const user = req.user;
-    if (user.role != Role.ADMIN) {
+    if (user.role == Role.STUDENT) {
       throw new UnauthorizedException();
     }
 
