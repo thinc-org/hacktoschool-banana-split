@@ -1,21 +1,24 @@
 import { Image, Text, Button, Title, MediaQuery } from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
+import { useCounter, useMediaQuery } from "@mantine/hooks";
+import { BsLightningFill } from "react-icons/bs";
 import BodyText from "common/components/BodyText";
 import Link from "next/link";
 import { useStyles } from "./styles";
 export default function FirstParagraph() {
   const { classes } = useStyles();
+  const [count, handlers] = useCounter(0, { min: 0, max: 1000 });
   const smallScreen = useMediaQuery("(max-width:1400px)");
   const xsScreen = useMediaQuery("(max-width:700px)");
   return (
-    <MediaQuery
-      smallerThan="xl"
-      styles={{
-        flexDirection: "column",
-        alignItems: "center",
+    <div
+      style={{
+        display: "flex",
         width: "100%",
-        height: "1000px",
-        gap: "30px"
+        height: smallScreen ? "1200px" : "740px",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#F6F5F4",
+        flexDirection: smallScreen ? "column" : "row",
       }}
     >
       <div className={classes.FirstContainer}>
@@ -24,7 +27,7 @@ export default function FirstParagraph() {
             minWidth: "550px",
             textAlign: smallScreen ? "center" : "justify",
             justifyContent: smallScreen ? "center" : "justify",
-            padding: "50px"
+            padding: "50px",
           }}
         >
           <div>
@@ -36,7 +39,7 @@ export default function FirstParagraph() {
           <div
             style={{
               marginTop: "24px",
-              padding: xsScreen ? "0px 30px" : "0px"
+              padding: xsScreen ? "0px 30px" : "0px",
             }}
           >
             <Title order={1}>
@@ -50,7 +53,7 @@ export default function FirstParagraph() {
           <div
             style={{
               marginTop: "30px",
-              padding: xsScreen ? "0px 30px" : "0px"
+              padding: xsScreen ? "0px 30px" : "0px",
             }}
           >
             <BodyText size="sm" color="#757575">
@@ -71,29 +74,55 @@ export default function FirstParagraph() {
                   size={"xs"}
                   color="#2B788B"
                   style={{
-                    fontWeight: "700"
+                    fontWeight: "700",
                   }}
                 >
-                  Explore course
+                  Explore course &gt;
                 </Text>
               </Link>
             </Button>
           </MediaQuery>
-        </div>
-        <div
-          style={{
-            maxWidth: "822px",
-            maxHeight: "620px",
-            padding: "20px"
-          }}
-        >
-          <Image
-            style={{ marginRight: "-150px" }}
-            src="/LandingPage/man-and-trees.png"
-            alt="man-and-trees"
-          />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: smallScreen ? "center" : "normal",
+              paddingTop: "56px",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+              }}
+            >
+              <BsLightningFill
+                size={35}
+                color="#2B788B"
+                style={{ marginTop: "10px" }}
+              ></BsLightningFill>
+              <Title order={2}>{count}</Title>
+            </div>
+            <BodyText size="sm" color="#585858">
+              User Online
+            </BodyText>
+          </div>
         </div>
       </div>
-    </MediaQuery>
+      <div
+        style={{
+          maxWidth: "822px",
+          maxHeight: "620px",
+          padding: "20px",
+        }}
+      >
+        <Image
+          style={{}}
+          src="/LandingPage/man-and-trees.png"
+          alt="man-and-trees"
+        />
+      </div>
+    </div>
   );
 }

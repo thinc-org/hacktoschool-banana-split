@@ -9,7 +9,19 @@ export default function DashboardPage() {
   const { user, isReady, isAuthenticated } = useAuth();
   if (!isReady) return <Title order={1}>Loading...</Title>;
   if (isReady && !isAuthenticated)
-    return <Title order={1}>Please log in</Title>;
+    return (
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          textAlign: "center",
+          marginTop: "auto",
+          marginBottom: "auto",
+        }}
+      >
+        <Title order={1}>Please log in or sign up</Title>
+      </div>
+    );
   if (user.role == Role.instructor) return <InstructorDashboard />;
   return <StudentDashboard />;
 }

@@ -5,11 +5,10 @@ export const useStyles = createStyles((theme) => ({
     display: "flex",
     width: "100%",
     height: "740px",
-    alignSelf: "stretch",
-    flexDirection: "row",
+    // flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#F6F5F4"
+    backgroundColor: "#F6F5F4",
   },
   ButtonStyle: {
     display: "flex",
@@ -22,7 +21,7 @@ export const useStyles = createStyles((theme) => ({
     marginRight: "auto",
 
     "&:hover": {
-      backgroundColor: "#8BC7D8"
-    }
-  }
+      backgroundColor: "#8BC7D8",
+    },
+  },
 }));
