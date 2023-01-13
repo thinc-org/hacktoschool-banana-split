@@ -87,7 +87,7 @@ export default function Course(props: CourseProps) {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            paddingTop: "20px",
+            paddingTop: "0px",
             gap: "10px"
           }}
         >
