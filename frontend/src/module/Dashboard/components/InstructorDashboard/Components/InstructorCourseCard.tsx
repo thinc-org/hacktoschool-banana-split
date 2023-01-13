@@ -61,7 +61,7 @@ export default function InstructorCourseCard(props: InstructorCourseCardProps) {
         {students.map((student, index) => {
           return (
             <Link
-              href={`/chat/${courseID}/${student}`}
+              href={`/chat/${courseID}+${student}`}
               style={{ height: "100%", textDecoration: "none", color: "black" }}
               key={"student" + index}
             >

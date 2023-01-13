@@ -26,7 +26,7 @@ export default function NavBar() {
           ? xsScreen
             ? "0px 10px"
             : "0px 50px"
-          : "0px 150px",
+          : "0px 150px"
       }}
     >
       <div
@@ -44,7 +44,7 @@ export default function NavBar() {
           gap: "20px",
           backdropFilter: "blur(12px)",
           WebkitBackdropFilter: "blur(12px)",
-          zIndex: 5,
+          zIndex: 5
         }}
       >
         <Link
@@ -110,22 +110,26 @@ export default function NavBar() {
           style={{
             position: "absolute",
             left: "50%",
-            transform: "translate(-50%,0%)",
+            transform: "translate(-50%,0%)"
           }}
         >
           <Title order={4}>GlobalTalk</Title>
         </div>
       )}
       {xsScreen && (
-        <div style={{ padding: "20px" }}>
-          <Title order={4}>GlobalTalk</Title>
+        <div
+          style={{ padding: "20px", marginRight: "-30px", marginLeft: "-30px" }}
+        >
+          <Title order={4} sx={{ fontSize: "15px", marginTop: "0px" }}>
+            GlobalTalk
+          </Title>
         </div>
       )}
       <Box
         sx={{
           display: smallScreen ? "none" : "flex",
           width: 80,
-          marginLeft: "20px",
+          marginLeft: "20px"
         }}
       >
         <Link href={`/`} style={{ textDecoration: "none", color: "black" }}>
@@ -158,7 +162,7 @@ export default function NavBar() {
         sx={{
           display: smallScreen ? "none" : "flex",
           width: 80,
-          marginLeft: "10px",
+          marginLeft: "10px"
         }}
       >
         <Link
@@ -176,25 +180,36 @@ export default function NavBar() {
       )}
       {isAuthenticated && (
         <>
-          <HiAcademicCap
-            size={20}
+          <div
             style={{
-              display: user.role == Role.student ? "flex" : "none",
-              marginLeft: "auto",
+              display: "flex",
+              flexDirection: "row",
+              gap: "20px",
+              marginLeft: "auto"
             }}
-          ></HiAcademicCap>
-          <FaChalkboardTeacher
-            size={xsScreen ? 20 : 25}
-            style={{
-              display: user.role == Role.instructor ? "flex" : "none",
-              marginLeft: "auto",
-            }}
-          ></FaChalkboardTeacher>
-          <Title order={6}>{user.name}</Title>
+          >
+            <HiAcademicCap
+              size={20}
+              style={{
+                display: user.role == Role.student ? "flex" : "none",
+                marginLeft: "auto"
+              }}
+            ></HiAcademicCap>
+            <FaChalkboardTeacher
+              size={xsScreen ? 20 : 25}
+              style={{
+                display: user.role == Role.instructor ? "flex" : "none",
+                marginLeft: "auto"
+              }}
+            ></FaChalkboardTeacher>
+            <Title order={6} sx={{ marginRight: "-30px" }}>
+              {user.name}
+            </Title>
+          </div>
           <Box
             sx={{
               display: "flex",
-              width: 90,
+              width: 90
             }}
           >
             <NavLink
@@ -215,7 +230,7 @@ export default function NavBar() {
             // textDecoration: "none",
             color: "black",
             marginLeft: "auto",
-            marginRight: "10px",
+            marginRight: "10px"
           }}
         >
           <BodyText size="14px" color="#7B7B7B">
