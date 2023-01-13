@@ -60,6 +60,13 @@ export class CourseService {
   ) {
     if (id) {
       const result = await prisma.course.findMany({
+        where: {
+          title: { contains: name },
+          instructor: {
+            name: { contains: teacher },
+          },
+          description: { contains: description },
+        },
         include: {
           instructor: true,
           students: true,
