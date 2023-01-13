@@ -281,6 +281,7 @@ export default function Conference(props: ConferenceProps) {
             borderRadius: "15px",
             border: "0.5px solid #ddd"
           }}
+          drag
         >
           <h3
             style={{
