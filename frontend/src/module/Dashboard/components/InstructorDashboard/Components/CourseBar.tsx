@@ -34,11 +34,20 @@ export default function CourseBar(props: CourseBarProps) {
       }
     ]);
     id--;
-    const res = await axios.post(`${baseApiURL}/course`, {
-      title: newCourseName,
-      description: newCoursDesc,
-      instructorId: Number(userId)
-    });
+    const token = localStorage.getItem("token");
+    const res = await axios.post(
+      `${baseApiURL}/course`,
+      {
+        title: newCourseName,
+        description: newCoursDesc,
+        instructorId: Number(userId)
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
     setCourseName("");
     setCourseDesc("");
     setExpand(1);
