@@ -282,6 +282,12 @@ export default function Conference(props: ConferenceProps) {
             border: "0.5px solid #ddd"
           }}
           drag
+          dragConstraints={{
+            top: -470,
+            left: -1200,
+            right: 0,
+            bottom: 0
+          }}
         >
           <h3
             style={{
