@@ -25,6 +25,7 @@ export default function LandingPage() {
       <motion.div
         initial={{ x: 300, opacity: 0 }}
         whileInView={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.4 }}
       >
         <ThirdParagraph />
       </motion.div>
