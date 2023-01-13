@@ -49,6 +49,8 @@ model Course {
   studentsCount Int @default(0)
 
   materials CourseMaterial[]
+
+  ytLinks YoutubeLinks[]
 }
 
 model Message{
@@ -73,4 +75,14 @@ model CourseMaterial{
   fileName String
 
   downloadLink String
+}
+
+model YoutubeLinks {
+  id Int @id @default(autoincrement())
+  uploadedAt DateTime @default(now())
+
+  course Course @relation(fields: [courseId], references: [id])
+  courseId Int
+
+  youtubeId String
 }
