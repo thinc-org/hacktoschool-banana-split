@@ -5,12 +5,12 @@ export const useStyles = createStyles((theme) => ({
     display: "flex",
     width: "165",
     height: "44",
-    background: "#C3DCE3",
+    background: "#8BC7D8",
     borderRadius: "100px",
     marginRight: "20px",
-
+    marginTop: "19px",
     "&:hover": {
-      backgroundColor: "#8BC7D8",
-    },
-  },
+      backgroundColor: "#C3DCE3"
+    }
+  }
 }));

@@ -2,12 +2,47 @@ import { AiFillCloseCircle, AiFillPlusCircle } from "react-icons/ai";
 import { ActionIcon, Button, TextInput, Title } from "@mantine/core";
 import { useState } from "react";
 import { useStyles } from "./styles";
+import { useMediaQuery } from "@mantine/hooks";
+import { baseApiURL } from "common/const";
+import axios from "axios";
+import { InstructorCourseProps } from "..";
 
-export default function CourseBar() {
+interface CourseBarProps {
+  userId: string;
+  setCourses: Function;
+}
+export default function CourseBar(props: CourseBarProps) {
+  const { userId, setCourses } = props;
+
   const { classes } = useStyles();
   const [expand, setExpand] = useState(1);
   const [newCourseName, setCourseName] = useState("");
   const [newCoursDesc, setCourseDesc] = useState("");
+  const smallScreen = useMediaQuery("(max-width:1400px)");
+
+  let id = -1;
+
+  const createNewCourse = async () => {
+    if (!newCourseName || !newCoursDesc) return;
+    setCourses((prev: any) => [
+      ...prev,
+      {
+        title: newCourseName,
+        desc: newCoursDesc,
+        students: [],
+        courseId: String(id)
+      }
+    ]);
+    id--;
+    const res = await axios.post(`${baseApiURL}/course`, {
+      title: newCourseName,
+      description: newCoursDesc,
+      instructorId: Number(userId)
+    });
+    setCourseName("");
+    setCourseDesc("");
+    setExpand(1);
+  };
   return (
     <div
       style={{
@@ -15,14 +50,14 @@ export default function CourseBar() {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        paddingTop: "50px",
+        paddingTop: "50px"
       }}
     >
       <ActionIcon
         style={{
           marginLeft: "auto",
           marginRight: "auto",
-          paddingBottom: "50px",
+          paddingBottom: "50px"
         }}
       >
         <AiFillPlusCircle
@@ -41,37 +76,44 @@ export default function CourseBar() {
       <div
         style={{
           display: !expand ? "flex" : "none",
-          width: "60%",
-          height: "80px",
+          width: smallScreen ? "40%" : "60%",
+          padding: "20px",
+          height: "100%",
           borderRadius: "14px",
           backgroundColor: "#FFFFFF",
           marginLeft: "auto",
           marginRight: "auto",
-          flexDirection: "row",
+          flexDirection: smallScreen ? "column" : "row",
           justifyContent: "center",
           alignItems: "center",
-          gap: "7%",
+          gap: "10px"
         }}
       >
         <div style={{ textAlign: "center", marginLeft: "10px" }}>
           <Title order={6}>New Course</Title>
         </div>
         <TextInput
+          sx={{ width: "100%" }}
           placeholder="Enter course name"
           label="Course name"
           value={newCourseName}
           onChange={(event) => setCourseName(event.currentTarget.value)}
           withAsterisk
+          required
         ></TextInput>
         <TextInput
-          sx={{ width: "30%" }}
+          required
+          sx={{ width: "100%" }}
           placeholder="Enter course description"
           label="Course description"
           value={newCoursDesc}
           onChange={(event) => setCourseDesc(event.currentTarget.value)}
         ></TextInput>
 
-        <Button className={classes.ButtonStyle} onClick={() => setExpand(1)}>
+        <Button
+          className={classes.ButtonStyle}
+          onClick={() => createNewCourse()}
+        >
           {/* ส่งnewCourseName,newCoursDesc คืนให้backend */}
           Create
         </Button>
