@@ -18,6 +18,7 @@ export default function LandingPage() {
         initial={{ y: 300, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         style={{ marginTop: "50px" }}
+        transition={{ duration: 0.3 }}
       >
         <SecondParagraph />
       </motion.div>
