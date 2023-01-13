@@ -7,6 +7,7 @@ import { useMediaQuery } from "@mantine/hooks";
 import Message, { MessageProps } from "./components/Message";
 import { useAuth } from "common/contexts/AuthContext";
 import axios from "axios";
+import BodyText from "common/components/BodyText";
 
 function useSocket(url: string) {
   const [socket, setSocket] = useState<any>(null);
@@ -42,6 +43,10 @@ export default function Chat(props: ChatProps) {
 
   const username = user.name;
 
+  const [userCount, setUserCount] = useState(1);
+
+  const [anonymous, setAnonymous] = useState(false);
+
   useEffect(() => {
     async function fetchMessages() {
       const response = await axios.get(`${baseApiURL}/message/room/${roomId}`);
@@ -68,13 +73,26 @@ export default function Chat(props: ChatProps) {
       socket.on("send-chat-message", (username: string, message: string) => {
         addMessage(username, message);
       });
+
+      socket.on("new-user-count", (newUsercount: Number) => {
+        console.log("new user count", newUsercount);
+        setUserCount(Number(newUsercount));
+      });
+      socket.on("user-connected", (newUsercount: Number) => {
+        setUserCount(Number(newUsercount));
+        socket.emit("new-user-count", newUsercount);
+      });
     }
   }, [socket]);
 
   const sendMessage = (message: string) => {
     if (socket) {
-      addMessage(username, message);
-      socket.emit("send-chat-message", username, message);
+      addMessage(anonymous ? "anonymous" : username, message);
+      socket.emit(
+        "send-chat-message",
+        anonymous ? "anonymous" : username,
+        message
+      );
     }
   };
 
@@ -111,6 +129,7 @@ export default function Chat(props: ChatProps) {
         <Title order={4} sx={{ marginBottom: "10px" }}>
           Chat
         </Title>
+        <BodyText>Online Users: {userCount}</BodyText>
         {messages.map((message, index) => {
           return (
             <Message
@@ -130,6 +149,8 @@ export default function Chat(props: ChatProps) {
           sendMessage={sendMessage}
           roomId={roomId}
           authorId={user.userId}
+          anonymous={anonymous}
+          setAnonymous={setAnonymous}
         />
       </div>
     </div>

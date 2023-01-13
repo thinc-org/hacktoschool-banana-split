@@ -39,11 +39,19 @@ io.on("connection", (socket) => {
     socket.to(roomId).emit("user-connected", userCount[roomId]);
 
     socket.on("disconnect", () => {
+      userCount[roomId]--;
       socket.to(roomId).emit("user-disconnected", username);
+      socket.to(roomId).emit("new-user-count", userCount[roomId]);
     });
     socket.on("send-chat-message", (username, message) => {
       console.log("send-chat-message", username, message);
       socket.to(roomId).emit("send-chat-message", username, message);
+    });
+    socket.on("new-user-count", (newUsercount) => {
+      if (newUsercount) {
+        console.log("new-user-count", newUsercount);
+        socket.to(roomId).emit("new-user-count", newUsercount);
+      }
     });
   });
 });

@@ -1,4 +1,4 @@
-import { ActionIcon, TextInput } from "@mantine/core";
+import { ActionIcon, Switch, TextInput } from "@mantine/core";
 import axios from "axios";
 import { baseApiURL } from "common/const";
 import { useState } from "react";
@@ -9,10 +9,14 @@ interface InputMessageProps {
   sendMessage: Function;
   roomId: string;
   authorId: string;
+  anonymous?: boolean;
+  setAnonymous?: Function;
 }
 export default function InputMessage(props: InputMessageProps) {
-  const { show, sendMessage, roomId, authorId } = props;
+  const { show, sendMessage, roomId, authorId, setAnonymous, anonymous } =
+    props;
   const [message, setMessage] = useState("");
+
   async function handleNewStatus() {
     if (message == "") return;
     await sendMessage(message);
@@ -21,7 +25,7 @@ export default function InputMessage(props: InputMessageProps) {
     try {
       const res = await axios.post(`${baseApiURL}/message`, {
         roomId: roomId,
-        authorId: Number(authorId),
+        authorId: anonymous ? 666 : Number(authorId),
         content: message
       });
       console.log(res);
@@ -35,8 +39,16 @@ export default function InputMessage(props: InputMessageProps) {
         event.preventDefault();
         handleNewStatus();
       }}
-      style={{ display: "flex", width: "100%" }}
+      style={{ display: "flex", width: "100%", flexDirection: "column" }}
     >
+      {setAnonymous && (
+        <Switch
+          label="Anonymous"
+          checked={anonymous}
+          onChange={(event) => setAnonymous(event.currentTarget.checked)}
+          color="dark"
+        />
+      )}
       <TextInput
         value={message}
         onChange={(event) => setMessage(event.currentTarget.value)}
