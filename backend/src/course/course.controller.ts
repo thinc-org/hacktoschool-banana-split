@@ -33,8 +33,14 @@ export class CourseController {
   }
 
   @Get()
-  findAll(@Request() req: any, @Query('id') id: string) {
-    return this.courseService.findAll(+id);
+  findAll(
+    @Request() req: any,
+    @Query('id') id: string,
+    @Query('name') name: string,
+    @Query('teacher') teacher: string,
+    @Query('description') description: string,
+  ) {
+    return this.courseService.findAll(+id, name, teacher, description);
   }
 
   @Get(':id')
