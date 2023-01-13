@@ -1,22 +1,48 @@
 import { Button, Title } from "@mantine/core";
+import axios from "axios";
 import BodyText from "common/components/BodyText";
+import { baseApiURL } from "common/const";
+import { CourseCardProps } from "module/Course/components/CourseCard";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ImCheckmark2 } from "react-icons/im";
 
 interface CourseDetailProps {
   courseId: String;
+  userId: String;
 }
 export default function CourseDetail(props: CourseDetailProps) {
-  const { courseId } = props;
+  const { courseId, userId } = props;
 
-  const teacherName = "Teacher Name";
-  const title = "Math for daily life";
-  const desc =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-  const enrolled = false;
+  const [course, setCourse] = useState<CourseCardProps>();
+
+  const teacherName = course?.teacherName;
+  const title = course?.title;
+  const desc = course?.desc;
+  const enrolled = course?.enrolled;
   const [isEnroll, setIsEnroll] = useState(enrolled);
 
+  useEffect(() => {
+    const handleEnroll = async () => {};
+    async function fetchCourse() {
+      try {
+        const res = await axios.get(
+          `${baseApiURL}/course/${courseId}/${userId}`
+        );
+        const newCourse = {
+          title: res.data.title,
+          desc: res.data.description,
+          teacherName: res.data.instructor.name,
+          courseId: res.data.id,
+          enrolled: res.data.enrolled
+        };
+        setCourse(newCourse);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    if (userId && courseId) fetchCourse();
+  }, [userId, courseId]);
   return (
     <div
       style={{

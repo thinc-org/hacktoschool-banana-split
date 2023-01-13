@@ -20,7 +20,7 @@ export default function CourseMember(props: CourseMemberProps) {
   const xsScreen = useMediaQuery("(max-width:700px)");
 
   useEffect(() => {
-    async function fetchMessages() {
+    async function fetchCourse() {
       const res = await axios.get(`${baseApiURL}/course/${courseId}`);
       const newCourse = {
         title: res.data.title,
@@ -30,10 +30,9 @@ export default function CourseMember(props: CourseMemberProps) {
       };
       setCourse(newCourse);
     }
-    if (userId && courseId) fetchMessages();
+    if (userId && courseId) fetchCourse();
   }, [userId, courseId]);
 
-  console.log(course);
   return (
     <div
       style={{
