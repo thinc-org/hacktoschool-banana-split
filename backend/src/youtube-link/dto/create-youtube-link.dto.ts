@@ -6,4 +6,7 @@ export class CreateYoutubeLinkDto {
 
   @IsString()
   youtubeId: string;
+
+  @IsString()
+  clipTitle: string;
 }
