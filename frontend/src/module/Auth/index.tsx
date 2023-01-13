@@ -1,4 +1,4 @@
-import { useToggle, upperFirst } from "@mantine/hooks";
+import { useToggle, upperFirst, useMediaQuery } from "@mantine/hooks";
 import { useForm } from "@mantine/form";
 import { useState } from "react";
 
@@ -25,6 +25,8 @@ import BodyText from "common/components/BodyText";
 export function AuthPage(props: PaperProps) {
   const [type, toggle] = useToggle(["login", "register"]);
   const [isTeacher, setIsTeacher] = useState(false);
+
+  const xsScreen = useMediaQuery("(max-width:755px)");
 
   const [error, setError] = useState("");
   const form = useForm({
@@ -102,10 +104,16 @@ export function AuthPage(props: PaperProps) {
         position: "absolute",
         top: "50%",
         left: "50%",
-        transform: "translate(-50%,-50%) scale(1.2)"
+        transform: `translate(-50%,-50%) scale(1.2)`
       }}
     >
-      <Paper radius="md" p="xl" withBorder {...props}>
+      <Paper
+        radius="md"
+        p="xl"
+        withBorder
+        {...props}
+        sx={{ minWidth: "300px" }}
+      >
         <Text
           size="lg"
           weight={500}
