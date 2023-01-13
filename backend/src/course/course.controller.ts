@@ -40,6 +40,15 @@ export class CourseController {
   ) {
     return this.courseService.findAll(+id, msg);
   }
+  @Get('expert')
+  findAllExpert(
+    @Request() req: any,
+    @Query('id') id: string,
+    @Query('msg') msg: string,
+  ) {
+    return this.courseService.findAllExpert(+id, msg);
+  }
+
 
   @Get(':id')
   findOne(@Request() req: any, @Param('id') id: string) {

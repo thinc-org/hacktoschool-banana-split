@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConsoleLogger, Injectable } from '@nestjs/common';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { PrismaClient, Role, User } from '@prisma/client';
@@ -52,18 +52,62 @@ export class CourseService {
     });
   }
 
+  async findAllExpert(id: number, msg: string) {
+    // expert search
+    const result = await prisma.course.findMany({
+      include: {
+        instructor: { select: { name: true } },
+      },
+    });
+    const courseWithCount = result.map((course) => {
+      return {
+        ...course,
+        subseqCount: 0,
+      };
+    });
+    for (var i = 0; i < result.length; i++) {
+      const teacher = await prisma.user.findUnique({
+        where: {
+          id: result[i].instructorId,
+        },
+      });
+
+      let str = result[i].title + result[i].description + teacher.name;
+      str.toLowerCase();
+      msg.toLowerCase();
+
+      console.log(str);
+      console.log(msg);
+
+      let subseqCount = 0;
+      let msg_len = 0;
+      if (msg) msg_len = msg.length;
+
+      for (var j = 0; j < str.length; j++) {
+        if (subseqCount == msg_len) break;
+        if (str[j] == msg[subseqCount]) subseqCount++;
+      }
+
+      courseWithCount[i].subseqCount = subseqCount;
+    }
+    courseWithCount.sort((a, b) => {
+      return b.subseqCount - a.subseqCount;
+    });
+    return courseWithCount;
+  }
+
   async findAll(id: number, msg: string) {
     if (id) {
       const result = await prisma.course.findMany({
         where: {
           OR: [
-            { title: { contains: msg } },
+            { title: { contains: msg, mode: 'insensitive' } },
             {
               instructor: {
-                name: { contains: msg },
+                name: { contains: msg, mode: 'insensitive' },
               },
             },
-            { description: { contains: msg } },
+            { description: { contains: msg, mode: 'insensitive' } },
           ],
         },
         include: {
