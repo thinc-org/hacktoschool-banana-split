@@ -7,7 +7,6 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { MessageModule } from './message/message.module';
-import { CourseMaterialModule } from './course-material/course-material.module';
 import { YoutubeLinkModule } from './youtube-link/youtube-link.module';
 
 @Module({
@@ -18,7 +17,6 @@ import { YoutubeLinkModule } from './youtube-link/youtube-link.module';
     UserModule,
     ConfigModule.forRoot({ isGlobal: true }),
     MessageModule,
-    CourseMaterialModule,
     YoutubeLinkModule,
   ],
   controllers: [AppController],
