@@ -17,7 +17,15 @@ export class YoutubeLinkController {
 
   @Post()
   create(@Body() createYoutubeLinkDto: CreateYoutubeLinkDto) {
-    return this.youtubeLinkService.create(createYoutubeLinkDto);
+    return this.youtubeLinkService.create(null, createYoutubeLinkDto);
+  }
+
+  @Post('course/:id')
+  createForCourse(
+    @Param('id') id: string,
+    @Body() createYoutubeLinkDto: CreateYoutubeLinkDto,
+  ) {
+    return this.youtubeLinkService.create(+id, createYoutubeLinkDto);
   }
 
   @Get()

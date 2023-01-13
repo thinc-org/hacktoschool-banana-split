@@ -8,10 +8,32 @@ const prisma = new PrismaClient();
 
 @Injectable()
 export class YoutubeLinkService {
-  async create(createYoutubeLinkDto: CreateYoutubeLinkDto) {
-    return await prisma.youtubeLinks.create({
-      data: createYoutubeLinkDto,
-    });
+  async create(
+    courseId: number = null,
+    createYoutubeLinkDto: CreateYoutubeLinkDto,
+  ) {
+    if (courseId) createYoutubeLinkDto.courseId = courseId;
+
+    try {
+      return await prisma.youtubeLinks.create({
+        data: createYoutubeLinkDto,
+      });
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError)
+        return {
+          statusCode: '400',
+          message: 'Course with specified course id could not be found',
+          error: 'Bad Request',
+        };
+      else {
+        console.log(error);
+        return {
+          statusCode: '500',
+          message: 'Some error occured while processing request',
+          error: 'Internal Server Error',
+        };
+      }
+    }
   }
 
   async findAll() {
