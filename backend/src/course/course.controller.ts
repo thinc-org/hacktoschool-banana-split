@@ -32,15 +32,8 @@ export class CourseController {
     return this.courseService.create(createCourseDto);
   }
 
-  @UseGuards(AuthGuard('jwt'))
   @Get()
   findAll(@Request() req: any, @Query('id') id: string) {
-    // admin only
-    const user = req.user;
-    if (user.role != Role.ADMIN) {
-      throw new UnauthorizedException();
-    }
-
     return this.courseService.findAll(+id);
   }
 
