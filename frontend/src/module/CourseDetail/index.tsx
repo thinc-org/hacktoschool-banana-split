@@ -103,11 +103,11 @@ export default function CourseDetail(props: CourseDetailProps) {
           }}
         >
           <Link
-            href={`/conference/${courseId}`}
+            href={`/course/member/${courseId}`}
             style={{ textDecoration: "none", color: "black" }}
           >
             <BodyText size="14px" color="white">
-              Join Class Video Call
+              Go to class
             </BodyText>
           </Link>
         </Button>

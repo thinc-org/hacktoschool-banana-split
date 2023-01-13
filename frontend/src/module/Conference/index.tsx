@@ -215,7 +215,7 @@ export default function Conference(props: ConferenceProps) {
             }}
           >
             <Link
-              href={`/course/${roomId}`}
+              href={`/course/member/${roomId}`}
               style={{ textDecoration: "none", color: "black" }}
             >
               <BodyText size="14px">&lt; &nbsp;Back to course</BodyText>

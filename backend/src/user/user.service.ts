@@ -94,6 +94,25 @@ export class UserService {
 
   async update(id: number, updateUserDto: UpdateUserDto) {
     try {
+      prisma.course
+        .updateMany({
+          data: {
+            studentsCount: {
+              increment: 1,
+            },
+          },
+          where: {
+            id: {
+              in: updateUserDto.courseIdsToEnroll,
+            },
+            students: {
+              none: {
+                id: id,
+              },
+            },
+          },
+        })
+        .then();
       return await prisma.user.update({
         data: {
           ...updateUserDto.data,

@@ -101,9 +101,12 @@ export default function Chat(props: ChatProps) {
           display: "flex",
           alignItems: "center",
           flexDirection: "column",
-          gap: "15px",
-          width: "500px",
-          maxWidth: "90vw"
+          gap: "10px",
+          width: "700px",
+          maxWidth: "90vw",
+          backgroundColor: "#fff",
+          padding: "20px",
+          borderRadius: "14px"
         }}
       >
         <Title order={4} sx={{ marginBottom: "10px" }}>
