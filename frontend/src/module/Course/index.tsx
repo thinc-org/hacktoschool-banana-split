@@ -15,13 +15,15 @@ export default function Course(props: CourseProps) {
   const { userId } = props;
   const [courses, setCourses] = useState<CourseCardProps[]>([]);
 
+  const [search, setSearch] = useState("");
+
   useEffect(() => {
     async function fetchMessages() {
       const res = await axios.get(
         `${baseApiURL}/course${
           userId == "unauth"
-            ? "?name=test&teacher=q&description=&"
-            : "?id=" + userId
+            ? "?msg=" + search
+            : "?id=" + userId + "&msg=" + search
         }`
       );
       const newCourse = res.data.map((course: any) => {
@@ -37,13 +39,14 @@ export default function Course(props: CourseProps) {
       setCourses(newCourse);
     }
     fetchMessages();
-  }, [userId]);
+  }, [userId, search]);
   console.log("course with enroll", courses);
 
   const smallScreen = useMediaQuery("(max-width:1400px)");
   const xsScreen = useMediaQuery("(max-width:700px)");
 
   const handleSearch = (message: string) => {
+    setSearch(message);
     console.log(message);
   };
   return (
