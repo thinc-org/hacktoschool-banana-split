@@ -40,9 +40,14 @@ export default function ThirdParagraph() {
             </BodyText>
           </div>
           <MediaQuery smallerThan="xl" styles={{ marginLeft: "auto" }}>
-            <Button className={classes.ButtonStyle}>
+            <Button
+              className={classes.ButtonStyle}
+              onClick={() => {
+                location.href = "/dashboard";
+              }}
+            >
               <Text size={"xs"} color="#2B788B" style={{ fontWeight: "700" }}>
-                Textbook
+                Dashboard
               </Text>
             </Button>
           </MediaQuery>
