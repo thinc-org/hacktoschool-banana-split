@@ -5,6 +5,9 @@ import { useAuth } from "common/contexts/AuthContext";
 import Link from "next/link";
 import { createElement, useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
+
+import { motion } from "framer-motion";
+
 function useSocket(url: string) {
   const [socket, setSocket] = useState<any>(null);
 
@@ -265,7 +268,7 @@ export default function Conference(props: ConferenceProps) {
             </Link>
           </Button>
         </div>
-        <div
+        <motion.div
           style={{
             width: "270px",
             height: "180px",
@@ -291,7 +294,7 @@ export default function Conference(props: ConferenceProps) {
             Voice only
           </h3>
           <video ref={video} style={{ width: "270px" }} autoPlay muted />
-        </div>
+        </motion.div>
       </div>
     </>
   );
