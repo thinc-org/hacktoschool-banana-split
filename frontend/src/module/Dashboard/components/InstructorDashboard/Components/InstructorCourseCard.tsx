@@ -17,7 +17,7 @@ export default function InstructorCourseCard(props: InstructorCourseCardProps) {
   return (
     <div
       style={{
-        width: "60%",
+        width: "200px",
         height: "100%",
         display: "flex",
         backgroundColor: "white",
@@ -26,18 +26,15 @@ export default function InstructorCourseCard(props: InstructorCourseCardProps) {
         padding: "30px 30px",
         paddingBottom: "20px",
         position: "relative",
-        flexDirection: smallScreen ? "column" : "row",
+        flexDirection: "column",
       }}
     >
       <div
         style={{
           display: "block",
-          width: smallScreen ? "100%" : "100px",
           textAlign: smallScreen ? "center" : "left",
-          marginBottom: smallScreen ? "10px" : "0px",
+          marginBottom: "10px",
           height: "100%",
-          wordBreak: "break-all",
-          marginRight: "20px",
         }}
       >
         <Title order={5}>{title}</Title>
@@ -48,8 +45,11 @@ export default function InstructorCourseCard(props: InstructorCourseCardProps) {
           display: "flex",
           width: "100%",
           height: "100%",
-          alignSelf: "flex-start",
           flexDirection: "column",
+          textAlign: "center",
+          backgroundColor: "#F6F5F4",
+          padding: "20px",
+          borderRadius: "14px",
         }}
       >
         <Link

@@ -24,6 +24,8 @@ model User {
 
   CoursesOwned    Course[] @relation(name: "instructor")
   CoursesEnrolled Course[] @relation(name: "enrolled")
+
+  Messages Message[]
 }
 
 enum Role {
@@ -45,4 +47,16 @@ model Course {
 
   students User[] @relation(name: "enrolled")
   studentsCount Int @default(0)
+}
+
+model Message{
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  roomId Int
+
+  author User @relation(fields: [authorId], references: [id])
+  authorId Int
+
+  content String
 }
