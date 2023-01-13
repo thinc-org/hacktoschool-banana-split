@@ -25,6 +25,11 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
+  @Get('count')
+  getUsersCount() {
+    return this.userService.countAll();
+  }
+
   @UseGuards(AuthGuard('jwt'))
   @Get()
   findAll(@Request() req: any) {
@@ -75,7 +80,7 @@ export class UserController {
   ) {
     // admin
     const user = req.user;
-    if (user.id != id) {
+    if (user && user.id && user.id != id) {
       throw new UnauthorizedException();
     }
     return this.userService.update(+id, updateUserDto);

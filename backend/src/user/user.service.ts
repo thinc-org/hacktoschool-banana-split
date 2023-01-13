@@ -67,6 +67,10 @@ export class UserService {
     });
   }
 
+  async countAll() {
+    return await prisma.user.count();
+  }
+
   async getStudentCourses(studentId: number) {
     return await prisma.course.findMany({
       where: {
