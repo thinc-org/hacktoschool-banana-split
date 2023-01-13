@@ -29,9 +29,9 @@ export default function ForthParagraph() {
         >
           <div>
             <Title>
-              Watch your
-              <br /> progress every
-              <br /> day
+              Great site
+              <br /> for live
+              <br /> chat support.
             </Title>
           </div>
           <div
