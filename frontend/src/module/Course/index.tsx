@@ -2,6 +2,7 @@ import { Title } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import axios from "axios";
 import { baseApiURL } from "common/const";
+import InputMessage from "module/Chat/components/InputMessage";
 import { useEffect, useState } from "react";
 import { BsBook } from "react-icons/bs";
 import CourseCard, { CourseCardProps } from "./components/CourseCard";
@@ -17,7 +18,11 @@ export default function Course(props: CourseProps) {
   useEffect(() => {
     async function fetchMessages() {
       const res = await axios.get(
-        `${baseApiURL}/course${userId == "unauth" ? "" : "?id=" + userId}`
+        `${baseApiURL}/course${
+          userId == "unauth"
+            ? "?name=test&teacher=q&description=&"
+            : "?id=" + userId
+        }`
       );
       const newCourse = res.data.map((course: any) => {
         const { title, description, instructor, id, enrolled } = course;
@@ -38,6 +43,9 @@ export default function Course(props: CourseProps) {
   const smallScreen = useMediaQuery("(max-width:1400px)");
   const xsScreen = useMediaQuery("(max-width:700px)");
 
+  const handleSearch = (message: string) => {
+    console.log(message);
+  };
   return (
     <>
       <div
@@ -69,6 +77,7 @@ export default function Course(props: CourseProps) {
           <BsBook fontSize={40} />
           <Title order={4}>Course</Title>
         </div>
+
         <div
           style={{
             width: xsScreen ? "80%" : "60%",
@@ -79,6 +88,26 @@ export default function Course(props: CourseProps) {
             gap: "10px"
           }}
         >
+          <div
+            style={{
+              display: "flex",
+              width: "100%",
+              height: "auto",
+              flexDirection: "column",
+              margin: "10px 0px",
+              background: "white",
+              padding: "20px",
+              borderRadius: "14px"
+            }}
+          >
+            <Title order={5}>Search</Title>
+            <InputMessage
+              show={true}
+              sendMessage={handleSearch}
+              roomId={""}
+              authorId={""}
+            />
+          </div>
           {courses.map((course) => {
             return (
               <CourseCard
