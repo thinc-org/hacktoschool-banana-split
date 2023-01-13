@@ -35,7 +35,6 @@ export default function InstructorCourseCard(props: InstructorCourseCardProps) {
           display: "block",
           textAlign: smallScreen ? "center" : "left",
           marginBottom: "10px",
-          height: "100%",
         }}
       >
         <Title order={5}>{title}</Title>
@@ -55,7 +54,7 @@ export default function InstructorCourseCard(props: InstructorCourseCardProps) {
       >
         <Link
           href={`/course/`}
-          style={{ textDecoration: "none", color: "black" }}
+          style={{ height: "100%", textDecoration: "none", color: "black" }}
         >
           {students.map((student) => {
             return <BodyText>{student}</BodyText>;
