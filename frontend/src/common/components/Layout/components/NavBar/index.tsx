@@ -7,7 +7,7 @@ import Link from "next/link";
 import BodyText from "common/components/BodyText";
 import { useAuth } from "common/contexts/AuthContext";
 import { Role } from "common/contexts/AuthContext/types";
-import { GrUserAdmin } from "react-icons/gr";
+import { FaChalkboardTeacher } from "react-icons/fa";
 import { HiAcademicCap } from "react-icons/hi";
 
 export default function NavBar() {
@@ -183,13 +183,13 @@ export default function NavBar() {
               marginLeft: "auto",
             }}
           ></HiAcademicCap>
-          <GrUserAdmin
+          <FaChalkboardTeacher
             size={xsScreen ? 20 : 25}
             style={{
               display: user.role == Role.instructor ? "flex" : "none",
               marginLeft: "auto",
             }}
-          ></GrUserAdmin>
+          ></FaChalkboardTeacher>
           <Title order={6}>{user.name}</Title>
           <Box
             sx={{
