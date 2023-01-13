@@ -54,6 +54,17 @@ export class CourseController {
     return this.courseService.findOneForStudent(+id);
   }
 
+  @Get(':courseId/:userId')
+  findOneWithEnrolled(
+    @Request() req: any,
+    @Param('courseId') courseId: string,
+    @Param('userId') userId: string,
+  ) {
+    // teacher, admin: every information
+    // student: hide other student info
+    return this.courseService.findOneForStudentWithEnrolled(+courseId, +userId);
+  }
+
   @UseGuards(AuthGuard('jwt'))
   @Patch(':id')
   update(

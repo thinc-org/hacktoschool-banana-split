@@ -109,6 +109,31 @@ export class CourseService {
     });
   }
 
+  async findOneForStudentWithEnrolled(courseId: number, userId: number) {
+    const res = await prisma.course.findUnique({
+      where: {
+        id: courseId,
+      },
+      include: {
+        instructor: true,
+        students: {
+          where: {
+            id: userId,
+          },
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    const isEnrolled = res.students.length ? true : false;
+    delete res.students;
+    return {
+      ...res,
+      enrolled: isEnrolled,
+    };
+  }
+
   async update(id: number, updateCourseDto: UpdateCourseDto) {
     const conflictCount = await prisma.user.count({
       where: {
