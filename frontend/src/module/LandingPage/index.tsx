@@ -22,7 +22,10 @@ export default function LandingPage() {
       >
         <SecondParagraph />
       </motion.div>
-      <motion.div initial={{ y: -300, opacity: 0 }}>
+      <motion.div
+        initial={{ y: 300, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+      >
         <ThirdParagraph />
       </motion.div>
       <ForthParagraph />
