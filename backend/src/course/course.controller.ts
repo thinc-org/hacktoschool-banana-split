@@ -42,11 +42,10 @@ export class CourseController {
     // teacher, admin: every information
     // student: hide other student info
     const user = req.user;
-    if (user.role == null || user.role == Role.STUDENT) {
-      return this.courseService.findOneForStudent(+id);
+    if (user && user.role && user.role != Role.STUDENT) {
+      return this.courseService.findOne(+id);
     }
-
-    return this.courseService.findOne(+id);
+    return this.courseService.findOneForStudent(+id);
   }
 
   @UseGuards(AuthGuard('jwt'))
