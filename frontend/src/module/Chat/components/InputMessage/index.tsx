@@ -17,6 +17,7 @@ export default function InputMessage(props: InputMessageProps) {
     if (message == "") return;
     await sendMessage(message);
     setMessage("");
+    if (roomId == "" || authorId == "") return;
     try {
       const res = await axios.post(`${baseApiURL}/message`, {
         roomId: roomId,
