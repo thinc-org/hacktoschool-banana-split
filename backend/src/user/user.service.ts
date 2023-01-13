@@ -88,6 +88,16 @@ export class UserService {
           },
         },
       },
+      include: {
+        instructor: {
+          select: {
+            email: true,
+            id: true,
+            createdAt: true,
+            name: true,
+          },
+        },
+      },
     });
   }
 
