@@ -29,12 +29,14 @@ app.get("/:room", (req, res) => {
   res.render("room", { roomId: req.params.room });
 });
 
+let userCount = {};
 io.on("connection", (socket) => {
   console.log("try connect");
   socket.on("join-room", (roomId, username) => {
+    userCount[roomId] = userCount[roomId] ? userCount[roomId] + 1 : 1;
     console.log(username, " connect");
     socket.join(roomId);
-    socket.to(roomId).emit("user-connected", username);
+    socket.to(roomId).emit("user-connected", userCount[roomId]);
 
     socket.on("disconnect", () => {
       socket.to(roomId).emit("user-disconnected", username);
