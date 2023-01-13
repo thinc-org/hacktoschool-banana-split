@@ -3,12 +3,13 @@ import {
   Button,
   SimpleGrid,
   TextInput,
-  Title,
+  Title
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import axios from "axios";
 import BodyText from "common/components/BodyText";
 import { baseApiURL } from "common/const";
+import { useAuth } from "common/contexts/AuthContext";
 import Chat from "module/Chat";
 import { CourseCardProps } from "module/Course/components/CourseCard";
 import Link from "next/link";
@@ -33,12 +34,14 @@ export default function CourseMember(props: CourseMemberProps) {
   const [clipTitle, setClipTitle] = useState("");
   const youtubeCards: youtubeCardProps[] = [
     { youtubeId: "RpreiKWOv2o", title: "tenz" },
-    { youtubeId: "Njxh0O4QXPY", title: "playlist" },
+    { youtubeId: "Njxh0O4QXPY", title: "playlist" }
   ];
   const [course, setCourse] = useState<CourseCardProps>();
 
   const smallScreen = useMediaQuery("(max-width:1400px)");
   const xsScreen = useMediaQuery("(max-width:700px)");
+
+  const { user } = useAuth();
 
   useEffect(() => {
     async function fetchCourse() {
@@ -47,7 +50,7 @@ export default function CourseMember(props: CourseMemberProps) {
         title: res.data.title,
         desc: res.data.description,
         teacherName: res.data.instructor.name,
-        courseId: res.data.id,
+        courseId: res.data.id
       };
       setCourse(newCourse);
     }
@@ -66,7 +69,7 @@ export default function CourseMember(props: CourseMemberProps) {
         flexDirection: "column",
         gap: smallScreen ? "20px" : "40px",
         backgroundColor: "#F6F5F4",
-        paddingTop: smallScreen ? "20px" : "40px",
+        paddingTop: smallScreen ? "20px" : "40px"
       }}
     >
       <div
@@ -82,7 +85,7 @@ export default function CourseMember(props: CourseMemberProps) {
           borderRadius: "14px",
           position: "relative",
           textAlign: "center",
-          paddingBottom: "70px",
+          paddingBottom: "70px"
         }}
       >
         <Title order={4}>{course?.title}</Title>
@@ -95,7 +98,7 @@ export default function CourseMember(props: CourseMemberProps) {
             // position: "absolute",
             // bottom: "20px",
             // right: "20px",
-            gap: "10px",
+            gap: "10px"
           }}
         >
           <Button
@@ -104,9 +107,9 @@ export default function CourseMember(props: CourseMemberProps) {
               borderRadius: "20px",
               backgroundColor: "#2B788B",
               "&:hover": {
-                backgroundColor: "#58735D",
+                backgroundColor: "#58735D"
               },
-              marginTop: "10px",
+              marginTop: "10px"
             }}
             size="xs"
           >
@@ -125,9 +128,9 @@ export default function CourseMember(props: CourseMemberProps) {
               borderRadius: "20px",
               backgroundColor: "#2B788B",
               "&:hover": {
-                backgroundColor: "#58735D",
+                backgroundColor: "#58735D"
               },
-              marginTop: "10px",
+              marginTop: "10px"
             }}
             size="xs"
           >
@@ -147,17 +150,17 @@ export default function CourseMember(props: CourseMemberProps) {
               borderRadius: "20px",
               backgroundColor: "#2B788B",
               "&:hover": {
-                backgroundColor: "#58735D",
+                backgroundColor: "#58735D"
               },
               marginTop: "10px",
               position: "absolute",
               bottom: "20px",
-              right: "20px",
+              right: "20px"
             }}
             size="xs"
           >
             <Link
-              href={`/chat/${courseId}/${userId}`}
+              href={`/chat/${courseId}/${user.name}`}
               style={{ textDecoration: "none", color: "black" }}
             >
               <BodyText size="12px" color="white">
@@ -186,7 +189,7 @@ export default function CourseMember(props: CourseMemberProps) {
                 backgroundColor: "#fff",
                 padding: "20px",
                 borderRadius: "14px",
-                paddingTop: "20px",
+                paddingTop: "20px"
               }}
             >
               <Title order={4}>{youtubeCard.title}</Title>
@@ -207,14 +210,14 @@ export default function CourseMember(props: CourseMemberProps) {
           width: "100%",
           flexDirection: "column",
           justifyContent: "center",
-          alignItems: "center",
+          alignItems: "center"
         }}
       >
         <ActionIcon
           style={{
             marginLeft: "auto",
             marginRight: "auto",
-            paddingBottom: "50px",
+            paddingBottom: "50px"
           }}
         >
           <AiFillPlusCircle
@@ -243,7 +246,7 @@ export default function CourseMember(props: CourseMemberProps) {
             flexDirection: smallScreen ? "column" : "row",
             justifyContent: "center",
             alignItems: "center",
-            gap: "10px",
+            gap: "10px"
           }}
         >
           <div style={{ textAlign: "center", marginLeft: "10px" }}>
@@ -281,7 +284,7 @@ export default function CourseMember(props: CourseMemberProps) {
             backgroundColor: "white",
             display: "flex",
             height: "100%",
-            width: "100%",
+            width: "100%"
           }}
         >
           <Chat roomId={courseId} />
