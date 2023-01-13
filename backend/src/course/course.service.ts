@@ -80,8 +80,22 @@ export class CourseService {
         id: id,
       },
       include: {
-        instructor: true,
-        students: true,
+        instructor: {
+          select: {
+            email: true,
+            id: true,
+            createdAt: true,
+            name: true,
+          },
+        },
+        students: {
+          select: {
+            email: true,
+            id: true,
+            createdAt: true,
+            name: true,
+          },
+        },
       },
     });
   }
@@ -92,7 +106,14 @@ export class CourseService {
         id: id,
       },
       include: {
-        instructor: true,
+        instructor: {
+          select: {
+            email: true,
+            id: true,
+            createdAt: true,
+            name: true,
+          },
+        },
       },
     });
   }
@@ -103,7 +124,14 @@ export class CourseService {
         id: courseId,
       },
       include: {
-        instructor: true,
+        instructor: {
+          select: {
+            email: true,
+            id: true,
+            createdAt: true,
+            name: true,
+          },
+        },
         students: {
           where: {
             id: userId,
