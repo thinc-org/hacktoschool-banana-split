@@ -40,6 +40,12 @@ export class UserService {
 
           role: role,
         },
+        select: {
+          email: true,
+          id: true,
+          createdAt: true,
+          name: true,
+        },
       });
     } catch (error) {
       if (error instanceof PrismaClientValidationError)
@@ -91,7 +97,14 @@ export class UserService {
         instructorId: instructorId,
       },
       include: {
-        students: true,
+        students: {
+          select: {
+            email: true,
+            id: true,
+            createdAt: true,
+            name: true,
+          },
+        },
       },
     });
   }
