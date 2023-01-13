@@ -15,8 +15,9 @@ export default function LandingPage() {
         <FirstParagraph />
       </motion.div>
       <motion.div
-        initial={{ y: -300, opacity: 0 }}
+        initial={{ y: 300, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
+        style={{ marginTop: "50px" }}
       >
         <SecondParagraph />
       </motion.div>
