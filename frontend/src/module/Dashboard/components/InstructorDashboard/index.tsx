@@ -1,23 +1,16 @@
-import { AiFillCloseCircle, AiFillPlusCircle } from "react-icons/ai";
-import {
-  ActionIcon,
-  Button,
-  SimpleGrid,
-  TextInput,
-  Title,
-} from "@mantine/core";
-import { useState } from "react";
+import { SimpleGrid, Title } from "@mantine/core";
 import InstructorCourseCard from "./Components/InstructorCourseCard";
 import { useStyles } from "./styles";
 import { useMediaQuery } from "@mantine/hooks";
 import CourseBar from "./Components/CourseBar";
+import { RxDashboard } from "react-icons/rx";
+import { useAuth } from "common/contexts/AuthContext";
+import { Role } from "common/contexts/AuthContext/types";
 
 export default function InstructorDashboard() {
   const { classes } = useStyles();
+  const { user, isReady, isAuthenticated } = useAuth();
   const smallScreen = useMediaQuery("(max-width:850px)");
-  const [expand, setExpand] = useState(1);
-  const [newCourseName, setCourseName] = useState("");
-  const [newCoursDesc, setCourseDesc] = useState("");
   const datas = [
     {
       courseID: "0",
@@ -115,11 +108,30 @@ export default function InstructorDashboard() {
         width: "100%",
         height: "100%",
         minHeight: "100vh",
+        display: "flex",
         backgroundColor: "#F6F5F4",
-        justifyContent: "center",
+        flexDirection: "column",
         alignItems: "center",
+        paddingTop: smallScreen ? "20px" : "40px",
       }}
     >
+      <div
+        style={{
+          display: "flex",
+          height: "84px",
+          width: "80%",
+          background: "#FFFFFF",
+          flexDirection: "row",
+          alignItems: "center",
+          padding: "22px",
+          gap: "12px",
+          borderRadius: "14px",
+        }}
+      >
+        <RxDashboard fontSize={40} />
+        <Title order={4}>Dashboard</Title>
+        <Title order={4}>{"(Teacher)"}</Title>
+      </div>
       <div
         style={{
           display: "flex",
