@@ -21,6 +21,7 @@ import { GiTeacher, GiWhiteBook } from "react-icons/gi";
 import axios from "axios";
 import { baseApiURL } from "common/const";
 import BodyText from "common/components/BodyText";
+import Link from "next/link";
 
 export function AuthPage(props: PaperProps) {
   const [type, toggle] = useToggle(["login", "register"]);
@@ -119,7 +120,11 @@ export function AuthPage(props: PaperProps) {
           weight={500}
           sx={{ textAlign: "center", marginTop: "10px" }}
         >
-          Welcome to Banana, {type}
+          Welcome to&nbsp;
+          <Link href={`/`} style={{ color: "black" }}>
+            Banana
+          </Link>
+          , {type}
         </Text>
 
         <Divider labelPosition="center" my="lg" />
