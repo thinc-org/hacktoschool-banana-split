@@ -20,19 +20,20 @@ export default function Course(props: CourseProps) {
         `${baseApiURL}/course${userId == "unauth" ? "" : "?id=" + userId}`
       );
       const newCourse = res.data.map((course: any) => {
-        const { title, description, instructor, id } = course;
+        const { title, description, instructor, id, enrolled } = course;
         return {
           title: title,
           desc: description,
           teacherName: instructor.name,
           courseId: id,
-          enrolled: false
+          enrolled: enrolled
         };
       });
       setCourses(newCourse);
     }
     fetchMessages();
   }, [userId]);
+  console.log("course with enroll", courses);
 
   const smallScreen = useMediaQuery("(max-width:1400px)");
   const xsScreen = useMediaQuery("(max-width:700px)");

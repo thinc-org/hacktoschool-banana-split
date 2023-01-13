@@ -3,7 +3,6 @@ import { ActionIcon, TextInput, Title } from "@mantine/core";
 import { baseApiURL, chatSocketURL } from "common/const";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
-import { TbSend } from "react-icons/tb";
 import { useMediaQuery } from "@mantine/hooks";
 import Message, { MessageProps } from "./components/Message";
 import { useAuth } from "common/contexts/AuthContext";

@@ -52,7 +52,12 @@ export class CourseService {
     });
   }
 
-  async findAll(id: number) {
+  async findAll(
+    id: number,
+    name: string,
+    teacher: string,
+    description: string,
+  ) {
     if (id) {
       const result = await prisma.course.findMany({
         include: {
@@ -68,6 +73,13 @@ export class CourseService {
       });
     }
     return await prisma.course.findMany({
+      where: {
+        title: { contains: name },
+        instructor: {
+          name: { contains: teacher },
+        },
+        description: { contains: description },
+      },
       include: {
         instructor: true,
       },
@@ -84,6 +96,42 @@ export class CourseService {
         students: true,
       },
     });
+  }
+
+  async findOneForStudent(id: number) {
+    return await prisma.course.findUnique({
+      where: {
+        id: id,
+      },
+      include: {
+        instructor: true,
+      },
+    });
+  }
+
+  async findOneForStudentWithEnrolled(courseId: number, userId: number) {
+    const res = await prisma.course.findUnique({
+      where: {
+        id: courseId,
+      },
+      include: {
+        instructor: true,
+        students: {
+          where: {
+            id: userId,
+          },
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    const isEnrolled = res.students.length ? true : false;
+    delete res.students;
+    return {
+      ...res,
+      enrolled: isEnrolled,
+    };
   }
 
   async update(id: number, updateCourseDto: UpdateCourseDto) {
