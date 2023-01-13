@@ -25,8 +25,8 @@ export default function ThirdParagraph() {
             }}
           >
             <Title>
-              Increase
-              <br /> your vocabulary
+              Great site
+              <br /> user-friendly dashboard.
             </Title>
           </div>
           <div
@@ -36,7 +36,7 @@ export default function ThirdParagraph() {
             }}
           >
             <BodyText size="sm" color="#757575">
-              Traditional and new effective approaches to word study
+              Efficiently navigate site via user-friendly dashboard.
             </BodyText>
           </div>
           <MediaQuery smallerThan="xl" styles={{ marginLeft: "auto" }}>
