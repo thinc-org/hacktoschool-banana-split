@@ -111,7 +111,8 @@ export default function FirstParagraph() {
             <div
               style={{
                 display: "flex",
-                flexDirection: "row"
+                flexDirection: "row",
+                marginBottom: "2px"
               }}
             >
               <BsLightningFill
