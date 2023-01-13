@@ -19,7 +19,7 @@ export default function InputMessage(props: InputMessageProps) {
     setMessage("");
     try {
       const res = await axios.post(`${baseApiURL}/message`, {
-        roomId: Number(roomId),
+        roomId: roomId,
         authorId: Number(authorId),
         content: message
       });
