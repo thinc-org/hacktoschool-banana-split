@@ -31,8 +31,8 @@ export default function SecondParagraph() {
             }}
           >
             <Title>
-              Learn with
-              <br /> in a playful way
+              Great site
+              <br /> for conferences.
             </Title>
           </div>
           <div
@@ -42,7 +42,7 @@ export default function SecondParagraph() {
             }}
           >
             <BodyText size="sm" color="#757575">
-              Make learning words more fun with mini-games
+              Find top-notch conference info here.
             </BodyText>
           </div>
           <MediaQuery
