@@ -6,7 +6,9 @@ import ThirdParagraph from "./components/ThirdParagraph";
 export default function LandingPage() {
   return (
     <div>
-      <FirstParagraph />
+      <div>
+        <FirstParagraph />
+      </div>
       <SecondParagraph />
       <ThirdParagraph />
       <ForthParagraph />
