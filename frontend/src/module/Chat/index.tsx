@@ -9,6 +9,7 @@ import { useAuth } from "common/contexts/AuthContext";
 import axios from "axios";
 import BodyText from "common/components/BodyText";
 import Loading from "module/Loading";
+import PlsLogin from "module/PlsLogin.tsx";
 
 function useSocket(url: string) {
   const [socket, setSocket] = useState<any>(null);
@@ -98,7 +99,7 @@ export default function Chat(props: ChatProps) {
   };
 
   if (!isReady) return <Loading />;
-  if (!isAuthenticated) return <Title order={1}>Please login to chat</Title>;
+  if (!isAuthenticated) return <PlsLogin />;
   return (
     <div
       style={{

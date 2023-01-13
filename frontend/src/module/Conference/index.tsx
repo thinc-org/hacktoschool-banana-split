@@ -7,6 +7,7 @@ import { createElement, useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 
 import { motion } from "framer-motion";
+import PlsLogin from "module/PlsLogin.tsx";
 
 function useSocket(url: string) {
   const [socket, setSocket] = useState<any>(null);
@@ -66,15 +67,7 @@ export default function Conference(props: ConferenceProps) {
   const { user, isReady, isAuthenticated } = useAuth();
 
   if (!isReady) return <Loader />;
-  if (isReady && !isAuthenticated)
-    return (
-      <Title
-        order={3}
-        sx={{ padding: "50px", marginLeft: "auto", marginRight: "auto" }}
-      >
-        Login or Signup to use conference feature.
-      </Title>
-    );
+  if (isReady && !isAuthenticated) return <PlsLogin />;
 
   const { roomId, useVideo } = props;
   const peers: any = {};

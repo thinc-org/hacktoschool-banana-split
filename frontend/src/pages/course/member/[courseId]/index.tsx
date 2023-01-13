@@ -2,6 +2,7 @@ import { Title } from "@mantine/core";
 import { useAuth } from "common/contexts/AuthContext";
 import CourseMember from "module/CourseMember";
 import Loading from "module/Loading";
+import PlsLogin from "module/PlsLogin.tsx";
 import { useRouter } from "next/router";
 
 export default function CourseDetailPage() {
@@ -10,6 +11,6 @@ export default function CourseDetailPage() {
   const { courseId } = router.query;
   if (!courseId || !isReady) return <Loading />;
   if (!isAuthenticated)
-    return <Title order={1}>You need to login to access this page</Title>;
+    return <PlsLogin />;
   return <CourseMember userId={user.userId} courseId={String(courseId)} />;
 }
