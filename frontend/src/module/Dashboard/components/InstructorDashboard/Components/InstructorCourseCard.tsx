@@ -27,14 +27,14 @@ export default function InstructorCourseCard(props: InstructorCourseCardProps) {
         padding: "30px 30px",
         paddingBottom: "20px",
         position: "relative",
-        flexDirection: "column",
+        flexDirection: "column"
       }}
     >
       <div
         style={{
           display: "block",
           textAlign: smallScreen ? "center" : "left",
-          marginBottom: "10px",
+          marginBottom: "10px"
         }}
       >
         <Title order={5}>{title}</Title>
@@ -49,15 +49,15 @@ export default function InstructorCourseCard(props: InstructorCourseCardProps) {
           textAlign: "center",
           backgroundColor: "#F6F5F4",
           padding: "20px",
-          borderRadius: "14px",
+          borderRadius: "14px"
         }}
       >
         <Link
           href={`/course/`}
           style={{ height: "100%", textDecoration: "none", color: "black" }}
         >
-          {students.map((student) => {
-            return <BodyText>{student}</BodyText>;
+          {students.map((student, index) => {
+            return <BodyText key={"student" + index}>{student}</BodyText>;
           })}
         </Link>
       </div>
