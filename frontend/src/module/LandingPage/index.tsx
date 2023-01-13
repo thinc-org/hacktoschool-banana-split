@@ -14,7 +14,10 @@ export default function LandingPage() {
       >
         <FirstParagraph />
       </motion.div>
-      <motion.div>
+      <motion.div
+        initial={{ y: -300, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+      >
         <SecondParagraph />
       </motion.div>
       <ThirdParagraph />
