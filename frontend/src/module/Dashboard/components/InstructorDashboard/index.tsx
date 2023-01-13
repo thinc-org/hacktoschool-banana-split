@@ -14,6 +14,7 @@ export default function InstructorDashboard() {
   const [newCoursDesc, setCourseDesc] = useState("");
   const datas = [
     {
+      courseID: "0",
       title: "Math",
       desc: "Math is a subject",
       students: [
@@ -32,11 +33,13 @@ export default function InstructorDashboard() {
       ],
     },
     {
+      courseID: "1",
       title: "English",
       desc: "English is a subject",
       students: ["John", "Dai", "Lif", "John", "Dai", "Lif", "John", "Dai"],
     },
     {
+      courseID: "2",
       title: "Math",
       desc: "Math is a subject",
       students: [
@@ -77,9 +80,11 @@ export default function InstructorDashboard() {
         {datas.map((data) => {
           return (
             <InstructorCourseCard
+              key={data.courseID}
               title={data.title}
               desc={data.desc}
               students={data.students}
+              courseID={data.courseID}
             ></InstructorCourseCard>
           );
         })}

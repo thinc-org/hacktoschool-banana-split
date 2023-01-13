@@ -6,13 +6,14 @@ import Link from "next/link";
 import { ImCheckmark2 } from "react-icons/im";
 
 interface InstructorCourseCardProps {
+  courseID?: String;
   title: String;
   desc: String;
   students: string[];
 }
 
 export default function InstructorCourseCard(props: InstructorCourseCardProps) {
-  const { title, desc, students } = props;
+  const { title, desc, students, courseID } = props;
   const smallScreen = useMediaQuery("(max-width:850px)");
   return (
     <div
