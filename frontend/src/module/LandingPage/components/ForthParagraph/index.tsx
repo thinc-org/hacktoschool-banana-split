@@ -41,8 +41,7 @@ export default function ForthParagraph() {
             }}
           >
             <BodyText size="sm" color="#757575">
-              Save statistics on your achievements, words
-              <br /> learned, and mistakes
+              Real-time live chat and comment.
             </BodyText>
           </div>
           <MediaQuery smallerThan="xl" styles={{ marginLeft: "auto" }}>
